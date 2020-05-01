@@ -1,8 +1,9 @@
 SOURCES=./sources/*.c
+HEADERS=./headers
 OUTPUT=./
 
 main: clean
-	gcc -o $(OUTPUT)/main $(SOURCES)
+	gcc -o $(OUTPUT)/main $(SOURCES) -I $(HEADERS)
 
 clean:
 	rm -rf $(OUTPUT)/main
