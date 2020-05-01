@@ -24,9 +24,12 @@ typedef struct
 
 typedef struct 
 {
-    char code[7];
+    int id_utilisatuer;
+    char code_livre[7];
     Date date_pret;
-}Emprunt;
+    Date date_retour;
+    int etat_livre; //1 si livre en retard et 0 sinon
+}Pret;
 
 
 #endif /* livre_h */

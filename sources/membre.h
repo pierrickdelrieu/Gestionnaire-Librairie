@@ -19,10 +19,11 @@ typedef struct
 {
     char prenom[20];
     char nom [20];
+    int identifiant; //id à 8 chiffres générer de manière aléatoire lors de l'inscription d'un nouveau membre
     Adresse adresse;
     char email[40];
     char metier [30];
-    Emprunt liste_emprunt[3];
+    Pret liste_emprunt[3];
 }Membre;
 
 #endif /* membre_h */
