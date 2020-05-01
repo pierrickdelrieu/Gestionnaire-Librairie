@@ -47,3 +47,6 @@ int compare_date(Date* d1, Date* d2){
             }
         }
     }
+
+    return (retour);
+}

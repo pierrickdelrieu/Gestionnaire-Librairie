@@ -1,0 +1,2 @@
+GESTION DES MEMBRE
+- integrer le generateur d'identifiant dans la fonction saisie membre lorsque le tableau contenant tous les membres est gérer

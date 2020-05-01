@@ -4,6 +4,8 @@
 #define livre_h
 
 #include <stdio.h>
+#include "utile.h"
+
 
 typedef struct 
 {
