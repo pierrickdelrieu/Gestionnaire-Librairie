@@ -12,7 +12,10 @@ typedef struct
     char adresse[50]; //numéro + nom rue
     int code_postal;
     char ville[20];
+    char pays[20];
 }Adresse;
+
+void saisie_adresse(Adresse* a);
 
 
 typedef struct 
