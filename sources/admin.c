@@ -69,4 +69,6 @@ void saisie_identifiant(Admin* admin){
     scanf(" %d",&(admin->identifiant));
     printf("               Mot de passe : ");
     saisie_chaine_caractere(admin->mot_de_passe,30);
+
+    //ajouter l'insertion dans le fichier admin.txt
 }

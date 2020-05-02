@@ -18,7 +18,7 @@ typedef struct
 
 //recup données sauvegardées
 void recup_admin(Admin** tab_identifiant, int* nb_identifiant);
-void affichage_tab_admin(Admin* tab_identifiant, int* nb_identifiant);
+void affichage_tab_admin(Admin** tab_identifiant, int* nb_identifiant);
 
 
 void saisie_identifiant(Admin* admin);
