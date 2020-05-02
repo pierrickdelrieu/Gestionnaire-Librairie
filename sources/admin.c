@@ -174,8 +174,6 @@ int saisie_securise_id(Admin* saisie, Admin** tab_admin, int* nb_identifiant){
     
     saisie_identifiant(saisie);
 
-    affichage_tab_admin(tab_admin,nb_identifiant);
-
     //verif identifiant
     int indice_id_valide = 0;
     for(i=0; i<(*nb_identifiant); i++)
