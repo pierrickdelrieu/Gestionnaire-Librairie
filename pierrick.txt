@@ -1,2 +1,3 @@
 GESTION DES MEMBRE
 - integrer le generateur d'identifiant dans la fonction saisie membre lorsque le tableau contenant tous les membres est gérer
+- probleme pour gerer 2 admin au niveau du tableau creer (erreur de segmentation)

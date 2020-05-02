@@ -9,7 +9,6 @@
 
 #include "livre.h"
 #include "utile.h"
-#include "librairie.h"
 
 
 typedef struct 
@@ -24,7 +23,6 @@ void saisie_adresse(Adresse* a);
 void afficher_adresse(Adresse* a);
 
 
-
 typedef struct 
 {
     char prenom[20];
@@ -36,7 +34,7 @@ typedef struct
     Pret liste_emprunt[3];
 }Membre;
 
-void generateur_identifiant(int* identifiant, Librairie* librairie);
+// void generateur_identifiant(int* identifiant, Librairie* librairie);
 void saisir_membre(Membre* membre);
 void afficher_membre(Membre* membre);
 

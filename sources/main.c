@@ -6,10 +6,12 @@
 
 int main()
 {
-    Membre a;
+    Admin* tab_identifiant = NULL;
+    int nb_identifiant = 1;
 
-    saisir_membre(&a);
-    afficher_membre(&a);
+    recup_admin(&(tab_identifiant),&nb_identifiant);
+
+    affichage_tab_admin(tab_identifiant,&nb_identifiant);
     
     return 0;
 }

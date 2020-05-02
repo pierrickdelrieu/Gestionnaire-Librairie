@@ -31,6 +31,8 @@ void afficher_adresse(Adresse* a){
     printf("     %s\n     %s %s\n     %s\n",a->adresse, a->code_postal, a->ville, a->pays);
 }
 
+/* integrer le generateur d'identifiant dans la fonction saisie membre lorsque le tableau contenant tous les membres est gérer
+
 void generateur_identifiant(int* identifiant, Librairie* librairie){
 
     int i, valide;
@@ -48,7 +50,7 @@ void generateur_identifiant(int* identifiant, Librairie* librairie){
 
     }while(valide == FALSE);
 
-}
+}*/
 
 void saisir_membre(Membre* membre){
     int valide;

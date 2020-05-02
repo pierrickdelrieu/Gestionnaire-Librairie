@@ -1,6 +1,10 @@
 
 #include "../headers/utile.h"
 
+void supr_console(void) {
+    system(SYSTEME_EXPLOITATION == "win" ? "cls" : "clear");
+}
+
 
 int saisie_chaine_caractere(char* chaine, int nb_cara_max){
 

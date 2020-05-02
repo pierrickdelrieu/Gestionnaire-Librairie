@@ -12,5 +12,19 @@
 
 int saisie_chaine_caractere(char* chaine, int nb_cara_max);
 
+
+//...................SYSTEME D'EXLOITATION....................
+#ifdef _WIN32
+#define SYSTEME_EXPLOITATION "win" //windows
+#elif __linux__
+#define SYSTEME_EXPLOITATION "linux"
+#elif __APPLE__
+#define SYSTEME_EXPLOITATION "mac"
+#else
+#define SYSTEME_EXPLOITATION "unk" //systéme inconnu
+#endif
+
+void supr_console(void);
+
 #endif /* utile_h */
 
