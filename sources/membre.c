@@ -2,6 +2,15 @@
 #include "../headers/membre.h"
 
 
+Membre* creer_struct_membre(){
+    Membre* x;
+
+    x = (Membre*) malloc(sizeof(Membre));
+
+    return (x);
+}
+
+
 void saisie_adresse(Adresse* a){
     int valide;
 

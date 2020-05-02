@@ -35,6 +35,7 @@ typedef struct
 }Membre;
 
 // void generateur_identifiant(int* identifiant, Librairie* librairie);
+Membre* creer_struct_membre();
 void saisir_membre(Membre* membre);
 void afficher_membre(Membre* membre);
 

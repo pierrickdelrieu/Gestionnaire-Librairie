@@ -13,9 +13,11 @@
 typedef struct 
 {
     Date date_du_jour;
-    Livre* liste_livre;
-    Membre* liste_membre;
-    Pret* liste_pret;
+    Admin** liste_admin;
+    Livre** liste_livre;
+    Membre** liste_membre;
+    Pret** liste_pret;
+    int nb_admin;
     int nb_livre;
     int nb_membre;
     int nb_pret;

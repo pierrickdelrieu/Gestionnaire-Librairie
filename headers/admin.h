@@ -10,14 +10,14 @@
 #include <string.h>
 
 
-typedef struct 
-{
-    int identifiant;
+typedef struct {
+    long identifiant;
     char mot_de_passe[30];
 }Admin;
 
 //recup données sauvegardées
-void recup_admin(Admin** tab_identifiant, int* nb_identifiant);
+Admin* creer_struct_admin();
+Admin** creer_tab_admin(int* nb_identifiant);
 void affichage_tab_admin(Admin** tab_identifiant, int* nb_identifiant);
 
 
