@@ -62,6 +62,18 @@ Admin** creer_tab_admin(int* nb_identifiant){
     return (tab_identifiant);
 }
 
+
+void lib_tab_admin(Admin** tab_admin, int* nb_identifiant){
+    int i;
+
+    for(i=0; i<*nb_identifiant; i++){
+        free(tab_admin[i]);
+    }
+
+    free(tab_admin);
+}
+
+
 void affichage_tab_admin(Admin** tab_identifiant, int* nb_identifiant){
     int i;
 

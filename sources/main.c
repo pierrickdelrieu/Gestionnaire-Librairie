@@ -14,6 +14,8 @@ int main()
     tab_identifiant = creer_tab_admin(&nb_identifiant);
 
     affichage_tab_admin(tab_identifiant, &nb_identifiant);
+
+    lib_tab_admin(tab_identifiant,&nb_identifiant);
     
     return 0;
 }
