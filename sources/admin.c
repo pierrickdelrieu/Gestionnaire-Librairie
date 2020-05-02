@@ -12,6 +12,12 @@ Admin* creer_struct_admin(){
     return (x);
 }
 
+
+void lib_struct_admin(Admin* admin){
+    free(admin);
+}
+
+
 Admin** creer_tab_admin(int* nb_identifiant){
     Admin** tab_identifiant;
     FILE* fichier_admin = NULL;
@@ -69,15 +75,38 @@ void affichage_tab_admin(Admin** tab_identifiant, int* nb_identifiant){
     printf("Seul ces personnes ont les autoirisations pour gérer la bibliothèque\n");
 }
 
-
-
 void saisie_identifiant(Admin* admin){
-    printf("                    ..........CONNEXION..........\n\n\n\n");
-
-    printf("               Identifiant : ");
+    printf("          Identifiant : ");
     scanf(" %ld",&(admin->identifiant));
-    printf("               Mot de passe : ");
+    printf("          Mot de passe : ");
     saisie_chaine_caractere(admin->mot_de_passe,30);
+}
 
-    //ajouter l'insertion dans le fichier admin.txt
+
+
+void saisie_nx_admin(){
+
+    FILE* fichier_admin = NULL;
+
+    fichier_admin = fopen("sauvegardes/admin.txt", "a"); //"w" correspond a la ecriture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
+
+    if (fichier_admin != NULL) {
+        Admin x;
+
+        printf("NOUVEAU ADMINISTRATEUR : \n");
+        saisie_identifiant(&x);
+
+        int i;
+
+        fprintf(fichier_admin, "id : %ld mp : %s\n",x.identifiant, x.mot_de_passe);
+
+        //Fermeture du fichier
+        fclose(fichier_admin);
+
+    } else{ //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
+        printf("Erreur au niveau de l'ouverture du fichier\n");
+        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
+        printf("Gerer ceci dans les préférence de votre ordinateur\n");
+        exit(0); //Fin du programme
+    }
 }

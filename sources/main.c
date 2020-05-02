@@ -9,6 +9,8 @@ int main()
     Admin** tab_identifiant = NULL;
     int nb_identifiant = 1;
 
+    saisie_nx_admin();
+
     tab_identifiant = creer_tab_admin(&nb_identifiant);
 
     affichage_tab_admin(tab_identifiant, &nb_identifiant);
