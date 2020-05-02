@@ -11,7 +11,7 @@ int main()
 
     recup_admin(&(tab_identifiant),&nb_identifiant);
 
-    affichage_tab_admin(tab_identifiant,&nb_identifiant);
+    affichage_tab_admin(&(tab_identifiant),&nb_identifiant);
     
     return 0;
 }
