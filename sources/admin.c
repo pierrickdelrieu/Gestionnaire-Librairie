@@ -123,22 +123,165 @@ void saisie_identifiant(Admin* admin){
 }
 
 
+Admin** saisie_nx_admin(Admin** tab_admin, int* nb_identifiant){
 
-void saisie_nx_admin(){
+    //Saise de l'administrateur a supprimer
+    int valide = TRUE;
+    Admin saisie;
 
+    //saisie de l'administrateur a ajouter
+    printf("AJOUT NOUVEAU ADMINISTARTEUR\n");
+    saisie_identifiant(&saisie);
+
+
+    //creation du nouveau tableau admin
+    Admin** nx_tab_admin;
+    (*nb_identifiant)++;
+    nx_tab_admin = (Admin**) malloc((*nb_identifiant) * sizeof(Admin*));
+
+    int i;
+    for(i=0; i<(*nb_identifiant)-1; i++)
+    {
+        nx_tab_admin[i] = creer_struct_admin();
+        nx_tab_admin[i]->identifiant = tab_admin[i]->identifiant;
+        strcpy(nx_tab_admin[i]->mot_de_passe, tab_admin[i]->mot_de_passe);
+    }
+
+    nx_tab_admin[(*nb_identifiant)-1] = creer_struct_admin();
+    nx_tab_admin[(*nb_identifiant)-1]->identifiant = saisie.identifiant;
+    strcpy(nx_tab_admin[(*nb_identifiant)-1]->mot_de_passe, saisie.mot_de_passe);
+
+    //desalocation de l'ancien tableau d'admin
+    lib_tab_admin(tab_admin,nb_identifiant-1);
+
+
+    //recréation du contenu du fichier admin.txt
     FILE* fichier_admin = NULL;
+    modif_fichier_admin(fichier_admin, nx_tab_admin, nb_identifiant);
 
-    fichier_admin = fopen("sauvegardes/admin.txt", "a"); //"w" correspond a la ecriture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
+
+    printf("L'administrateur %ld a bien était ajouté\n", saisie.identifiant);
+
+    return (nx_tab_admin);
+}
+
+
+int saisie_securise_id(Admin* saisie, Admin** tab_admin, int* nb_identifiant){
+
+    //retourne 1 (TRUE) si valeur saisie corresponde a une valeur du fichier admin.txt et retourne 0 (FALSE) sinon
+    int valide = FALSE;
+    int i;
+    
+    saisie_identifiant(saisie);
+
+    affichage_tab_admin(tab_admin,nb_identifiant);
+
+    //verif identifiant
+    int indice_id_valide = 0;
+    for(i=0; i<(*nb_identifiant); i++)
+    {
+        if(saisie->identifiant == tab_admin[i]->identifiant){
+            valide = TRUE;
+            indice_id_valide = i;
+        }
+    }
+
+    //verif mot de passe correspondant a l'identifiant
+    if(valide == TRUE){
+        if(compare_chaine_caractere(saisie->mot_de_passe, tab_admin[indice_id_valide]->mot_de_passe) == FALSE){
+            valide = FALSE;
+        }
+    }
+
+    return (valide);
+}
+
+
+void connexion(Admin** tab_admin, int* nb_identifiant){
+    Admin saisie;
+    int valide = TRUE;
+
+    printf("CONNEXION\n");
+    do{
+        if(valide == FALSE){
+            printf("     ERREUR\n");
+        }
+        valide = saisie_securise_id(&saisie, tab_admin, nb_identifiant);
+    }while(valide == FALSE);
+}
+
+
+Admin** supr_admin(Admin** tab_admin, int* nb_identifiant){
+
+    //Saise de l'administrateur a supprimer
+    int valide = TRUE;
+    Admin saisie;
+
+    printf("SUPRESSION ADMINISTARTEUR\n");
+    do{
+        if(valide == FALSE){
+        printf("     ERREUR\n");
+        }
+        valide = saisie_securise_id(&saisie, tab_admin, nb_identifiant);
+
+        //pas possible de supprimer l'administrateur de référence
+        if((saisie.identifiant == ID_PROGRAMMEUR) && (compare_chaine_caractere(saisie.mot_de_passe, MP_PROGRAMMEUR) == TRUE)){
+            valide = FALSE;
+        }
+        supr_console();
+    }while(valide == FALSE);
+
+
+    //supression de l'admin dans le tableau admin
+    Admin** nx_tab_admin;
+    int i;
+    for(i=0; i<(*nb_identifiant); i++)
+    {
+        if(tab_admin[i]->identifiant == saisie.identifiant){
+            tab_admin[i]->identifiant = 0;
+        }
+    }
+
+    //creation du nouveau tableau admin
+    *nb_identifiant = *nb_identifiant - 1;
+    nx_tab_admin = (Admin**) malloc((*nb_identifiant) * sizeof(Admin*));
+
+    int j=0;
+    for(i=0; i<(*nb_identifiant)+1; i++)
+    {
+        if(tab_admin[i]->identifiant != 0){
+            nx_tab_admin[i] = creer_struct_admin();
+            nx_tab_admin[i]->identifiant = tab_admin[i]->identifiant;
+            strcpy(nx_tab_admin[i]->mot_de_passe, tab_admin[i]->mot_de_passe);
+            j++;
+        }
+    }
+
+    //desalocation de l'ancien tableau d'admin
+    lib_tab_admin(tab_admin,nb_identifiant);
+
+
+    //supression et recréation du contenu du fichier admin.txt
+    FILE* fichier_admin = NULL;
+    modif_fichier_admin(fichier_admin, nx_tab_admin, nb_identifiant);
+
+
+    printf("L'administrateur %ld a bien était suprimer\n", saisie.identifiant);
+
+    return (nx_tab_admin);
+}
+
+
+void modif_fichier_admin(FILE* fichier_admin, Admin** tab_admin, int* nb_identifiant){
+    fichier_admin = fopen("sauvegardes/admin.txt", "w"); //"w" correspond a la ecriture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
 
     if (fichier_admin != NULL) {
-        Admin x;
-
-        printf("NOUVEAU ADMINISTRATEUR : \n");
-        saisie_identifiant(&x);
-
         int i;
 
-        fprintf(fichier_admin, "id : %ld mp : %s\n",x.identifiant, x.mot_de_passe);
+        for(i=0; i<(*nb_identifiant); i++)
+        {
+            fprintf(fichier_admin, "id : %ld mp : %s\n",tab_admin[i]->identifiant, tab_admin[i]->mot_de_passe);
+        }
 
         //Fermeture du fichier
         fclose(fichier_admin);
@@ -149,39 +292,4 @@ void saisie_nx_admin(){
         printf("Gerer ceci dans les préférence de votre ordinateur\n");
         exit(0); //Fin du programme
     }
-}
-
-void connexion(Admin** tab_admin, int* nb_identifiant){
-    Admin saisie;
-    int valide = FALSE;
-    int i;
-    int cpt=0;
-
-    do{
-        //affichage message d'erreur
-        if(cpt!=0){
-            printf("ERREUR\n");
-        }
-        saisie_identifiant(&saisie);
-
-        affichage_tab_admin(tab_admin,nb_identifiant);
-
-        //verif identifiant
-        int indice_id_valide = 0;
-        for(i=0; i<(*nb_identifiant); i++)
-        {
-            if(saisie.identifiant == tab_admin[i]->identifiant){
-                valide = TRUE;
-                indice_id_valide = i;
-            }
-        }
-
-        //verif mot de passe correspondant a l'identifiant
-        if(valide == TRUE){
-            if(compare_chaine_caractere(saisie.mot_de_passe, tab_admin[indice_id_valide]->mot_de_passe) == FALSE){
-                valide = FALSE;
-            }
-        }
-        cpt++;
-    }while(valide == FALSE);
 }
