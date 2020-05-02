@@ -29,3 +29,25 @@ int saisie_chaine_caractere(char* chaine, int nb_cara_max){
         return FALSE; // On renvoie 0 s'il y a eu une erreur
     }
 }
+
+int compare_chaine_caractere(char* chaine1, char* chaine2){
+
+    //retroune 1 (TRUE) si les deux chaines sont egales et 0 (FALSE) sinon
+
+    int retour = TRUE;
+
+    if(strlen(chaine1) != strlen(chaine2)){
+        retour = FALSE;
+    }
+    else{
+        int i;
+        for(i=0; i<strlen(chaine1); i++)
+        {
+            if(chaine1[i] != chaine2[i]){
+                retour = FALSE;
+            }
+        }
+    }
+
+    return (retour);
+}

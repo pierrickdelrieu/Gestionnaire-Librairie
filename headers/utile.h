@@ -11,6 +11,7 @@
 #define FALSE 0
 
 int saisie_chaine_caractere(char* chaine, int nb_cara_max);
+int compare_chaine_caractere(char* chaine1, char* chaine2);
 
 
 //...................SYSTEME D'EXLOITATION....................
