@@ -37,9 +37,5 @@ int saisie_securise_id_tab_admin(Admin* saisie, Admin** tab_admin, int* nb_ident
 void ajout_admin_fichier_admin(FILE* fichier_admin, Admin* saisie);
 void supr_admin_fichier_admin(FILE* fichier_admin, Admin** tab_admin, Admin* saisie, int* nb_identifiant);
 
-
-
-
-
 #endif /* admin_h */
 

@@ -46,7 +46,7 @@ void saisie_nx_admin(Admin*** tab_admin, int* nb_identifiant){
     }while(valide == FALSE);
 
 
-    //recréation du contenu du fichier admin.txt
+    //modification du contenu du fichier admin.txt
     FILE* fichier_admin = NULL;
     ajout_admin_fichier_admin(fichier_admin, &(saisie));
 
@@ -69,7 +69,8 @@ void supr_admin(Admin*** tab_admin, int* nb_identifiant){
         supr_console();
         affichage_sous_titre("SUPRESSION ADMINISTRATEUR");
         affichage_tab_admin(tab_admin,nb_identifiant);
-        printf("     !!!Vous ne pouvez pas supprimer d'administarteur!!!\n"),
+        printf("     !!!Vous ne pouvez pas supprimer d'administarteur!!!\n");
+        printf(" L'administrateur de référence (programmeur) ne peut pas etre supprimer\n");
         pause_3sec();
         supr_console();
     }

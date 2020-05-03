@@ -53,7 +53,7 @@ int compare_chaine_caractere(char* chaine1, char* chaine2){
 }
 
 void pause_3sec(){
-    sleep(3);
+    sleep(2);
 }
 
 void affichage_date_du_jour(){

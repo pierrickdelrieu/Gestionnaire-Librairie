@@ -105,7 +105,7 @@ void lib_tab_admin(Admin** tab_admin, int* nb_identifiant){
     int i;
 
     for(i=0; i<*nb_identifiant; i++){
-        free(tab_admin[i]);
+        lib_struct_admin(tab_admin[i]);
     }
 
     free(tab_admin);

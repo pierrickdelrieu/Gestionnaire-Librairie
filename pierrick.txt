@@ -1,6 +1,5 @@
 GESTION DES MEMBRE
 - integrer le generateur d'identifiant dans la fonction saisie membre lorsque le tableau contenant tous les membres est gérer
-- voir avec romain au niveau de l'affichage de l'app
 - creer historique de connexion
-- ajout retour au menu dans les fonctions
 - gerer la mise en pause du system pendnat 3 sec (fichier utile)
+- saisie nombre 
