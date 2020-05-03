@@ -198,11 +198,14 @@ int saisie_securise_id(Admin* saisie, Admin** tab_admin, int* nb_identifiant){
 void connexion(Admin** tab_admin, int* nb_identifiant){
     Admin saisie;
     int valide = TRUE;
+    
 
-    printf("CONNEXION\n");
     do{
+        supr_console();
+        affichage_titre_app();
+        printf("CONNEXION\n");
         if(valide == FALSE){
-            printf("     ERREUR\n");
+            printf("          ERREUR\n");
         }
         valide = saisie_securise_id(&saisie, tab_admin, nb_identifiant);
     }while(valide == FALSE);

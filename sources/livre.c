@@ -3,16 +3,16 @@
 
 void saisir_date(Date* d){
     do{
-        printf("          jour : ");
+        printf("     jour : ");
         scanf(" %d", &(d->jour));  //(*d).jour <=> &(d->jour)
     }while((d->jour <= 0) || (d->jour > 31));
 
     do{
-        printf("          mois : ");
+        printf("     mois : ");
         scanf(" %d", &(d->mois));
     }while((d->mois <= 0) || (d->mois > 12));
 
-    printf("          annee : ");
+    printf("     annee : ");
     scanf(" %d", &(d->annee));
 }
 

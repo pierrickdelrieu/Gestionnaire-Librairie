@@ -4,6 +4,7 @@
 #define admin_h
 
 #include "utile.h"
+#include"affichage.h"
 
 #include <stdio.h>
 #include <stdlib.h>

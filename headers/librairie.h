@@ -8,6 +8,7 @@
 #include "utile.h"
 #include "admin.h"
 #include "membre.h"
+#include "affichage.h"
 
 
 typedef struct 
