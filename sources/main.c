@@ -29,7 +29,7 @@ int main()
     //Saisie date du jour
     affichage_titre_app();
     printf("Connexion reuissi !\n\n");
-    pause_3sec();
+    sleep(2);
 
     //Boucle de consultation de la librairie
     int continuer = TRUE;

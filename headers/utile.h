@@ -27,7 +27,7 @@ int compare_chaine_caractere(char* chaine1, char* chaine2);
 #endif
 
 void supr_console(void);
-void pause_3sec();
+void system_pause();
 void affichage_date_du_jour();
 
 #endif /* utile_h */

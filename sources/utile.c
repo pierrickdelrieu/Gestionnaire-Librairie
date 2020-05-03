@@ -52,9 +52,6 @@ int compare_chaine_caractere(char* chaine1, char* chaine2){
     return (retour);
 }
 
-void pause_3sec(){
-    sleep(2);
-}
 
 void affichage_date_du_jour(){
     system(SYSTEME_EXPLOITATION == "win" ? "echo  %date%-%time%" : "date");

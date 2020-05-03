@@ -55,7 +55,7 @@ void saisie_nx_admin(Admin*** tab_admin, int* nb_identifiant){
     supr_console();
     printf("L'administrateur %ld a bien était ajouté\n", saisie.identifiant);
 
-    pause_3sec();
+    sleep(2);
     supr_console();
 }
 
@@ -71,7 +71,7 @@ void supr_admin(Admin*** tab_admin, int* nb_identifiant){
         affichage_tab_admin(tab_admin,nb_identifiant);
         printf("     !!!Vous ne pouvez pas supprimer d'administarteur!!!\n");
         printf(" L'administrateur de référence (programmeur) ne peut pas etre supprimer\n");
-        pause_3sec();
+        sleep(2);
         supr_console();
     }
     else{
@@ -102,7 +102,7 @@ void supr_admin(Admin*** tab_admin, int* nb_identifiant){
         supr_console();
         printf("L'administrateur %ld a bien était suprimer\n", saisie.identifiant);
 
-        pause_3sec();
+        sleep(2);
         supr_console();
     }
 }
