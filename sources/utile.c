@@ -57,5 +57,5 @@ void pause_3sec(){
 }
 
 void affichage_date_du_jour(){
-    system("DATE");
+    system(SYSTEME_EXPLOITATION == "win" ? "echo  %date%-%time%" : "date");
 }
