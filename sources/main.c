@@ -79,7 +79,7 @@ int main()
 
             //Administrateurs
             else if(choix_menu == 10){ //consulter la liste des administrateurs
-                affichage_liste_admin(bibliotheque.liste_admin, &(bibliotheque.nb_admin));
+                affichage_liste_admin(&(bibliotheque.liste_admin), &(bibliotheque.nb_admin));
             }
             else if(choix_menu == 11){ //ajouter un admin
                 saisie_nx_admin(&(bibliotheque.liste_admin), &(bibliotheque.nb_admin));
