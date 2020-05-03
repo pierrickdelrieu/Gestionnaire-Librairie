@@ -60,19 +60,9 @@ Admin **creer_tab_admin(int *nb_identifiant) {
     Admin **tab_identifiant;
     FILE *fichier_admin = NULL;
 
-    fichier_admin = fopen("sauvegardes/admin.txt", "r"); //"w" correspond a la ecriture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
+    fichier_admin = fopen("sauvegardes/admin.txt", "r"); //"r" correspond a la lecture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
 
     if (fichier_admin != NULL) {
-
-        //nombres d'identifiant
-        int cara;
-        *nb_identifiant = 0;
-        do {
-            cara = fgetc(fichier_admin);
-            if (cara == '\n') {
-                (*nb_identifiant)++;
-            }
-        } while (cara != EOF);
 
         //allocation du tableau d'identifiant
         tab_identifiant = (Admin **) malloc((*nb_identifiant) * sizeof(Admin *));

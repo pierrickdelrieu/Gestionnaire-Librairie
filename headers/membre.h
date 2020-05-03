@@ -18,7 +18,7 @@ typedef struct {
     char pays[20];
 } Adresse;
 
-void saisie_adresse(Adresse *a);
+int saisie_adresse(Adresse *a);
 
 void afficher_adresse(Adresse *a);
 
@@ -35,9 +35,15 @@ typedef struct {
 
 // void generateur_identifiant(int* identifiant, Librairie* librairie);
 Membre *creer_struct_membre();
+void lib_struct_membre(Membre *membre);
 
-void saisir_membre(Membre *membre);
+void calcul_nb_membre(int *nb_membre);
 
+Membre **creer_tab_membre(int *nb_membre);
+void lib_tab_membre(Membre **tab_membre, int *nb_membres);
+
+int saisie_id_membre(int* id_membre, int* nb_membre);
+int saisie_champs_membre(Membre *membre, int* nb_membres);
 void afficher_membre(Membre *membre);
 
 #endif /* membre_h */

@@ -12,11 +12,10 @@ int main() {
     Librairie bibliotheque;
 
     //initialisation nb admin et tab admin
-    int nb_identifiant;
     int choix_menu;
 
     //Recupération des sauvegardes
-    calcul_nb_admin(&nb_identifiant);
+    calcul_nb_admin(&(bibliotheque.nb_admin));
     bibliotheque.liste_admin = creer_tab_admin(&(bibliotheque.nb_admin));
 
 

@@ -1,5 +1,27 @@
-GESTION DES MEMBRE
-- integrer le generateur d'identifiant dans la fonction saisie membre lorsque le tableau contenant tous les membres est gérer
-- creer historique de connexion
-- gerer la mise en pause du system pendnat 3 sec (fichier utile)
-- saisie nombre 
+01/04/2020 :
+    - creation repository git partagé
+    - creation de la structure des fichiers du projet 
+    - creation de tous les champs des structures
+    - commencement création fonction de la structure admin
+    - creation fonction date et adresse
+    - commencemant creation fonctions membre
+
+02/04/2020 :
+    - travaille sur les fonctions structure admin
+    - architecture du main
+    - creation fonction affichage (titre et sous titre)
+    - creation fonction usuel, affichage date du jour, pause et suppression console
+    - creation ecran de connexion
+    - creation menu du gestionnaire
+
+03/04/2020 :
+    - finalisation structure admin
+    - modif avec romain des quelques fonctions d'affichages
+    - creation fonction creation_tab_membre et desalocation
+    - creation fonction saisie identifiant
+
+
+A FAIRE
+    - creer historique de connexion
+    - saisie nombre 
+    - creation des fonctions membres

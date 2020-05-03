@@ -23,7 +23,7 @@ typedef struct {
 } Livre;
 
 typedef struct {
-    int id_utilisatuer;
+    int id_utilisateur;
     char code_livre[7];
     Date date_pret;
     Date date_retour;
