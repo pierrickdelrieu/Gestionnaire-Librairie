@@ -2,14 +2,13 @@
 #include "../headers/affichage.h"
 
 
-void affichage_titre_app(){
+void affichage_titre_app() {
     printf("                        .......................................\n");
     printf("                        .     GESTIONAIRE DE BIBLIOTHEQUE     .\n");
     printf("                        .......................................\n\n\n");
 }
 
-int affichage_choix_menu(int* choix){
-    int valide = TRUE;
+int affichage_choix_menu(int *choix) {
 
     affichage_titre_app();
     printf("Connexion : \n");
@@ -35,19 +34,20 @@ int affichage_choix_menu(int* choix){
     printf("     |                                                                           |\n");
     printf("     |    0- Quitter                                                             |\n");
     printf("     =============================================================================\n\n");
-    
+
     printf("                            Choix : ");
     scanf(" %d", choix);
 
-    if((*choix != 0) && (*choix != 1) && (*choix != 2) && (*choix != 3) && (*choix != 4) && (*choix != 5) && (*choix != 6) && (*choix != 7) && (*choix != 8) && (*choix != 9) && (*choix != 10) && (*choix != 11) && (*choix != 12)){
-        valide = FALSE;
+    if ((*choix != 0) && (*choix != 1) && (*choix != 2) && (*choix != 3) && (*choix != 4) && (*choix != 5) && (*choix != 6) && (*choix != 7) && (*choix != 8) && (*choix != 9) && (*choix != 10) &&
+        (*choix != 11) && (*choix != 12)) {
+        return FALSE;
     }
 
-    return (valide);
+    return TRUE;
 
 }
 
 
-void affichage_sous_titre(char* sous_titre){
-    printf("                    ----- %s -----\n\n\n",sous_titre);
+void affichage_sous_titre(char *sous_titre) {
+    printf("                    ----- %s -----\n\n\n", sous_titre);
 }

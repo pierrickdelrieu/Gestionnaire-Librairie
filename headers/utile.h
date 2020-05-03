@@ -11,8 +11,9 @@
 #define TRUE 1
 #define FALSE 0
 
-int saisie_chaine_caractere(char* chaine, int nb_cara_max);
-int compare_chaine_caractere(char* chaine1, char* chaine2);
+int saisie_chaine_caractere(char *chaine, int nb_cara_max);
+
+int compare_chaine_caractere(char *chaine1, char *chaine2);
 
 
 //...................SYSTEME D'EXLOITATION....................
@@ -27,7 +28,9 @@ int compare_chaine_caractere(char* chaine1, char* chaine2);
 #endif
 
 void supr_console(void);
+
 void system_pause();
+
 void affichage_date_du_jour();
 
 #endif /* utile_h */

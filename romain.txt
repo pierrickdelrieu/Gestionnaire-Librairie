@@ -1,0 +1,5 @@
+03/04/2020:
+    - fix date : affiche la date correctement sur windows
+    - reformat des fichiers (retour a la ligne, parenthese,...)
+    - fix makefile pour utiliser le meme compiler et meme version
+    - fix temporaire pour le mot de passe

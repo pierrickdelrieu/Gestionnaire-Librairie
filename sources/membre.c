@@ -2,42 +2,42 @@
 #include "../headers/membre.h"
 
 
-Membre* creer_struct_membre(){
-    Membre* x;
+Membre *creer_struct_membre() {
+    Membre *x;
 
-    x = (Membre*) malloc(sizeof(Membre));
+    x = (Membre *) malloc(sizeof(Membre));
 
     return (x);
 }
 
 
-void saisie_adresse(Adresse* a){
+void saisie_adresse(Adresse *a) {
     int valide;
 
 
-    do{
+    do {
         printf("          Numéro et rue : ");
-        valide = saisie_chaine_caractere(a->adresse,50);
-    }while(valide == FALSE);
+        valide = saisie_chaine_caractere(a->adresse, 50);
+    } while (valide == FALSE);
 
-    do{
+    do {
         printf("          Code postal : ");
-        valide = saisie_chaine_caractere(a->code_postal,6);
-    }while(valide == FALSE);
+        valide = saisie_chaine_caractere(a->code_postal, 6);
+    } while (valide == FALSE);
 
-    do{
+    do {
         printf("          Ville : ");
-        valide = saisie_chaine_caractere(a->ville,20);
-    }while(valide == FALSE);
+        valide = saisie_chaine_caractere(a->ville, 20);
+    } while (valide == FALSE);
 
-    do{
+    do {
         printf("          Pays : ");
-        valide = saisie_chaine_caractere(a->pays,20);
-    }while(valide == FALSE);
+        valide = saisie_chaine_caractere(a->pays, 20);
+    } while (valide == FALSE);
 }
 
-void afficher_adresse(Adresse* a){
-    printf("     %s\n     %s %s\n     %s\n",a->adresse, a->code_postal, a->ville, a->pays);
+void afficher_adresse(Adresse *a) {
+    printf("     %s\n     %s %s\n     %s\n", a->adresse, a->code_postal, a->ville, a->pays);
 }
 
 /* integrer le generateur d'identifiant dans la fonction saisie membre lorsque le tableau contenant tous les membres est gérer
@@ -61,40 +61,40 @@ void generateur_identifiant(int* identifiant, Librairie* librairie){
 
 }*/
 
-void saisir_membre(Membre* membre){
+void saisir_membre(Membre *membre) {
     int valide;
 
-    do{
+    do {
         printf("     Prenom : ");
-        saisie_chaine_caractere(membre->prenom,20);
-    }while(valide == FALSE);
+        saisie_chaine_caractere(membre->prenom, 20);
+    } while (valide == FALSE);
 
-    do{
+    do {
         printf("     Nom : ");
-        saisie_chaine_caractere(membre->nom,20);
-    }while(valide == FALSE);
+        saisie_chaine_caractere(membre->nom, 20);
+    } while (valide == FALSE);
 
-    do{
+    do {
         printf("     Adresse : \n");
         saisie_adresse(&(membre->adresse));
-    }while(valide == FALSE);
+    } while (valide == FALSE);
 
 
-    char* position_cara_arobase = NULL;
-    do{
+    char *position_cara_arobase = NULL;
+    do {
         printf("     Email : ");
-        saisie_chaine_caractere(membre->email,40);
+        saisie_chaine_caractere(membre->email, 40);
         position_cara_arobase = strchr(membre->email, '@');
-    }while((valide == FALSE) || (position_cara_arobase == NULL));
+    } while ((valide == FALSE) || (position_cara_arobase == NULL));
 
-    do{
+    do {
         printf("     Metier : ");
-        saisie_chaine_caractere(membre->metier,30);
-    }while(valide == FALSE);
+        saisie_chaine_caractere(membre->metier, 30);
+    } while (valide == FALSE);
 }
 
 
-void afficher_membre(Membre* membre){
+void afficher_membre(Membre *membre) {
 
     printf("%s %s\n", membre->prenom, membre->nom);
 

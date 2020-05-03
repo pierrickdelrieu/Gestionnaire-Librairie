@@ -1,9 +1,11 @@
 SOURCES=./sources/*.c
 HEADERS=./headers
 OUTPUT=./
+COMPILER=clang
+STD=c11
 
 main: clean
-	gcc -o $(OUTPUT)/main $(SOURCES) -I $(HEADERS)
+	$(COMPILER) -std=$(STD) -o $(OUTPUT)/main $(SOURCES) -I $(HEADERS)
 
 clean:
 	rm -rf $(OUTPUT)/main
