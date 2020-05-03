@@ -197,9 +197,9 @@ int saisie_id_membre(int* id_membre, int* nb_membre) {
     }
 }
 
-int saisie_securise_membre_not_in_tab_membre(Membre *saisie, Membre **tab_membre, int *nb_membre) {
+int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *nb_membre) {
 
-    //retourne 1 (TRUE) si valeur saisie corresponde a une valeur du fichier membre.txt et retourne 0 (FALSE) sinon
+    //retourne 1 (TRUE) si valeur saisie correspond a un membre deja existant et 0 sinon
     int valide = FALSE;
     int i;
 
@@ -217,9 +217,9 @@ int saisie_securise_membre_not_in_tab_membre(Membre *saisie, Membre **tab_membre
             }
         }
 
-        //verif nom, prenom, adresse,
+        //verif nom, prenom, adresse, metier
         if (valide == TRUE) {
-            if (compare_chaine_caractere(saisie->mot_de_passe, tab_membre[indice_id_valide]->mot_de_passe) == FALSE) {
+            if (compare_chaine_caractere(saisie->prenom, tab_membre[indice_id_valide]->prenom) == FALSE) {
                 valide = FALSE;
             }
         }

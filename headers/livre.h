@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include "utile.h"
 
+#define NB_EMPRUNT_MAX 3;
+
 
 typedef struct {
     int jour;
