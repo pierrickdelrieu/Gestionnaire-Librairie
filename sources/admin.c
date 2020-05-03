@@ -1,8 +1,6 @@
 
 #include "../headers/admin.h"
 
-#include <stdio.h>
-#include <stdlib.h>
 
 Admin* creer_struct_admin(){
     Admin* x;
@@ -103,16 +101,24 @@ void lib_tab_admin(Admin** tab_admin, int* nb_identifiant){
 
 
 void affichage_tab_admin(Admin** tab_identifiant, int* nb_identifiant){
-    int i;
+    int choix;
 
-    printf("Les identifiants et mot de passe des administrateurs sont : \n");
+    do{
+        supr_console();
+        int i;
+        affichage_sous_titre("AFFICHAGE DES ADMINISTRATEURS");
 
-    for(i=0; i<(*nb_identifiant); i++)
-    {
-        printf("     id : %ld mp : %s\n", tab_identifiant[i]->identifiant, tab_identifiant[i]->mot_de_passe);
-    }
+        printf("Les identifiants et mot de passe des administrateurs sont : \n");
 
-    printf("Seul ces personnes ont les autoirisations pour gérer la bibliothèque\n");
+        for(i=0; i<(*nb_identifiant); i++)
+        {
+            printf("     id : %ld mp : %s\n", tab_identifiant[i]->identifiant, tab_identifiant[i]->mot_de_passe);
+        }
+
+        printf("\nSeul ces personnes ont les autoirisations pour gérer la bibliothèque\n\n");
+        printf("     Saisir 1 pour revenir au menu : ");
+        scanf(" %d", &choix);
+    }while(choix != 1);
 }
 
 void saisie_identifiant(Admin* admin){
@@ -125,12 +131,13 @@ void saisie_identifiant(Admin* admin){
 
 Admin** saisie_nx_admin(Admin** tab_admin, int* nb_identifiant){
 
+    supr_console();
     //Saise de l'administrateur a supprimer
     int valide = TRUE;
     Admin saisie;
 
     //saisie de l'administrateur a ajouter
-    printf("AJOUT NOUVEAU ADMINISTARTEUR\n");
+    affichage_sous_titre("AJOUT NOUVEAU ADMINISTRATEUR");
     saisie_identifiant(&saisie);
 
 
@@ -159,8 +166,11 @@ Admin** saisie_nx_admin(Admin** tab_admin, int* nb_identifiant){
     FILE* fichier_admin = NULL;
     modif_fichier_admin(fichier_admin, nx_tab_admin, nb_identifiant);
 
-
+    supr_console();
     printf("L'administrateur %ld a bien était ajouté\n", saisie.identifiant);
+
+    pause_3sec();
+    supr_console();
 
     return (nx_tab_admin);
 }
@@ -203,7 +213,7 @@ void connexion(Admin** tab_admin, int* nb_identifiant){
     do{
         supr_console();
         affichage_titre_app();
-        printf("CONNEXION\n");
+        affichage_sous_titre("CONNEXION");
         if(valide == FALSE){
             printf("          ERREUR\n");
         }
@@ -214,11 +224,13 @@ void connexion(Admin** tab_admin, int* nb_identifiant){
 
 Admin** supr_admin(Admin** tab_admin, int* nb_identifiant){
 
+    supr_console();
+
     //Saise de l'administrateur a supprimer
     int valide = TRUE;
     Admin saisie;
 
-    printf("SUPRESSION ADMINISTARTEUR\n");
+    affichage_sous_titre("SUPRESSION ADMINISTRATEUR");
     do{
         if(valide == FALSE){
         printf("     ERREUR\n");
@@ -266,9 +278,11 @@ Admin** supr_admin(Admin** tab_admin, int* nb_identifiant){
     FILE* fichier_admin = NULL;
     modif_fichier_admin(fichier_admin, nx_tab_admin, nb_identifiant);
 
-
+    supr_console();
     printf("L'administrateur %ld a bien était suprimer\n", saisie.identifiant);
 
+    pause_3sec();
+    supr_console();
     return (nx_tab_admin);
 }
 

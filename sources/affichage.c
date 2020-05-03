@@ -3,17 +3,17 @@
 
 
 void affichage_titre_app(){
-    printf("                               .......................................\n");
-    printf("                               .     GESTIONAIRE DE BIBLIOTHEQUE     .\n");
-    printf("                               .......................................\n\n\n");
+    printf("                        .......................................\n");
+    printf("                        .     GESTIONAIRE DE BIBLIOTHEQUE     .\n");
+    printf("                        .......................................\n\n\n");
 }
 
-int affichage_choix_menu(Date* date_du_jour, int* choix){
+int affichage_choix_menu(int* choix){
     int valide = TRUE;
 
     affichage_titre_app();
-    printf("La date du jour est : ");
-    afficher_date(date_du_jour);
+    printf("Connexion : \n");
+    affichage_date_du_jour();
 
     printf("\n\n\n");
     printf("     =============================================================================\n");
@@ -49,5 +49,5 @@ int affichage_choix_menu(Date* date_du_jour, int* choix){
 
 
 void affichage_sous_titre(char* sous_titre){
-    printf("          ----- %s -----\n\n\n",sous_titre);
+    printf("                    ----- %s -----\n\n\n",sous_titre);
 }

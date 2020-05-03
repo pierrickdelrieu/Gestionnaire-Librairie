@@ -13,7 +13,6 @@
 
 typedef struct 
 {
-    Date date_du_jour;
     Admin** liste_admin;
     Livre** liste_livre;
     Membre** liste_membre;

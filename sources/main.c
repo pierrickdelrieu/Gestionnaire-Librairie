@@ -29,19 +29,19 @@ int main()
     //Saisie date du jour
     affichage_titre_app();
     printf("Connexion reuissi !\n\n");
-    printf("Saisir la date du jour : \n"); 
-    saisir_date(&(bibliotheque.date_du_jour));
+    pause_3sec();
 
     //Boucle de consultation de la librairie
     int continuer = TRUE;
     while(continuer == TRUE){
         do{
             supr_console();
-            valide = affichage_choix_menu(&(bibliotheque.date_du_jour), &choix_menu);
+            valide = affichage_choix_menu(&choix_menu);
         }while(valide == FALSE);
 
         if(choix_menu == 0){ //quitter
             continuer = FALSE;
+            supr_console();
         }
         else{
             //Membres
@@ -79,24 +79,16 @@ int main()
 
             //Administrateurs
             else if(choix_menu == 10){ //consulter la liste des administrateurs
-                printf("Consulter liste administarteurs\n");
+                affichage_tab_admin(bibliotheque.liste_admin, &(bibliotheque.nb_admin));
             }
             else if(choix_menu == 11){ //ajouter un admin
-                printf("Ajouter un administarteur\n");
+                bibliotheque.liste_admin = saisie_nx_admin(bibliotheque.liste_admin, &(bibliotheque.nb_admin));
             }
             else if(choix_menu == 12){ //supprimer un admin
-                printf("Supprimer un administarteur\n");
+                bibliotheque.liste_admin = supr_admin(bibliotheque.liste_admin, &(bibliotheque.nb_admin));
+
             }
-            
         }
-
-
-    
-
-    // tab_identifiant = saisie_nx_admin(bibliotheque.liste_admin, &(bibliotheque.nb_admin));
-    // affichage_tab_admin(bibliotheque.liste_admin, &(bibliotheque.nb_admin));
-    // tab_identifiant = supr_admin(bibliotheque.liste_admin, &(bibliotheque.nb_admin));
-
     }
 
     //.....................Desalocation.memoire.....................

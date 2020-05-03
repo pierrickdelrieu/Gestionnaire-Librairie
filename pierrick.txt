@@ -3,3 +3,4 @@ GESTION DES MEMBRE
 - voir avec romain au niveau de l'affichage de l'app
 - creer historique de connexion
 - ajout retour au menu dans les fonctions
+- gerer la mise en pause du system pendnat 3 sec (fichier utile)
