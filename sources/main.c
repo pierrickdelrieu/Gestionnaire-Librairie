@@ -15,6 +15,8 @@ int main()
     //initialisation nb admin et tab admin
     int nb_identifiant;
     int choix_menu;
+
+    //Recupération des sauvegardes
     calcul_nb_admin(&nb_identifiant);
     bibliotheque.liste_admin = creer_tab_admin(&(bibliotheque.nb_admin));
 

@@ -24,7 +24,7 @@ void affichage_liste_admin(Admin*** tab_identifiant, int* nb_identifiant){
     do{
         supr_console();
         affichage_sous_titre("AFFICHAGE DES ADMINISTRATEURS");
-        affichage_tab_admin(tab_identifiant,nb_identifiant);
+        affichage_tab_admin(*tab_identifiant,nb_identifiant);
         printf("     Saisir 1 pour revenir au menu : ");
         scanf(" %d", &choix);
     }while(choix != 1);
@@ -68,7 +68,7 @@ void supr_admin(Admin*** tab_admin, int* nb_identifiant){
     if(*nb_identifiant == 1){
         supr_console();
         affichage_sous_titre("SUPRESSION ADMINISTRATEUR");
-        affichage_tab_admin(tab_admin,nb_identifiant);
+        affichage_tab_admin(*tab_admin,nb_identifiant);
         printf("     !!!Vous ne pouvez pas supprimer d'administarteur!!!\n");
         printf(" L'administrateur de référence (programmeur) ne peut pas etre supprimer\n");
         sleep(2);
@@ -78,7 +78,7 @@ void supr_admin(Admin*** tab_admin, int* nb_identifiant){
         do{
             supr_console();
             affichage_sous_titre("SUPRESSION ADMINISTRATEUR");
-            affichage_tab_admin(tab_admin,nb_identifiant);
+            affichage_tab_admin(*tab_admin,nb_identifiant);
 
             printf("Il n'est pas possible de supprimer les identifiants du programmeur :\n");
             printf("          id : %d mp : %s\n\n",ID_PROGRAMMEUR, MP_PROGRAMMEUR);

@@ -111,14 +111,14 @@ void lib_tab_admin(Admin** tab_admin, int* nb_identifiant){
     free(tab_admin);
 }
 
-void affichage_tab_admin(Admin*** tab_identifiant, int* nb_identifiant){
+void affichage_tab_admin(Admin** tab_identifiant, int* nb_identifiant){
     int i;
 
     printf("Les identifiants et mot de passe des administrateurs sont : \n");
 
     for(i=0; i<(*nb_identifiant); i++)
     {
-        printf("     id : %ld mp : %s\n", (*(*tab_identifiant)+i)->identifiant, (*(*tab_identifiant)+i)->mot_de_passe);
+        printf("     id : %ld mp : %s\n", tab_identifiant[i]->identifiant, tab_identifiant[i]->mot_de_passe);
     }
 
     printf("\nSeul ces personnes ont les autoirisations pour gérer la bibliothèque\n\n");
