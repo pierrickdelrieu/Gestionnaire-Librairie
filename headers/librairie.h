@@ -23,6 +23,10 @@ typedef struct
     int nb_pret;
 }Librairie;
 
+void connexion();
+void saisie_nx_admin(Admin*** tab_admin, int* nb_identifiant);
+void supr_admin(Admin*** tab_admin, int* nb_identifiant);
+void affichage_liste_admin(Admin** tab_identifiant, int* nb_identifiant);
 
 
 #endif /* librairie_h */

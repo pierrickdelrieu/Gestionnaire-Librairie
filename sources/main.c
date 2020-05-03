@@ -79,13 +79,13 @@ int main()
 
             //Administrateurs
             else if(choix_menu == 10){ //consulter la liste des administrateurs
-                affichage_tab_admin(bibliotheque.liste_admin, &(bibliotheque.nb_admin));
+                affichage_liste_admin(bibliotheque.liste_admin, &(bibliotheque.nb_admin));
             }
             else if(choix_menu == 11){ //ajouter un admin
-                bibliotheque.liste_admin = saisie_nx_admin(bibliotheque.liste_admin, &(bibliotheque.nb_admin));
+                saisie_nx_admin(&(bibliotheque.liste_admin), &(bibliotheque.nb_admin));
             }
             else if(choix_menu == 12){ //supprimer un admin
-                bibliotheque.liste_admin = supr_admin(bibliotheque.liste_admin, &(bibliotheque.nb_admin));
+                supr_admin(&(bibliotheque.liste_admin), &(bibliotheque.nb_admin));
 
             }
         }

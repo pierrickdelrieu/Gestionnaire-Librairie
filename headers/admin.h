@@ -29,14 +29,13 @@ void lib_struct_admin(Admin* admin);
 Admin** creer_tab_admin(int* nb_identifiant);
 void lib_tab_admin(Admin** tab_admin, int* nb_identifiant);
 void affichage_tab_admin(Admin** tab_identifiant, int* nb_identifiant);
+Admin** rafrachir_tab_admin(Admin** tab_admin, int* nb_identifiant);
 
 void saisie_identifiant(Admin* admin);
 int saisie_securise_id(Admin* saisie, Admin** tab_admin, int* nb_identifiant); 
-void modif_fichier_admin(FILE* fichier_admin, Admin** tab_admin, int* nb_identifiant);
 
-Admin** saisie_nx_admin(Admin** tab_admin, int* nb_identifiant);
-void connexion();
-Admin** supr_admin(Admin** tab_admin, int* nb_identifiant);
+void ajout_admin_fichier_admin(FILE* fichier_admin, Admin* saisie);
+void supr_admin_fichier_admin(FILE* fichier_admin, Admin** tab_admin, Admin* saisie, int* nb_identifiant);
 
 
 
