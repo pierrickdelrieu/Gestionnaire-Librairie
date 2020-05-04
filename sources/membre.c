@@ -59,10 +59,10 @@ Membre **creer_tab_membre(int *nb_membre) {
 
         for (i = 0; i < (*nb_membre); i++) {
             liste_membres[i] = creer_struct_membre();
-            fscanf(fichier_membre, "%s %s %d\n", &(liste_membres[i]->prenom), &(liste_membres[i]->nom), &(liste_membres[i]->identifiant));
-            fscanf(fichier_membre, "adresse : %s %d %s %s\n", &(liste_membres[i]->adresse.adresse), &(liste_membres[i]->adresse.code_postal), &(liste_membres[i]->adresse.ville), &(liste_membres[i]->adresse.pays));
-            fscanf(fichier_membre, "email : %s\n", &(liste_membres[i]->email));
-            fscanf(fichier_membre, "metier : %s\n", &(liste_membres[i]->metier));
+            fscanf(fichier_membre, "%s %s %d\n", liste_membres[i]->prenom, liste_membres[i]->nom, &(liste_membres[i]->identifiant));
+            fscanf(fichier_membre, "adresse : %s %s %s %s\n", liste_membres[i]->adresse.adresse, liste_membres[i]->adresse.code_postal, liste_membres[i]->adresse.ville, liste_membres[i]->adresse.pays);
+            fscanf(fichier_membre, "email : %s\n", liste_membres[i]->email);
+            fscanf(fichier_membre, "metier : %s\n", liste_membres[i]->metier);
             //ajouter gestion des prets
         }
 
@@ -189,7 +189,7 @@ int saisie_id_membre(int* id_membre, int* nb_membre) {
     printf("     Saisir l'identifiant du membre : ");
     scanf(" %d", id_membre);
     
-    if(*id_membre <= nb_membre){
+    if(*id_membre <= *nb_membre){
         return (TRUE);
     }
     else{
@@ -203,7 +203,7 @@ int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *
     int valide = FALSE;
     int i;
 
-    valide = saisie_membre(saisie, nb_membre);
+    valide = saisie_champs_membre(saisie, nb_membre);
 
     if (valide == TRUE) {
         valide = FALSE;
@@ -222,8 +222,29 @@ int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *
             if (compare_chaine_caractere(saisie->prenom, tab_membre[indice_id_valide]->prenom) == FALSE) {
                 valide = FALSE;
             }
+            else if (compare_chaine_caractere(saisie->nom, tab_membre[indice_id_valide]->nom) == FALSE) {
+                valide = FALSE;
+            }
         }
     }
 
     return (valide);
 }
+
+// void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie) {
+//     fichier_membre = fopen("sauvegardes/membre.txt", "a"); //"a" correspond a l'ajout - fopen renvoie un pointeur sur le fichier
+
+//     if (fichier_membre != NULL) {
+
+//         fprintf(fichier_membre, "id : %ld mp : %s\n", saisie->identifiant, saisie->mot_de_passe);
+
+//         //Fermeture du fichier
+//         fclose(fichier_membre);
+
+//     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
+//         printf("Erreur au niveau de l'ouverture du fichier\n");
+//         printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
+//         printf("Gerer ceci dans les préférence de votre ordinateur\n");
+//         exit(0); //Fin du programme
+//     }
+// }
