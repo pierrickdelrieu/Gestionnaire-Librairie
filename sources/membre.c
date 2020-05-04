@@ -56,6 +56,32 @@ void calcul_nb_membre(int *nb_membre) {
     }
 }
 
+int* creer_tri_tab_membre(Membre **liste_membre, int *nb_membre){
+
+    /* le tableau tri_tab membre contient les identifiant des membres de manieres trier (nom)
+    */
+    int *tri_tab = NULL;
+
+    tri_tab = (int*) malloc((*nb_membre) * sizeof(int));
+
+    int i, j;
+    int position_tab;
+    for(i=0; i<(*nb_membre); i++)
+    {
+        position_tab = 0;
+        for(j=0; j<(*nb_membre); i++)
+        {
+            if(compare_chaine_caractere(liste_membre[i]->nom, liste_membre[j]->nom) == 1){
+                position_tab++;
+            }
+        }
+        tri_tab[position_tab] = liste_membre[i]->identifiant;
+    }
+
+    return (tri_tab);
+}
+
+
 Membre **creer_tab_membre(int *nb_membre) {
     Membre **liste_membres;
     FILE *fichier_membre = NULL;
@@ -232,10 +258,10 @@ int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *
 
         //verif nom, prenom, adresse, metier
         if (valide == TRUE) {
-            if (compare_chaine_caractere(saisie->prenom, tab_membre[indice_id_valide]->prenom) == FALSE) {
+            if (compare_chaine_caractere(saisie->prenom, tab_membre[indice_id_valide]->prenom) == 0) {
                 valide = FALSE;
             }
-            else if (compare_chaine_caractere(saisie->nom, tab_membre[indice_id_valide]->nom) == FALSE) {
+            else if (compare_chaine_caractere(saisie->nom, tab_membre[indice_id_valide]->nom) == 0) {
                 valide = FALSE;
             }
         }
@@ -263,4 +289,5 @@ void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie) {
         exit(0); //Fin du programme
     }
 }
+
 

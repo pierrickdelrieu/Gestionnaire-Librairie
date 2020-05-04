@@ -15,18 +15,19 @@ int main() {
     int choix_menu;
 
     //Recupération des sauvegardes
-    calcul_nb_admin(&(bibliotheque.nb_admin));
-    bibliotheque.liste_admin = creer_tab_admin(&(bibliotheque.nb_admin));
+    calcul_nb_admin(&(bibliotheque.gestion_admin.nb_admin));
+    bibliotheque.gestion_admin.liste_admin = creer_tab_admin(&(bibliotheque.gestion_admin.nb_admin));
 
-    calcul_nb_membre(&(bibliotheque.nb_membre));
-    bibliotheque.liste_membre = creer_tab_membre(&(bibliotheque.nb_membre));
+    // calcul_nb_membre(&(bibliotheque.gestion_membre.nb_membre));
+    // bibliotheque.gestion_membre.liste_membre = creer_tab_membre(&(bibliotheque.gestion_membre.nb_membre));
+    // bibliotheque.gestion_membre.tri_membre = creer_tri_tab_membre(bibliotheque.gestion_membre.liste_membre, &(bibliotheque.gestion_membre.nb_membre));
 
 
 
     //.....................Gestion.librairie.....................
 
     //Connexion
-    connexion(bibliotheque.liste_admin, &(bibliotheque.nb_admin));
+    connexion(bibliotheque.gestion_admin.liste_admin, &(bibliotheque.gestion_admin.nb_admin));
     supr_console();
 
     //Saisie date du jour
@@ -48,9 +49,9 @@ int main() {
         } else {
             //Membres
             if (choix_menu == 1) { //consulter la liste des membres
-                printf("Consulter liste membres\n");
+                // affichage_liste_membre(bibliotheque.gestion_membre.liste_membre, bibliotheque.gestion_membre.tri_membre, &(bibliotheque.gestion_membre.nb_membre));
             } else if (choix_menu == 2) { //ajouter un membre
-                saisie_nx_membre(&(bibliotheque.liste_membre),&(bibliotheque.nb_membre));
+                saisie_nx_membre(&(bibliotheque.gestion_membre.liste_membre),&(bibliotheque.gestion_membre.nb_membre));
             } else if (choix_menu == 3) { //supprimer un membre
                 printf("Supprimer un membre\n");
             }
@@ -75,20 +76,19 @@ int main() {
 
                 //Administrateurs
             else if (choix_menu == 10) { //consulter la liste des administrateurs
-                affichage_liste_admin(&(bibliotheque.liste_admin), &(bibliotheque.nb_admin));
+                affichage_liste_admin(&(bibliotheque.gestion_admin.liste_admin), &(bibliotheque.gestion_admin.nb_admin));
             } else if (choix_menu == 11) { //ajouter un admin
-                saisie_nx_admin(&(bibliotheque.liste_admin), &(bibliotheque.nb_admin));
+                saisie_nx_admin(&(bibliotheque.gestion_admin.liste_admin), &(bibliotheque.gestion_admin.nb_admin));
             } else if (choix_menu == 12) { //supprimer un admin
-                supr_admin(&(bibliotheque.liste_admin), &(bibliotheque.nb_admin));
-
+                supr_admin(&(bibliotheque.gestion_admin.liste_admin), &(bibliotheque.gestion_admin.nb_admin));
             }
         }
     }
 
 
     //.....................Desalocation.memoire.....................
-    lib_tab_admin(bibliotheque.liste_admin, &(bibliotheque.nb_admin));
-    lib_tab_membre(bibliotheque.liste_membre,&(bibliotheque.nb_membre));
+    lib_tab_admin(bibliotheque.gestion_admin.liste_admin, &(bibliotheque.gestion_admin.nb_admin));
+    lib_tab_membre(bibliotheque.gestion_membre.liste_membre,&(bibliotheque.gestion_membre.nb_membre));
 
     return 0;
 }

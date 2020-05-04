@@ -2,7 +2,7 @@
 #include "../headers/utile.h"
 
 void supr_console(void) {
-    system(compare_chaine_caractere(SYSTEME_EXPLOITATION, "win") ? "cls" : "clear");
+    system(SYSTEME_EXPLOITATION == "win" ? "cls" : "clear");
 }
 
 int saisie_chaine_caractere(char *chaine, int nb_cara_max) {
@@ -28,24 +28,24 @@ int saisie_chaine_caractere(char *chaine, int nb_cara_max) {
 
 int compare_chaine_caractere(char *chaine1, char *chaine2) {
 
-    //retroune 1 (TRUE) si les deux chaines sont egales et 0 (FALSE) sinon
+    //retroune 0 si chaine1= chaine2 et 1 si chaine chaine1>chaine2 et -1 si chaine chaine1<chaine2
 
     int retour = TRUE;
 
-    if (strlen(chaine1) != strlen(chaine2)) {
-        retour = FALSE;
-    } else {
-        int i;
-        for (i = 0; i < strlen(chaine1); i++) {
-            if (chaine1[i] != chaine2[i]) {
-                retour = FALSE;
-            }
-        }
+    retour = strcmp(chaine1, chaine2);
+
+    if(retour<0){
+        return (-1);
     }
-
-    return (retour);
+    else if (retour>0){
+        return (1);
+    }
+    else{
+        return (0);
+    }
 }
 
-void affichage_date_du_jour() {
-    system(compare_chaine_caractere(SYSTEME_EXPLOITATION, "win") ? "echo  %date%-%time%" : "date");
+void affichage_date_du_jour(void) {
+    system(SYSTEME_EXPLOITATION == "win" ? "echo  %date%-%time%" : "date");
 }
+

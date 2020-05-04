@@ -149,7 +149,7 @@ int saisie_securise_id_tab_admin(Admin *saisie, Admin **tab_admin, int *nb_ident
 
         //verif mot de passe correspondant a l'identifiant
         if (valide == TRUE) {
-            if (compare_chaine_caractere(saisie->mot_de_passe, tab_admin[indice_id_valide]->mot_de_passe) == FALSE) {
+            if (compare_chaine_caractere(saisie->mot_de_passe, tab_admin[indice_id_valide]->mot_de_passe) != 0) {
                 valide = FALSE;
             }
         }

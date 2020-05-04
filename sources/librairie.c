@@ -136,3 +136,13 @@ void saisie_nx_membre(Membre ***tab_membre, int *nb_membre){
     sleep(2);
     supr_console();
 }
+
+void affichage_liste_membre(Membre **tab_membre, int* tri_tab, int *nb_membre){
+    int i;
+
+    for(i=0; i<(*nb_membre); i++)
+    {
+        afficher_membre(tab_membre[tri_tab[i]]);
+    }
+
+}

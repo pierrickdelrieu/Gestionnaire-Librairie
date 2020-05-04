@@ -50,6 +50,7 @@ int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *
 
 void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie);
 Membre **rafrachir_tab_membre(Membre **tab_membre, int *nb_membre);
+int* creer_tri_tab_membre(Membre **liste_membre, int *nb_membre);
 
 
 #endif /* membre_h */
