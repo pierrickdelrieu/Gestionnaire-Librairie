@@ -33,8 +33,8 @@ typedef struct
 
 
 typedef struct {
-    int donnee[2]; //donnee[0] = nombre de membre depuis l'ouverture de la librairie
-                    //donnee[0] = nombre de membre depuis l'ouverture de la librairie
+    int donnee[2];  //donnee[0] = nombre de membre depuis l'ouverture de la librairie
+                    //donnee[1] = nombre de membre depuis l'ouverture de la librairie
     Liste_admin gestion_admin;
     Liste_membre gestion_membre;
     Liste_livre gestion_livre;

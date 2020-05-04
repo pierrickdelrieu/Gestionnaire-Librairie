@@ -120,7 +120,7 @@ void saisie_nx_membre(Membre ***tab_membre, int *nb_membre){
             printf("ERREUR (membre deja existant ou erreur de saisie)\nReesayer\n\n");
         }
 
-        valide = saisie_securise_membre_tab_membre(&saisie, tab_membre, nb_membre);
+        valide = saisie_securise_membre_tab_membre(&saisie, *tab_membre, nb_membre);
     } while (valide == TRUE);
 
 
