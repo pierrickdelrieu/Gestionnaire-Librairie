@@ -125,10 +125,10 @@ void saisie_nx_membre(Membre ***tab_membre, int *nb_membre){
 
 
     //modification du contenu du fichier membre.txt
-    FILE *fichier_admin = NULL;
-    ajout_membre_fichier_membre(fichier_admin, &(saisie));
+    FILE *fichier_membre = NULL;
+    ajout_membre_fichier_membre(fichier_membre, &(saisie));
 
-    *tab_membre = rafrachir_tab_membre(*tab_membre, nb_membre); //modif du nombre d'identifiant
+    rafrachir_tab_membre(tab_membre, nb_membre); //modif du nombre d'identifiant
 
     supr_console();
     printf("%s %s a bien était ajouté comme nouveau membre\n", saisie.prenom, saisie.nom);
@@ -139,10 +139,19 @@ void saisie_nx_membre(Membre ***tab_membre, int *nb_membre){
 
 void affichage_liste_membre(Membre **tab_membre, int *nb_membre){
     int i;
+    int choix;
+    
+    do{
+        supr_console();
+        affichage_sous_titre("AFFICHAGE DES MEMBRES");
+        for(i=0; i<(*nb_membre); i++)
+        {
+            afficher_membre(tab_membre[i]);
+        }
 
-    for(i=0; i<(*nb_membre); i++)
-    {
-        afficher_membre(tab_membre[i]);
-    }
+        printf("     Saisir 1 pour revenir au menu : ");
+        scanf(" %d", &choix);
+           
+    }while(choix!=1);
 
 }

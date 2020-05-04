@@ -14,16 +14,13 @@ void lib_struct_membre(Membre *membre) {
     free(membre);
 }
 
-Membre **rafrachir_tab_membre(Membre **tab_membre, int *nb_membre) {
-    Membre **nx_tab_membre;
+void rafrachir_tab_membre(Membre ***tab_membre, int *nb_membre) {
 
-    lib_tab_membre(tab_membre, nb_membre);
+    lib_tab_membre(*tab_membre, nb_membre);
 
     calcul_nb_membre(nb_membre);
 
-    nx_tab_membre = creer_tab_membre(nb_membre);
-
-    return (nx_tab_membre);
+    *tab_membre = creer_tab_membre(nb_membre);
 }
 
 void calcul_nb_membre(int *nb_membre) {
@@ -46,7 +43,7 @@ void calcul_nb_membre(int *nb_membre) {
         //Fermeture du fichier
         fclose(fichier_membre);
 
-        *nb_membre = ((*nb_membre / 5) - 2) - 2; //2 pour les sauts de ligne de fin et 2 pour le nombre de membre depuis le début
+        *nb_membre = (*nb_membre) / 5; 
 
     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
         printf("Erreur au niveau de l'ouverture du fichier\n");
@@ -94,7 +91,6 @@ Membre **creer_tab_membre(int *nb_membre) {
         liste_membres = (Membre **) malloc((*nb_membre) * sizeof(Membre *));
 
         //recup des identifiants
-        fseek(fichier_membre, 0, SEEK_SET); //remise du curseur au début du fichier
         int i;
 
         for (i = 0; i < (*nb_membre); i++) {
@@ -103,7 +99,6 @@ Membre **creer_tab_membre(int *nb_membre) {
             fscanf(fichier_membre, "adresse : %s %s %s %s\n", liste_membres[i]->adresse.adresse, liste_membres[i]->adresse.code_postal, liste_membres[i]->adresse.ville, liste_membres[i]->adresse.pays);
             fscanf(fichier_membre, "email : %s - metier : %s\n", liste_membres[i]->email, liste_membres[i]->metier);
             fscanf(fichier_membre, "pret : %d - %d - %d\n\n", &(liste_membres[i]->liste_emprunt[0]), &(liste_membres[i]->liste_emprunt[1]), &(liste_membres[i]->liste_emprunt[2]));
-            //ajouter gestion des prets
         }
 
         //Fermeture du fichier
@@ -152,7 +147,7 @@ int saisie_adresse(Adresse *a) {
 }
 
 void afficher_adresse(Adresse *a) {
-    printf("     %s\n     %s %s\n     %s\n", a->adresse, a->code_postal, a->ville, a->pays);
+    printf("%s %s %s %s", a->adresse, a->code_postal, a->ville, a->pays);
 }
 
 
@@ -202,16 +197,9 @@ int saisie_champs_membre(Membre *membre, int* nb_membres) {
 
 void afficher_membre(Membre *membre) {
 
-    printf("%s %s\n", membre->prenom, membre->nom);
-
-    printf("Identifiant : %d\n", membre->identifiant);
-
-    printf("Adresse : \n");
+    printf("%s %s  id : %d     adresse : ", membre->prenom, membre->nom, membre->identifiant);
     afficher_adresse(&(membre->adresse));
-
-    printf("Email : %s\n", membre->email);
-
-    printf("Metier : %s\n", membre->metier);
+    printf("     email : %s     metier : %s\n", membre->email, membre->metier);
 }
 
 

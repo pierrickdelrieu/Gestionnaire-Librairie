@@ -8,42 +8,48 @@ void affichage_titre_app() {
     printf("                        .......................................\n\n\n");
 }
 
-int affichage_choix_menu(int *choix) {
+void affichage_choix_menu(int *choix) {
+    int valide;
 
-    affichage_titre_app();
-    printf("Connexion : \n");
-    affichage_date_du_jour();
+    do{
+        supr_console();
+        valide = TRUE;
+        affichage_titre_app();
+        printf("Connexion : \n");
+        affichage_date_du_jour();
 
-    printf("\n\n\n");
-    printf("     =============================================================================\n");
-    printf("     |    1- Consulter la liste des membres                                      |\n");
-    printf("     |    2- Ajouter un membre                                                   |\n");
-    printf("     |    3- Supprimer un membre                                                 |\n");
-    printf("     |                                                                           |\n");
-    printf("     |    4- Consulter la liste des livres                                       |\n");
-    printf("     |    5- Ajouter un livre                                                    |\n");
-    printf("     |    6- Supprimer un livre                                                  |\n");
-    printf("     |                                                                           |\n");
-    printf("     |    7- Consulter la liste des prêts                                        |\n");
-    printf("     |    8- Ajouter le pret d'un livre                                          |\n");
-    printf("     |    9- Restituer un livre (supprimer le pret)                              |\n");
-    printf("     |                                                                           |\n");
-    printf("     |    10- Consulter la liste des administrateurs de la librairie             |\n");
-    printf("     |    11- Ajouter un administrateur de la librairie                          |\n");
-    printf("     |    12- Supprimer un administrateur de la librairie                        |\n");
-    printf("     |                                                                           |\n");
-    printf("     |    0- Quitter                                                             |\n");
-    printf("     =============================================================================\n\n");
+        printf("\n\n\n");
+        printf("     =============================================================================\n");
+        printf("     |    1- Information sur un membre                                           |\n");
+        printf("     |    2- Consulter la liste des membres                                      |\n");
+        printf("     |    3- Ajouter un membre                                                   |\n");
+        printf("     |    4- Supprimer un membre                                                 |\n");        
+        printf("     |                                                                           |\n");
+        printf("     |    5- Information sur un livre                                           |\n");
+        printf("     |    6- Consulter la listes des livres                                      |\n");                                                      
+        printf("     |    7- Ajouter un livre                                                    |\n");
+        printf("     |    8- Supprimer un livre                                                  |\n");
+        printf("     |                                                                           |\n");
+        printf("     |    9- Consulter la liste des prêts                                        |\n");
+        printf("     |    10- Ajouter le pret d'un livre                                          |\n");
+        printf("     |    11- Restituer un livre (supprimer le pret)                              |\n");
+        printf("     |                                                                           |\n");
+        printf("     |    12- Consulter la liste des administrateurs de la librairie             |\n");
+        printf("     |    13- Ajouter un administrateur de la librairie                          |\n");
+        printf("     |    14- Supprimer un administrateur de la librairie                        |\n");
+        printf("     |                                                                           |\n");
+        printf("     |    0- Quitter                                                             |\n");
+        printf("     =============================================================================\n\n");
 
-    printf("                            Choix : ");
-    scanf(" %d", choix);
+        printf("                            Choix : ");
+        scanf(" %d", choix);
 
-    if ((*choix != 0) && (*choix != 1) && (*choix != 2) && (*choix != 3) && (*choix != 4) && (*choix != 5) && (*choix != 6) && (*choix != 7) && (*choix != 8) && (*choix != 9) && (*choix != 10) &&
-        (*choix != 11) && (*choix != 12)) {
-        return FALSE;
-    }
+        if ((*choix != 0) && (*choix != 1) && (*choix != 2) && (*choix != 3) && (*choix != 4) && (*choix != 5) && (*choix != 6) && (*choix != 7) && (*choix != 8) && (*choix != 9) && (*choix != 10) &&
+            (*choix != 11) && (*choix != 12) && (*choix != 13) && (*choix != 14)) {
+            valide =  FALSE;
+        }
 
-    return TRUE;
+    }while(valide == FALSE);
 
 }
 
