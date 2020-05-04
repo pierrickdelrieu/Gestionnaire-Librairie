@@ -108,7 +108,7 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant) {
 
 void saisie_nx_membre(Membre ***tab_membre, int *nb_membre){
     
-    int valide = TRUE;
+    int valide = FALSE;
     Membre saisie;
 
     //saisie du membre a ajouter
@@ -116,12 +116,12 @@ void saisie_nx_membre(Membre ***tab_membre, int *nb_membre){
         supr_console();
         affichage_sous_titre("AJOUT NOUVEAU MEMBRE");
         
-        if(valide == FALSE){
-            printf("Vous avez réalisé une erreur de saisie\nReesayer\n\n");
+        if(valide == TRUE){
+            printf("ERREUR (membre deja existant ou erreur de saisie)\nReesayer\n\n");
         }
 
-        valide = saisie_champs_membre(&saisie, nb_membre);
-    } while (valide == FALSE);
+        valide = saisie_securise_membre_tab_membre(&saisie, tab_membre, nb_membre);
+    } while (valide == TRUE);
 
 
     //modification du contenu du fichier membre.txt
@@ -137,12 +137,12 @@ void saisie_nx_membre(Membre ***tab_membre, int *nb_membre){
     supr_console();
 }
 
-void affichage_liste_membre(Membre **tab_membre, int* tri_tab, int *nb_membre){
+void affichage_liste_membre(Membre **tab_membre, int *nb_membre){
     int i;
 
     for(i=0; i<(*nb_membre); i++)
     {
-        afficher_membre(tab_membre[tri_tab[i]]);
+        afficher_membre(tab_membre[i]);
     }
 
 }

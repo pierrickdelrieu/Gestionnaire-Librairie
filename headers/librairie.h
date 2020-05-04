@@ -12,7 +12,6 @@
 
 typedef struct {
     Membre **liste_membre;
-    int *tri_membre;
     int nb_membre;
 }Liste_membre;
 
@@ -21,15 +20,25 @@ typedef struct {
     int nb_admin;
 }Liste_admin;
 
+typedef struct {
+    Livre **liste_livre;
+    int nb_livre;
+}Liste_livre;
+
+typedef struct 
+{
+    Pret **liste_pret;
+    int nb_pret;
+}Liste_pret;
+
 
 typedef struct {
+    int donnee[2]; //donnee[0] = nombre de membre depuis l'ouverture de la librairie
+                    //donnee[0] = nombre de membre depuis l'ouverture de la librairie
     Liste_admin gestion_admin;
     Liste_membre gestion_membre;
-
-    Livre **liste_livre;
-    Pret **liste_pret;
-    int nb_livre;
-    int nb_pret;
+    Liste_livre gestion_livre;
+    Liste_pret gestion_pret;
 } Librairie;
 
 void connexion();
@@ -39,7 +48,7 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant);
 void affichage_liste_admin(Admin ***tab_identifiant, int *nb_identifiant);
 
 void saisie_nx_membre(Membre ***tab_membre, int *nb_membre);
-void affichage_liste_membre(Membre **tab_membre, int* tri_tab, int *nb_membre);
+void affichage_liste_membre(Membre **tab_membre, int *nb_membre);
 
 
 #endif /* librairie_h */

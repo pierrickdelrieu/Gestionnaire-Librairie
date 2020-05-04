@@ -46,7 +46,7 @@ void calcul_nb_membre(int *nb_membre) {
         //Fermeture du fichier
         fclose(fichier_membre);
 
-        *nb_membre = *nb_membre / 5;
+        *nb_membre = ((*nb_membre / 5) - 2) - 2; //2 pour les sauts de ligne de fin et 2 pour le nombre de membre depuis le début
 
     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
         printf("Erreur au niveau de l'ouverture du fichier\n");
@@ -248,28 +248,19 @@ int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *
     if (valide == TRUE) {
         valide = FALSE;
 
-        //verif identifiant
+        //verif mail
         int indice_id_valide = 0;
         for (i = 0; i < (*nb_membre); i++) {
-            if (saisie->identifiant == tab_membre[i]->identifiant) {
+            if (compare_chaine_caractere(saisie->email, tab_membre[i]->email) == 0) {
                 valide = TRUE;
                 indice_id_valide = i;
-            }
-        }
-
-        //verif nom, prenom, adresse, metier
-        if (valide == TRUE) {
-            if (compare_chaine_caractere(saisie->prenom, tab_membre[indice_id_valide]->prenom) == 0) {
-                valide = FALSE;
-            }
-            else if (compare_chaine_caractere(saisie->nom, tab_membre[indice_id_valide]->nom) == 0) {
-                valide = FALSE;
             }
         }
     }
 
     return (valide);
 }
+
 
 void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie) {
     fichier_membre = fopen("sauvegardes/membres.txt", "a"); //"a" correspond a l'ajout - fopen renvoie un pointeur sur le fichier
@@ -280,7 +271,6 @@ void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie) {
         fprintf(fichier_membre, "adresse : %s %s %s %s\n", saisie->adresse.adresse, saisie->adresse.code_postal, saisie->adresse.ville, saisie->adresse.pays);
         fprintf(fichier_membre, "email : %s - metier : %s\n", saisie->email, saisie->metier);
         fprintf(fichier_membre, "pret : 0 - 0 - 0\n\n");
-
 
         //Fermeture du fichier
         fclose(fichier_membre);

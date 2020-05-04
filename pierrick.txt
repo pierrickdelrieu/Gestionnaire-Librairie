@@ -22,6 +22,8 @@
 
 04/04/2020 :
     - fonction saisie nouveau membre ok
+    - ajout structure donnee librairie contenant les valeurs de la librairie depuis l'ouverture
+    - ajout d'un fichier donnee.txt contenant les valeurs de la librairie depuis l'ouverture
 
 A FAIRE
     - creer historique de connexion
