@@ -1,4 +1,0 @@
-id : 1 - Pierrick Delrieu
-adresse : 271 chemin des essarts 06270 Villeneuve Loubet France
-email : pierrickdelrieu@icloud.com - metier : etudiant
-

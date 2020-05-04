@@ -30,7 +30,7 @@ typedef struct {
     Adresse adresse;
     char email[40];
     char metier[30];
-    Pret liste_emprunt[3];
+    int liste_emprunt[3];
 } Membre;
 
 // void generateur_identifiant(int* identifiant, Librairie* librairie);
