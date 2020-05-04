@@ -25,6 +25,7 @@ typedef struct {
 } Livre;
 
 typedef struct {
+    int id_pret;
     int id_utilisateur;
     char code_livre[7];
     Date date_pret;

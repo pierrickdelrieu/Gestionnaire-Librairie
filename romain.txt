@@ -3,3 +3,13 @@
     - reformat des fichiers (retour a la ligne, parenthese,...)
     - fix makefile pour utiliser le meme compiler et meme version
     - fix temporaire pour le mot de passe
+
+A FAIRE:
+    - fonction saisie livre
+        sauvegarde saisie livre :
+            id : int
+            id_membre : int
+            id_livre : int
+            date_emprunt int (timestamp)
+            date_remise int (timestamp + 3semaines)
+            etat : int

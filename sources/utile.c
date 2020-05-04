@@ -2,7 +2,7 @@
 #include "../headers/utile.h"
 
 void supr_console(void) {
-    system(SYSTEME_EXPLOITATION == "win" ? "cls" : "clear");
+    system(strcmp(SYSTEME_EXPLOITATION, "win") == 0 ? "cls" : "clear");
 }
 
 int saisie_chaine_caractere(char *chaine, int nb_cara_max) {
@@ -46,6 +46,6 @@ int compare_chaine_caractere(char *chaine1, char *chaine2) {
 }
 
 void affichage_date_du_jour(void) {
-    system(SYSTEME_EXPLOITATION == "win" ? "echo  %date%-%time%" : "date");
+    system(strcmp(SYSTEME_EXPLOITATION, "win") == 0 ? "echo  %date%-%time%" : "date");
 }
 
