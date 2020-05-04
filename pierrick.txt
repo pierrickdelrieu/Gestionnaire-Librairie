@@ -24,6 +24,8 @@
     - fonction saisie nouveau membre ok
     - ajout structure donnee librairie contenant les valeurs de la librairie depuis l'ouverture
     - ajout d'un fichier donnee.txt contenant les valeurs de la librairie depuis l'ouverture
+    - modif fonction rafraichir tab admin
+    - securisation de la suppression de l'admin programmeur
 
 A FAIRE
     - creer historique de connexion

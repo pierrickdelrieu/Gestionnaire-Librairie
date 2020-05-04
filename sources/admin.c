@@ -43,16 +43,13 @@ void calcul_nb_admin(int *nb_identifiant) {
     }
 }
 
-Admin **rafrachir_tab_admin(Admin **tab_admin, int *nb_identifiant) {
-    Admin **nx_tab_admin;
+void rafrachir_tab_admin(Admin ***tab_admin, int *nb_identifiant) {
 
-    lib_tab_admin(tab_admin, nb_identifiant);
+    lib_tab_admin(*tab_admin, nb_identifiant);
 
     calcul_nb_admin(nb_identifiant);
 
-    nx_tab_admin = creer_tab_admin(nb_identifiant);
-
-    return (nx_tab_admin);
+    *tab_admin = creer_tab_admin(nb_identifiant);
 }
 
 

@@ -33,7 +33,7 @@ void lib_tab_admin(Admin **tab_admin, int *nb_identifiant);
 
 void affichage_tab_admin(Admin **tab_identifiant, int *nb_identifiant);
 
-Admin **rafrachir_tab_admin(Admin **tab_admin, int *nb_identifiant);
+void rafrachir_tab_admin(Admin ***tab_admin, int *nb_identifiant);
 
 int saisie_identifiant(Admin *admin);
 

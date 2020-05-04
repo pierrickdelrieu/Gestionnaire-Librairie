@@ -49,7 +49,7 @@ void saisie_nx_admin(Admin ***tab_admin, int *nb_identifiant) {
     FILE *fichier_admin = NULL;
     ajout_admin_fichier_admin(fichier_admin, &(saisie));
 
-    *tab_admin = rafrachir_tab_admin(*tab_admin, nb_identifiant); //modif du nombre d'identifiant
+    rafrachir_tab_admin(tab_admin, nb_identifiant); //modif du nombre d'identifiant
 
     supr_console();
     printf("L'administrateur %ld a bien était ajouté\n", saisie.identifiant);
@@ -87,7 +87,7 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant) {
             valide = saisie_securise_id_tab_admin(&saisie, *tab_admin, nb_identifiant);
 
             //pas possible de supprimer l'administrateur de référence
-            if ((saisie.identifiant == ID_PROGRAMMEUR) && (compare_chaine_caractere(saisie.mot_de_passe, MP_PROGRAMMEUR) == TRUE)) {
+            if ((saisie.identifiant == ID_PROGRAMMEUR) && (compare_chaine_caractere(saisie.mot_de_passe, MP_PROGRAMMEUR) == 0)) {
                 valide = FALSE;
             }
         } while (valide == FALSE);
@@ -95,7 +95,7 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant) {
         //supression et recréation du contenu du fichier admin.txt
         FILE *fichier_admin = NULL;
         supr_admin_fichier_admin(fichier_admin, *(tab_admin), &saisie, nb_identifiant);
-        *tab_admin = rafrachir_tab_admin(*tab_admin, nb_identifiant);
+        rafrachir_tab_admin(tab_admin, nb_identifiant);
 
         supr_console();
         printf("L'administrateur %ld a bien était suprimer\n", saisie.identifiant);
