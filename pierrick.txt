@@ -20,6 +20,8 @@
     - creation fonction creation_tab_membre et desalocation
     - creation fonction saisie identifiant
 
+04/04/2020 :
+    - fonction saisie nouveau membre ok
 
 A FAIRE
     - creer historique de connexion

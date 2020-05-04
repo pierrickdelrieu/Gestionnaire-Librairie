@@ -48,5 +48,9 @@ void afficher_membre(Membre *membre);
 
 int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *nb_membre) ;
 
+void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie);
+Membre **rafrachir_tab_membre(Membre **tab_membre, int *nb_membre);
+
+
 #endif /* membre_h */
 

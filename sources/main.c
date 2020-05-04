@@ -18,6 +18,9 @@ int main() {
     calcul_nb_admin(&(bibliotheque.nb_admin));
     bibliotheque.liste_admin = creer_tab_admin(&(bibliotheque.nb_admin));
 
+    calcul_nb_membre(&(bibliotheque.nb_membre));
+    bibliotheque.liste_membre = creer_tab_membre(&(bibliotheque.nb_membre));
+
 
 
     //.....................Gestion.librairie.....................
@@ -47,7 +50,7 @@ int main() {
             if (choix_menu == 1) { //consulter la liste des membres
                 printf("Consulter liste membres\n");
             } else if (choix_menu == 2) { //ajouter un membre
-                printf("Ajouter un membre\n");
+                saisie_nx_membre(&(bibliotheque.liste_membre),&(bibliotheque.nb_membre));
             } else if (choix_menu == 3) { //supprimer un membre
                 printf("Supprimer un membre\n");
             }
@@ -82,8 +85,10 @@ int main() {
         }
     }
 
+
     //.....................Desalocation.memoire.....................
     lib_tab_admin(bibliotheque.liste_admin, &(bibliotheque.nb_admin));
+    lib_tab_membre(bibliotheque.liste_membre,&(bibliotheque.nb_membre));
 
     return 0;
 }

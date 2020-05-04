@@ -14,10 +14,22 @@ void lib_struct_membre(Membre *membre) {
     free(membre);
 }
 
+Membre **rafrachir_tab_membre(Membre **tab_membre, int *nb_membre) {
+    Membre **nx_tab_membre;
+
+    lib_tab_membre(tab_membre, nb_membre);
+
+    calcul_nb_membre(nb_membre);
+
+    nx_tab_membre = creer_tab_membre(nb_membre);
+
+    return (nx_tab_membre);
+}
+
 void calcul_nb_membre(int *nb_membre) {
     FILE *fichier_membre = NULL;
 
-    fichier_membre = fopen("sauvegardes/membre.txt", "r"); //"w" correspond a la ecriture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
+    fichier_membre = fopen("sauvegardes/membres.txt", "r"); //"w" correspond a la ecriture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
 
     if (fichier_membre != NULL) {
 
@@ -34,6 +46,8 @@ void calcul_nb_membre(int *nb_membre) {
         //Fermeture du fichier
         fclose(fichier_membre);
 
+        *nb_membre = *nb_membre / 4;
+
     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
         printf("Erreur au niveau de l'ouverture du fichier\n");
         printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
@@ -46,7 +60,7 @@ Membre **creer_tab_membre(int *nb_membre) {
     Membre **liste_membres;
     FILE *fichier_membre = NULL;
 
-    fichier_membre = fopen("sauvegardes/membre.txt", "r"); //"r" correspond a la lecture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
+    fichier_membre = fopen("sauvegardes/membres.txt", "r"); //"r" correspond a la lecture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
 
     if (fichier_membre != NULL) {
 
@@ -59,10 +73,9 @@ Membre **creer_tab_membre(int *nb_membre) {
 
         for (i = 0; i < (*nb_membre); i++) {
             liste_membres[i] = creer_struct_membre();
-            fscanf(fichier_membre, "%s %s %d\n", liste_membres[i]->prenom, liste_membres[i]->nom, &(liste_membres[i]->identifiant));
+            fscanf(fichier_membre, "id : %d - %s %s\n", &(liste_membres[i]->identifiant), liste_membres[i]->prenom, liste_membres[i]->nom);
             fscanf(fichier_membre, "adresse : %s %s %s %s\n", liste_membres[i]->adresse.adresse, liste_membres[i]->adresse.code_postal, liste_membres[i]->adresse.ville, liste_membres[i]->adresse.pays);
-            fscanf(fichier_membre, "email : %s\n", liste_membres[i]->email);
-            fscanf(fichier_membre, "metier : %s\n", liste_membres[i]->metier);
+            fscanf(fichier_membre, "email : %s - metier : %s\n\n", liste_membres[i]->email, liste_membres[i]->metier);
             //ajouter gestion des prets
         }
 
@@ -231,20 +244,23 @@ int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *
     return (valide);
 }
 
-// void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie) {
-//     fichier_membre = fopen("sauvegardes/membre.txt", "a"); //"a" correspond a l'ajout - fopen renvoie un pointeur sur le fichier
+void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie) {
+    fichier_membre = fopen("sauvegardes/membres.txt", "a"); //"a" correspond a l'ajout - fopen renvoie un pointeur sur le fichier
 
-//     if (fichier_membre != NULL) {
+    if (fichier_membre != NULL) {
 
-//         fprintf(fichier_membre, "id : %ld mp : %s\n", saisie->identifiant, saisie->mot_de_passe);
+        fprintf(fichier_membre, "id : %d - %s %s\n", saisie->identifiant, saisie->prenom, saisie->nom);
+        fprintf(fichier_membre, "adresse : %s %s %s %s\n", saisie->adresse.adresse, saisie->adresse.code_postal, saisie->adresse.ville, saisie->adresse.pays);
+        fprintf(fichier_membre, "email : %s - metier : %s\n\n", saisie->email, saisie->metier);
 
-//         //Fermeture du fichier
-//         fclose(fichier_membre);
+        //Fermeture du fichier
+        fclose(fichier_membre);
 
-//     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
-//         printf("Erreur au niveau de l'ouverture du fichier\n");
-//         printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
-//         printf("Gerer ceci dans les préférence de votre ordinateur\n");
-//         exit(0); //Fin du programme
-//     }
-// }
+    } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
+        printf("Erreur au niveau de l'ouverture du fichier\n");
+        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
+        printf("Gerer ceci dans les préférence de votre ordinateur\n");
+        exit(0); //Fin du programme
+    }
+}
+

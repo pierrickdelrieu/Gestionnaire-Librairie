@@ -32,7 +32,6 @@ void affichage_liste_admin(Admin ***tab_identifiant, int *nb_identifiant) {
 
 void saisie_nx_admin(Admin ***tab_admin, int *nb_identifiant) {
 
-    supr_console();
     //Saise de l'administrateur a supprimer
     int valide;
     Admin saisie;
@@ -71,7 +70,7 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant) {
         affichage_tab_admin(*tab_admin, nb_identifiant);
         printf("     !!!Vous ne pouvez pas supprimer d'administarteur!!!\n");
         printf(" L'administrateur de référence (programmeur) ne peut pas etre supprimer\n");
-        sleep(2);
+        sleep(3);
         supr_console();
     } else {
         do {
@@ -104,4 +103,36 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant) {
         sleep(2);
         supr_console();
     }
+}
+
+
+void saisie_nx_membre(Membre ***tab_membre, int *nb_membre){
+    
+    int valide = TRUE;
+    Membre saisie;
+
+    //saisie du membre a ajouter
+    do {
+        supr_console();
+        affichage_sous_titre("AJOUT NOUVEAU MEMBRE");
+        
+        if(valide == FALSE){
+            printf("Vous avez réalisé une erreur de saisie\nReesayer\n\n");
+        }
+
+        valide = saisie_champs_membre(&saisie, nb_membre);
+    } while (valide == FALSE);
+
+
+    //modification du contenu du fichier membre.txt
+    FILE *fichier_admin = NULL;
+    ajout_membre_fichier_membre(fichier_admin, &(saisie));
+
+    *tab_membre = rafrachir_tab_membre(*tab_membre, nb_membre); //modif du nombre d'identifiant
+
+    supr_console();
+    printf("%s %s a bien était ajouté comme nouveau membre\n", saisie.prenom, saisie.nom);
+
+    sleep(2);
+    supr_console();
 }

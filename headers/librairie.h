@@ -11,6 +11,7 @@
 #include "affichage.h"
 
 
+
 typedef struct {
     Admin **liste_admin;
     Livre **liste_livre;
@@ -25,10 +26,10 @@ typedef struct {
 void connexion();
 
 void saisie_nx_admin(Admin ***tab_admin, int *nb_identifiant);
-
 void supr_admin(Admin ***tab_admin, int *nb_identifiant);
-
 void affichage_liste_admin(Admin ***tab_identifiant, int *nb_identifiant);
+
+void saisie_nx_membre(Membre ***tab_membre, int *nb_membre);
 
 
 #endif /* librairie_h */

@@ -1,0 +1,12 @@
+id : 1 - Pierrick Delrieu
+adresse : 271 chemin des essarts 06270 Villeneuve Loubet France
+email : pierrickdelrieu@icloud.com - metier : etudiant
+
+id : 2 - Marie Amz
+adresse : 2 chemin des chenes 06800 Cagnes sur mer France
+email : marieamz@gmail.com - metier : designer
+
+id : 3 - Pierre Delrieu
+adresse : 271 chemin des essarts 06270 Villeneuve Loubet France
+email : pierredelrieu@gmail.com - metier : Syndic
+
