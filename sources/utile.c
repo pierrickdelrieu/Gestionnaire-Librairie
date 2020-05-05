@@ -1,4 +1,3 @@
-
 #include "../headers/utile.h"
 
 void supr_console(void) {
@@ -34,13 +33,11 @@ int compare_chaine_caractere(char *chaine1, char *chaine2) {
 
     retour = strcmp(chaine1, chaine2);
 
-    if(retour<0){
+    if (retour < 0) {
         return (-1);
-    }
-    else if (retour>0){
+    } else if (retour > 0) {
         return (1);
-    }
-    else{
+    } else {
         return (0);
     }
 }
@@ -48,4 +45,3 @@ int compare_chaine_caractere(char *chaine1, char *chaine2) {
 void affichage_date_du_jour(void) {
     system(strcmp(SYSTEME_EXPLOITATION, "win") == 0 ? "echo  %date%-%time%" : "date");
 }
-

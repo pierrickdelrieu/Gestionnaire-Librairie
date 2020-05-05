@@ -1,15 +1,19 @@
-03/04/2020:
+03/05/2020:
     - fix date : affiche la date correctement sur windows
     - reformat des fichiers (retour a la ligne, parenthese,...)
     - fix makefile pour utiliser le meme compiler et meme version
     - fix temporaire pour le mot de passe
 
+04/05/2020:
+    - préparation des fonctions pour le pret
+
+05/05/2020:
+    - isolation de la structure date pour plus de logique
+    - création des fonctions pour les prets
+        - initialisation d'un tableau a partir du fichier
+        - enregistrer dans le fichier
+    - creation d'une fonction pour simplifier les timestamps
+
+
 A FAIRE:
-    - fonction saisie livre
-        sauvegarde saisie livre :
-            id : int
-            id_membre : int
-            id_livre : int
-            date_emprunt int (timestamp)
-            date_remise int (timestamp + 3semaines)
-            etat : int
+    - implemanter les prets

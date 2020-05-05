@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <string.h>
 #include "../headers/librairie.h"
@@ -47,18 +46,18 @@ int main() {
             supr_console();
         } else {
             //Membres
-            if(choix_menu == 1){ //Information sur un membre
+            if (choix_menu == 1) { //Information sur un membre
                 affichage_info_membre(bibliotheque.gestion_membre.liste_membre, &(bibliotheque.gestion_membre.nb_membre));
             } else if (choix_menu == 2) { //consulter la liste des membres
                 affichage_liste_membre(bibliotheque.gestion_membre.liste_membre, &(bibliotheque.gestion_membre.nb_membre));
             } else if (choix_menu == 3) { //ajouter un membre
-                saisie_nx_membre(&(bibliotheque.gestion_membre.liste_membre),&(bibliotheque.gestion_membre.nb_membre),bibliotheque.donnee);
+                saisie_nx_membre(&(bibliotheque.gestion_membre.liste_membre), &(bibliotheque.gestion_membre.nb_membre), bibliotheque.donnee);
             } else if (choix_menu == 4) { //supprimer un membre
                 supr_membre(&(bibliotheque.gestion_membre.liste_membre), &(bibliotheque.gestion_membre.nb_membre));
             }
 
                 //Livres
-            else if(choix_menu == 5){ //Information sur un livre
+            else if (choix_menu == 5) { //Information sur un livre
                 printf("Information sur un livre\n");
             } else if (choix_menu == 6) { //consulter la liste des livres
                 printf("Consulter liste livres\n");
@@ -84,18 +83,21 @@ int main() {
                 saisie_nx_admin(&(bibliotheque.gestion_admin.liste_admin), &(bibliotheque.gestion_admin.nb_admin));
             } else if (choix_menu == 14) { //supprimer un admin
                 supr_admin(&(bibliotheque.gestion_admin.liste_admin), &(bibliotheque.gestion_admin.nb_admin));
-            } 
-
-            else if (choix_menu == 15) { //reinitialisé la librairie
-                reinitialise_librairie(bibliotheque.donnee,&(bibliotheque.gestion_membre.liste_membre),&(bibliotheque.gestion_membre.nb_membre), &(bibliotheque.gestion_admin.liste_admin), &(bibliotheque.gestion_admin.nb_admin));
+            } else if (choix_menu == 15) { //reinitialisé la librairie
+                reinitialise_librairie(
+                        bibliotheque.donnee,
+                        &(bibliotheque.gestion_membre.liste_membre),
+                        &(bibliotheque.gestion_membre.nb_membre),
+                        &(bibliotheque.gestion_admin.liste_admin),
+                        &(bibliotheque.gestion_admin.nb_admin)
+                );
             }
         }
     }
 
-
     //.....................Desalocation.memoire.....................
     lib_tab_admin(bibliotheque.gestion_admin.liste_admin, &(bibliotheque.gestion_admin.nb_admin));
-    lib_tab_membre(bibliotheque.gestion_membre.liste_membre,&(bibliotheque.gestion_membre.nb_membre));
+    lib_tab_membre(bibliotheque.gestion_membre.liste_membre, &(bibliotheque.gestion_membre.nb_membre));
 
     return 0;
 }
