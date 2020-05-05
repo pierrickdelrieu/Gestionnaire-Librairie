@@ -170,7 +170,7 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant) {
         //supression et recréation du contenu du fichier admin.txt
         FILE *fichier_admin = NULL;
         supr_admin_fichier_admin(fichier_admin, *(tab_admin), &saisie, nb_identifiant);
-        rafrachir_tab_admin(tab_admin, nb_identifiant);
+        rafrachir_tab_admin(tab_admin, nb_identifiant); //modif de la valeur de nb_id
 
         supr_console();
         printf("L'administrateur %ld a bien était suprimer\n", saisie.identifiant);
@@ -217,50 +217,113 @@ void saisie_nx_membre(Membre ***tab_membre, int *nb_membre, int tab_donnee[2]){
     supr_console();
 }
 
+void supr_membre(Membre ***tab_membre, int *nb_membre){
+
+    if (*nb_membre == 0) {
+        supr_console();
+        affichage_sous_titre("SUPRESSION D'UN MEMBRE");
+        printf("                        !!!Il y a aucun membre!!!\n");
+        sleep(2);
+        supr_console();
+    } else{
+        int i;
+        int choix;
+        int id_membre;
+        int valide = FALSE;
+
+        do{
+            supr_console();
+            affichage_sous_titre("SUPRESSION D'UN MEMBRE");
+            printf("     Saisir l'identifiant du membre a supprimer ou 0 pour retourner au menu : ");
+
+            valide = saisie_id_membre_tab_membre(*tab_membre,&id_membre,nb_membre);
+        }while((choix!=1) && (valide == FALSE));
+
+        // for(i=0; i<(*nb_membre); i++)
+        // {
+        //     if((*tab_membre)[i]->identifiant == id_membre){
+        //         affichage_toute_info_membre((*tab_membre)[i]);
+        //     }
+        // }
+
+        // printf("Voulez vous supprimer ce membre (1 : OUI - 0 : NON (retour au menu)): ");
+
+
+        //supression et recréation du contenu du fichier membre.txt
+        FILE *fichier_membre = NULL;
+        supr_membre_fichier_membre(fichier_membre,&id_membre,*tab_membre,nb_membre);
+        rafrachir_tab_membre(tab_membre,nb_membre); //modif de la valeur de nb_membre
+
+        supr_console();
+        printf("Le membre %d a bien était suprimer\n", id_membre);
+
+        sleep(2);
+        supr_console();
+    }
+}
+
+
 void affichage_liste_membre(Membre **tab_membre, int *nb_membre){
     int i;
     int choix;
-    
-    do{
+
+    if (*nb_membre == 0) {
         supr_console();
         affichage_sous_titre("AFFICHAGE DES MEMBRES");
-        for(i=0; i<(*nb_membre); i++)
-        {
-            afficher_membre(tab_membre[i]);
-        }
-
-        printf("     Saisir 1 pour revenir au menu : ");
-        scanf(" %d", &choix);
-           
-    }while(choix!=1);
-
-}
-
-void affichage_info_membre(Membre **tab_membre, int *nb_membre) {
-    int i;
-    int choix;
-    int id_membre;
-    int valide = FALSE;
-    
-    do{
+        printf("                        !!!Il y a aucun membre!!!\n");
+        sleep(2);
         supr_console();
-        affichage_sous_titre("AFFICHAGE DES MEMBRES");
-
-        if(valide == FALSE){
-            valide = saisie_id_membre_tab_membre(tab_membre,&id_membre,nb_membre);
-        }
-
-        if(valide == TRUE){
+    } else {
+        do{
+            supr_console();
+            affichage_sous_titre("AFFICHAGE DES MEMBRES");
+            printf("     La librairie contient %d membres\n\n",*nb_membre);
             for(i=0; i<(*nb_membre); i++)
             {
-                if(tab_membre[i]->identifiant == id_membre){
-                    afficher_toute_info_membre(tab_membre[i]);
-                }
+                afficher_membre(tab_membre[i]);
             }
 
             printf("     Saisir 1 pour revenir au menu : ");
-            scanf(" %d", &choix);
-        }
+            scanf(" %d", &choix);   
+        }while(choix!=1);
+    }
+}
+
+void affichage_info_membre(Membre **tab_membre, int *nb_membre) {
+
+    if (*nb_membre == 0) {
+        supr_console();
+        affichage_sous_titre("INFORMATION SUR UN MEMBRE");
+        printf("                        !!!Il y a aucun membre!!!\n");
+        sleep(2);
+        supr_console();
+    } else{
+        int i;
+        int choix;
+        int id_membre;
+        int valide = FALSE;
+
+        do{
+            supr_console();
+            affichage_sous_titre("INFORMATION SUR UN MEMBRE");
+            printf("     Saisir l'identifiant du membre ou 0 pour revenir au menu : ");
+
+            
+            valide = saisie_id_membre_tab_membre(tab_membre,&id_membre,nb_membre);
+            
+
+            if((valide == TRUE) && (id_membre != 0)){
+                for(i=0; i<(*nb_membre); i++)
+                {
+                    if(tab_membre[i]->identifiant == id_membre){
+                        afficher_toute_info_membre(tab_membre[i]);
+                    }
+                }
+
+                printf("     Saisir 1 pour revenir au menu : ");
+                scanf(" %d", &choix);
+            }
            
-    }while((choix!=1) && (valide == FALSE));
+        }while((choix!=1) && (valide == FALSE));
+    }
 }

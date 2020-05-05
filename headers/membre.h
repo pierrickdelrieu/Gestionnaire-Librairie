@@ -50,6 +50,7 @@ void afficher_toute_info_membre(Membre *membre);
 int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *nb_membre, int *nb_membre_totale) ;
 
 void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie);
+void supr_membre_fichier_membre(FILE *fichier_membre, int *id_membre, Membre **tab_membre, int *nb_membre);
 void rafrachir_tab_membre(Membre ***tab_membre, int *nb_membre);
 int* creer_tri_tab_membre(Membre **liste_membre, int *nb_membre);
 

@@ -31,6 +31,8 @@
     - ajout et mise en service des donnes depuis le debut de l'ouverture de la librairie 
             (ajout des identifiants membres generer a parti de cela)
     - ajout fonctionnalité de reinitialisation librairie
+    - ajour fonction de suppression mebre (pas fini)
+    - travailler sur les fonctions membres
 
 A FAIRE
     - creer historique de connexion

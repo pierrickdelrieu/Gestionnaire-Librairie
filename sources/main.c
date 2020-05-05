@@ -54,7 +54,7 @@ int main() {
             } else if (choix_menu == 3) { //ajouter un membre
                 saisie_nx_membre(&(bibliotheque.gestion_membre.liste_membre),&(bibliotheque.gestion_membre.nb_membre),bibliotheque.donnee);
             } else if (choix_menu == 4) { //supprimer un membre
-                printf("Supprimer un membre\n");
+                supr_membre(&(bibliotheque.gestion_membre.liste_membre), &(bibliotheque.gestion_membre.nb_membre));
             }
 
                 //Livres

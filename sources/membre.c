@@ -203,14 +203,14 @@ void afficher_membre(Membre *membre) {
 }
 
 void afficher_toute_info_membre(Membre *membre) {
-    printf("%s %s (identifiant : %d)\n",membre->prenom, membre->nom, membre->identifiant);
-    printf("     Adresse : "); 
+    printf("\n                    %s %s (identifiant : %d)\n",membre->prenom, membre->nom, membre->identifiant);
+    printf("                    Adresse : "); 
     afficher_adresse(&(membre->adresse));
-    printf("     Email : %s\n",membre->email);
-    printf("     Metier : %s\n", membre->metier);
+    printf("\n                    Email : %s\n",membre->email);
+    printf("                    Metier : %s\n", membre->metier);
 
     if((membre->liste_emprunt[0] == 0) && (membre->liste_emprunt[1] == 0) && (membre->liste_emprunt[2] == 0)){
-        printf("     Pret : Aucun pret en cour\n");
+        printf("                    Pret : Aucun pret en cour\n\n");
     }
 }
 
@@ -226,15 +226,20 @@ void lib_tab_membre(Membre **tab_membre, int *nb_membres) {
 }
 
 int saisie_id_membre_tab_membre(Membre **tab_membre, int* id_membre, int* nb_membre) {
-    printf("     Saisir l'identifiant du membre : ");
     scanf(" %d", id_membre);
-    
+
     int valide = FALSE;
-    int i;
-    for(i=0; i<*(nb_membre); i++)
-    {
-        if((*id_membre) == tab_membre[i]->identifiant){
+    
+    if((*id_membre) == 0){ // retour au menu
+        valide = TRUE;
+    } 
+    else{
+        int i;
+        for(i=0; i<*(nb_membre); i++)
+        {
+            if((*id_membre) == tab_membre[i]->identifiant){
             valide = TRUE;
+            }
         }
     }
 
@@ -275,6 +280,35 @@ void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie) {
         fprintf(fichier_membre, "adresse : %s | %s | %s | %s\n", saisie->adresse.rue, saisie->adresse.code_postal, saisie->adresse.ville, saisie->adresse.pays);
         fprintf(fichier_membre, "email : %s - metier : %s\n", saisie->email, saisie->metier);
         fprintf(fichier_membre, "pret : 0 - 0 - 0\n\n");
+
+        //Fermeture du fichier
+        fclose(fichier_membre);
+
+    } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
+        printf("Erreur au niveau de l'ouverture du fichier\n");
+        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
+        printf("Gerer ceci dans les préférence de votre ordinateur\n");
+        exit(0); //Fin du programme
+    }
+}
+
+
+void supr_membre_fichier_membre(FILE *fichier_membre, int *id_membre, Membre **tab_membre, int *nb_membre) {
+    fichier_membre = fopen("sauvegardes/membres.txt", "w"); //"w" correspond a l'ecriture - fopen renvoie un pointeur sur le fichier
+
+    if (fichier_membre != NULL) {
+
+        int i;
+
+        for(i=0; i<*(nb_membre); i++)
+        {
+            if(*id_membre != tab_membre[i]->identifiant){
+                fprintf(fichier_membre, "id : %d - %s %s\n", tab_membre[i]->identifiant, tab_membre[i]->prenom, tab_membre[i]->nom);
+                fprintf(fichier_membre, "adresse : %s | %s | %s | %s\n", tab_membre[i]->adresse.rue, tab_membre[i]->adresse.code_postal, tab_membre[i]->adresse.ville, tab_membre[i]->adresse.pays);
+                fprintf(fichier_membre, "email : %s - metier : %s\n", tab_membre[i]->email, tab_membre[i]->metier);
+                fprintf(fichier_membre, "pret : 0 - 0 - 0\n\n");
+            }
+        }
 
         //Fermeture du fichier
         fclose(fichier_membre);
