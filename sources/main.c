@@ -10,7 +10,7 @@ int main() {
     //Initialisation structure librairie
     Librairie bibliotheque;
 
-    //initialisation nb admin et tab admin
+    //initialisation du choix de l'utilisateur dans le menu
     int choix_menu;
 
     //Recupération des sauvegardes
@@ -21,8 +21,6 @@ int main() {
     bibliotheque.gestion_membre.liste_membre = creer_tab_membre(&(bibliotheque.gestion_membre.nb_membre));
 
     creer_tab_donnee(bibliotheque.donnee);
-
-    // reinitialise_librairie(bibliotheque.donnee,&(bibliotheque.gestion_membre.liste_membre),&(bibliotheque.gestion_membre.nb_membre), &(bibliotheque.gestion_admin.liste_admin), &(bibliotheque.gestion_admin.nb_admin));
 
 
     //.....................Gestion.librairie.....................
