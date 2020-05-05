@@ -1,4 +1,4 @@
-01/04/2020 :
+01/05/2020 :
     - creation repository git partagé
     - creation de la structure des fichiers du projet 
     - creation de tous les champs des structures
@@ -6,7 +6,7 @@
     - creation fonction date et adresse
     - commencemant creation fonctions membre
 
-02/04/2020 :
+02/05/2020 :
     - travaille sur les fonctions structure admin
     - architecture du main
     - creation fonction affichage (titre et sous titre)
@@ -14,18 +14,23 @@
     - creation ecran de connexion
     - creation menu du gestionnaire
 
-03/04/2020 :
+03/05/2020 :
     - finalisation structure admin
     - modif avec romain des quelques fonctions d'affichages
     - creation fonction creation_tab_membre et desalocation
     - creation fonction saisie identifiant
 
-04/04/2020 :
+04/05/2020 :
     - fonction saisie nouveau membre ok
     - ajout structure donnee librairie contenant les valeurs de la librairie depuis l'ouverture
     - ajout d'un fichier donnee.txt contenant les valeurs de la librairie depuis l'ouverture
     - modif fonction rafraichir tab admin
     - securisation de la suppression de l'admin programmeur
+
+05/05/2020 :
+    - ajout et mise en service des donnes depuis le debut de l'ouverture de la librairie 
+            (ajout des identifiants membres generer a parti de cela)
+    - ajout fonctionnalité de reinitialisation librairie
 
 A FAIRE
     - creer historique de connexion

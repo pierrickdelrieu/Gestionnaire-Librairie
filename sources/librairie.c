@@ -13,11 +13,8 @@ void reinitialise_librairie(int tab_donnee[2], Membre ***tab_membre,int *nb_memb
     }while((choix != 0) && (choix != 1));
 
     if(choix == 1){
-        FILE *fichier_donnee = NULL;
-        fichier_donnee = fopen("sauvegardes/donnee.txt", "w"); //"W" correspond a la lecture seul - fopen renvoie un pointeur sur le fichier
-        fprintf(fichier_donnee, "nombre de membres total : 0\n");
-        fprintf(fichier_donnee, "nombre de livres total : 0\n");
-        fclose(fichier_donnee);
+        tab_donnee[0] = 0; //reinitialisation des membres
+        tab_donnee[1] = 0; //reinitialisation des livres
 
         FILE *fichier_membre = NULL;
         fichier_membre = fopen("sauvegardes/membres.txt", "w"); //"r" correspond a la lecture seul - fopen renvoie un pointeur sur le fichier
@@ -28,7 +25,7 @@ void reinitialise_librairie(int tab_donnee[2], Membre ***tab_membre,int *nb_memb
         fprintf(fichier_admin, "id : %d mp : %s\n",ID_PROGRAMMEUR,MP_PROGRAMMEUR);
         fclose(fichier_admin);
 
-        rafrachir_tab_donnee(tab_donnee);
+        rafrachir_fichier_donnee(tab_donnee);
         rafrachir_tab_membre(tab_membre, nb_membre);
         rafrachir_tab_admin(tab_admin, nb_admin);
 
@@ -60,14 +57,14 @@ void creer_tab_donnee(int tab[2]) {
     }
 }
 
-void rafrachir_tab_donnee(int tab[2]){
+void rafrachir_fichier_donnee(int* tab){
     FILE *fichier_donnee = NULL;
-    fichier_donnee = fopen("sauvegardes/donnee.txt", "r"); //"r" correspond a l'ecriture seul - fopen renvoie un pointeur sur le fichier
+    fichier_donnee = fopen("sauvegardes/donnee.txt", "w"); //"w" correspond a l'ecriture seul - fopen renvoie un pointeur sur le fichier
 
     if (fichier_donnee != NULL) {
 
-        fscanf(fichier_donnee, "nombre de membres total : %d\n", &(tab[0]));
-        fscanf(fichier_donnee, "nombre de livres total : %d\n", &(tab[1]));
+        fprintf(fichier_donnee, "nombre de membres total : %d\n", tab[0]);
+        fprintf(fichier_donnee, "nombre de livres total : %d\n", tab[1]);
 
         //Fermeture du fichier
         fclose(fichier_donnee);
@@ -210,7 +207,7 @@ void saisie_nx_membre(Membre ***tab_membre, int *nb_membre, int tab_donnee[2]){
 
     tab_donnee[0] ++;
 
-    rafrachir_tab_donnee(tab_donnee);
+    rafrachir_fichier_donnee(tab_donnee);
     
 
     supr_console();

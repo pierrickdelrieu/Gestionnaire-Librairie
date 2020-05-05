@@ -45,7 +45,7 @@ typedef struct {
 void connexion();
 
 void creer_tab_donnee(int tab[2]);
-void rafrachir_tab_donnee(int tab[2]);
+void rafrachir_fichier_donnee(int tab[2]);
 
 
 void saisie_nx_admin(Admin ***tab_admin, int *nb_identifiant);

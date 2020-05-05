@@ -96,7 +96,7 @@ Membre **creer_tab_membre(int *nb_membre) {
         for (i = 0; i < (*nb_membre); i++) {
             liste_membres[i] = creer_struct_membre();
             fscanf(fichier_membre, "id : %d - %s %s\n", &(liste_membres[i]->identifiant), liste_membres[i]->prenom, liste_membres[i]->nom);
-            fscanf(fichier_membre, "adresse : %s / %s / %s / %s\n", liste_membres[i]->adresse.rue, liste_membres[i]->adresse.code_postal, liste_membres[i]->adresse.ville, liste_membres[i]->adresse.pays);
+            fscanf(fichier_membre, "adresse : %s | %s | %s | %s\n", liste_membres[i]->adresse.rue, liste_membres[i]->adresse.code_postal, liste_membres[i]->adresse.ville, liste_membres[i]->adresse.pays);
             fscanf(fichier_membre, "email : %s - metier : %s\n", liste_membres[i]->email, liste_membres[i]->metier);
             fscanf(fichier_membre, "pret : %d - %d - %d\n\n", &(liste_membres[i]->liste_emprunt[0]), &(liste_membres[i]->liste_emprunt[1]), &(liste_membres[i]->liste_emprunt[2]));
         }
@@ -272,7 +272,7 @@ void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie) {
     if (fichier_membre != NULL) {
 
         fprintf(fichier_membre, "id : %d - %s %s\n", saisie->identifiant, saisie->prenom, saisie->nom);
-        fprintf(fichier_membre, "adresse : %s / %s / %s / %s\n", saisie->adresse.rue, saisie->adresse.code_postal, saisie->adresse.ville, saisie->adresse.pays);
+        fprintf(fichier_membre, "adresse : %s | %s | %s | %s\n", saisie->adresse.rue, saisie->adresse.code_postal, saisie->adresse.ville, saisie->adresse.pays);
         fprintf(fichier_membre, "email : %s - metier : %s\n", saisie->email, saisie->metier);
         fprintf(fichier_membre, "pret : 0 - 0 - 0\n\n");
 
