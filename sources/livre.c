@@ -1,4 +1,3 @@
-
 #include "../headers/livre.h"
 
 void saisir_date(Date *d) {

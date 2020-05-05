@@ -1,4 +1,3 @@
-
 #include "../headers/membre.h"
 
 
@@ -43,7 +42,7 @@ void calcul_nb_membre(int *nb_membre) {
         //Fermeture du fichier
         fclose(fichier_membre);
 
-        *nb_membre = (*nb_membre) / 5; 
+        *nb_membre = (*nb_membre) / 5;
 
     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
         printf("Erreur au niveau de l'ouverture du fichier\n");
@@ -53,22 +52,20 @@ void calcul_nb_membre(int *nb_membre) {
     }
 }
 
-int* creer_tri_tab_membre(Membre **liste_membre, int *nb_membre){
+int *creer_tri_tab_membre(Membre **liste_membre, int *nb_membre) {
 
     /* le tableau tri_tab membre contient les identifiant des membres de manieres trier (nom)
     */
     int *tri_tab = NULL;
 
-    tri_tab = (int*) malloc((*nb_membre) * sizeof(int));
+    tri_tab = (int *) malloc((*nb_membre) * sizeof(int));
 
     int i, j;
     int position_tab;
-    for(i=0; i<(*nb_membre); i++)
-    {
+    for (i = 0; i < (*nb_membre); i++) {
         position_tab = 0;
-        for(j=0; j<(*nb_membre); i++)
-        {
-            if(compare_chaine_caractere(liste_membre[i]->nom, liste_membre[j]->nom) == 1){
+        for (j = 0; j < (*nb_membre); i++) {
+            if (compare_chaine_caractere(liste_membre[i]->nom, liste_membre[j]->nom) == 1) {
                 position_tab++;
             }
         }
@@ -96,7 +93,8 @@ Membre **creer_tab_membre(int *nb_membre) {
         for (i = 0; i < (*nb_membre); i++) {
             liste_membres[i] = creer_struct_membre();
             fscanf(fichier_membre, "id : %d - %s %s\n", &(liste_membres[i]->identifiant), liste_membres[i]->prenom, liste_membres[i]->nom);
-            fscanf(fichier_membre, "adresse : %s | %s | %s | %s\n", liste_membres[i]->adresse.rue, liste_membres[i]->adresse.code_postal, liste_membres[i]->adresse.ville, liste_membres[i]->adresse.pays);
+            fscanf(fichier_membre, "adresse : %s | %s | %s | %s\n", liste_membres[i]->adresse.rue, liste_membres[i]->adresse.code_postal, liste_membres[i]->adresse.ville,
+                   liste_membres[i]->adresse.pays);
             fscanf(fichier_membre, "email : %s - metier : %s\n", liste_membres[i]->email, liste_membres[i]->metier);
             fscanf(fichier_membre, "pret : %d - %d - %d\n\n", &(liste_membres[i]->liste_emprunt[0]), &(liste_membres[i]->liste_emprunt[1]), &(liste_membres[i]->liste_emprunt[2]));
         }
@@ -137,11 +135,10 @@ int saisie_adresse(Adresse *a) {
     printf("          Pays : ");
     valide = saisie_chaine_caractere(a->pays, 20);
     valide_tot = valide_tot + valide;
-    
-    if(valide_tot == 4){
+
+    if (valide_tot == 4) {
         return (TRUE);
-    }
-    else{
+    } else {
         return (FALSE);
     }
 }
@@ -151,8 +148,7 @@ void afficher_adresse(Adresse *a) {
 }
 
 
-
-int saisie_champs_membre(Membre *membre, int* nb_membres_totale) {
+int saisie_champs_membre(Membre *membre, int *nb_membres_totale) {
     int valide;
     int valide_tot = 0; //5 si pas d'erreur
 
@@ -173,8 +169,8 @@ int saisie_champs_membre(Membre *membre, int* nb_membres_totale) {
     printf("     Email : ");
     valide = saisie_chaine_caractere(membre->email, 40);
     position_cara_arobase = strchr(membre->email, '@');
-    if(valide == TRUE){
-        if(position_cara_arobase == NULL){
+    if (valide == TRUE) {
+        if (position_cara_arobase == NULL) {
             valide = FALSE;
         }
     }
@@ -186,10 +182,9 @@ int saisie_champs_membre(Membre *membre, int* nb_membres_totale) {
 
     membre->identifiant = *nb_membres_totale + 1;
 
-    if(valide_tot == 5){
+    if (valide_tot == 5) {
         return (TRUE);
-    }
-    else{
+    } else {
         return (FALSE);
     }
 }
@@ -203,13 +198,13 @@ void afficher_membre(Membre *membre) {
 }
 
 void afficher_toute_info_membre(Membre *membre) {
-    printf("\n                    %s %s (identifiant : %d)\n",membre->prenom, membre->nom, membre->identifiant);
-    printf("                    Adresse : "); 
+    printf("\n                    %s %s (identifiant : %d)\n", membre->prenom, membre->nom, membre->identifiant);
+    printf("                    Adresse : ");
     afficher_adresse(&(membre->adresse));
-    printf("\n                    Email : %s\n",membre->email);
+    printf("\n                    Email : %s\n", membre->email);
     printf("                    Metier : %s\n", membre->metier);
 
-    if((membre->liste_emprunt[0] == 0) && (membre->liste_emprunt[1] == 0) && (membre->liste_emprunt[2] == 0)){
+    if ((membre->liste_emprunt[0] == 0) && (membre->liste_emprunt[1] == 0) && (membre->liste_emprunt[2] == 0)) {
         printf("                    Pret : Aucun pret en cour\n\n");
     }
 }
@@ -225,20 +220,18 @@ void lib_tab_membre(Membre **tab_membre, int *nb_membres) {
     free(tab_membre);
 }
 
-int saisie_id_membre_tab_membre(Membre **tab_membre, int* id_membre, int* nb_membre) {
+int saisie_id_membre_tab_membre(Membre **tab_membre, int *id_membre, int *nb_membre) {
     scanf(" %d", id_membre);
 
     int valide = FALSE;
-    
-    if((*id_membre) == 0){ // retour au menu
+
+    if ((*id_membre) == 0) { // retour au menu
         valide = TRUE;
-    } 
-    else{
+    } else {
         int i;
-        for(i=0; i<*(nb_membre); i++)
-        {
-            if((*id_membre) == tab_membre[i]->identifiant){
-            valide = TRUE;
+        for (i = 0; i < *(nb_membre); i++) {
+            if ((*id_membre) == tab_membre[i]->identifiant) {
+                valide = TRUE;
             }
         }
     }
@@ -300,9 +293,8 @@ void supr_membre_fichier_membre(FILE *fichier_membre, int *id_membre, Membre **t
 
         int i;
 
-        for(i=0; i<*(nb_membre); i++)
-        {
-            if(*id_membre != tab_membre[i]->identifiant){
+        for (i = 0; i < *(nb_membre); i++) {
+            if (*id_membre != tab_membre[i]->identifiant) {
                 fprintf(fichier_membre, "id : %d - %s %s\n", tab_membre[i]->identifiant, tab_membre[i]->prenom, tab_membre[i]->nom);
                 fprintf(fichier_membre, "adresse : %s | %s | %s | %s\n", tab_membre[i]->adresse.rue, tab_membre[i]->adresse.code_postal, tab_membre[i]->adresse.ville, tab_membre[i]->adresse.pays);
                 fprintf(fichier_membre, "email : %s - metier : %s\n", tab_membre[i]->email, tab_membre[i]->metier);

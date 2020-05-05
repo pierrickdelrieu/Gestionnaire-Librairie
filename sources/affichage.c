@@ -1,4 +1,3 @@
-
 #include "../headers/affichage.h"
 
 
@@ -11,11 +10,10 @@ void affichage_titre_app() {
 void affichage_choix_menu(int *choix) {
     int valide;
 
-    do{
+    do {
         supr_console();
         valide = TRUE;
         affichage_titre_app();
-        printf("Connexion : \n");
         affichage_date_du_jour();
 
         printf("\n\n\n");
@@ -23,10 +21,10 @@ void affichage_choix_menu(int *choix) {
         printf("     |    1- Information sur un membre                                           |\n");
         printf("     |    2- Consulter la liste des membres                                      |\n");
         printf("     |    3- Ajouter un membre                                                   |\n");
-        printf("     |    4- Supprimer un membre                                                 |\n");        
+        printf("     |    4- Supprimer un membre                                                 |\n");
         printf("     |                                                                           |\n");
         printf("     |    5- Information sur un livre                                            |\n");
-        printf("     |    6- Consulter la listes des livres                                      |\n");                                                      
+        printf("     |    6- Consulter la listes des livres                                      |\n");
         printf("     |    7- Ajouter un livre                                                    |\n");
         printf("     |    8- Supprimer un livre                                                  |\n");
         printf("     |                                                                           |\n");
@@ -48,10 +46,10 @@ void affichage_choix_menu(int *choix) {
 
         if ((*choix != 0) && (*choix != 1) && (*choix != 2) && (*choix != 3) && (*choix != 4) && (*choix != 5) && (*choix != 6) && (*choix != 7) && (*choix != 8) && (*choix != 9) && (*choix != 10) &&
             (*choix != 11) && (*choix != 12) && (*choix != 13) && (*choix != 14) && (*choix != 15)) {
-            valide =  FALSE;
+            valide = FALSE;
         }
 
-    }while(valide == FALSE);
+    } while (valide == FALSE);
 
 }
 

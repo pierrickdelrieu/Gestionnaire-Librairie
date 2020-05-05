@@ -1,4 +1,3 @@
-
 #ifndef utile_h
 #define utile_h
 
@@ -7,6 +6,8 @@
 #include <string.h>
 #include <string.h>
 #include <unistd.h>
+
+#include "date.h"
 
 #define TRUE 1
 #define FALSE 0
