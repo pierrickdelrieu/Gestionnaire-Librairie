@@ -44,7 +44,7 @@ int main() {
         } else {
             //Membres
             if(choix_menu == 1){ //Information sur un membre
-                printf("Information sur un membre\n");
+                affichage_info_membre(bibliotheque.gestion_membre.liste_membre, &(bibliotheque.gestion_membre.nb_membre));
             } else if (choix_menu == 2) { //consulter la liste des membres
                 affichage_liste_membre(bibliotheque.gestion_membre.liste_membre, &(bibliotheque.gestion_membre.nb_membre));
             } else if (choix_menu == 3) { //ajouter un membre

@@ -155,3 +155,32 @@ void affichage_liste_membre(Membre **tab_membre, int *nb_membre){
     }while(choix!=1);
 
 }
+
+void affichage_info_membre(Membre **tab_membre, int *nb_membre) {
+    int i;
+    int choix;
+    int id_membre;
+    int valide = FALSE;
+    
+    do{
+        supr_console();
+        affichage_sous_titre("AFFICHAGE DES MEMBRES");
+
+        if(valide == FALSE){
+            valide = saisie_id_membre_tab_membre(tab_membre,&id_membre,nb_membre);
+        }
+
+        if(valide == TRUE){
+            for(i=0; i<(*nb_membre); i++)
+            {
+                if(tab_membre[i]->identifiant == id_membre){
+                    afficher_toute_info_membre(tab_membre[i]);
+                }
+            }
+
+            printf("     Saisir 1 pour revenir au menu : ");
+            scanf(" %d", &choix);
+        }
+           
+    }while((choix!=1) && (valide == FALSE));
+}

@@ -50,5 +50,6 @@ void affichage_liste_admin(Admin ***tab_identifiant, int *nb_identifiant);
 void saisie_nx_membre(Membre ***tab_membre, int *nb_membre);
 void affichage_liste_membre(Membre **tab_membre, int *nb_membre);
 
+void affichage_info_membre(Membre **tab_membre, int *nb_membre);
 
 #endif /* librairie_h */

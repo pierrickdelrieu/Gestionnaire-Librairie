@@ -25,14 +25,14 @@ void affichage_choix_menu(int *choix) {
         printf("     |    3- Ajouter un membre                                                   |\n");
         printf("     |    4- Supprimer un membre                                                 |\n");        
         printf("     |                                                                           |\n");
-        printf("     |    5- Information sur un livre                                           |\n");
+        printf("     |    5- Information sur un livre                                            |\n");
         printf("     |    6- Consulter la listes des livres                                      |\n");                                                      
         printf("     |    7- Ajouter un livre                                                    |\n");
         printf("     |    8- Supprimer un livre                                                  |\n");
         printf("     |                                                                           |\n");
         printf("     |    9- Consulter la liste des prêts                                        |\n");
-        printf("     |    10- Ajouter le pret d'un livre                                          |\n");
-        printf("     |    11- Restituer un livre (supprimer le pret)                              |\n");
+        printf("     |    10- Ajouter le pret d'un livre                                         |\n");
+        printf("     |    11- Restituer un livre (supprimer le pret)                             |\n");
         printf("     |                                                                           |\n");
         printf("     |    12- Consulter la liste des administrateurs de la librairie             |\n");
         printf("     |    13- Ajouter un administrateur de la librairie                          |\n");

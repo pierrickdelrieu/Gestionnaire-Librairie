@@ -42,9 +42,10 @@ void calcul_nb_membre(int *nb_membre);
 Membre **creer_tab_membre(int *nb_membre);
 void lib_tab_membre(Membre **tab_membre, int *nb_membres);
 
-int saisie_id_membre(int* id_membre, int* nb_membre);
+int saisie_id_membre_tab_membre(Membre **tab_membre, int* id_membre, int* nb_membre);
 int saisie_champs_membre(Membre *membre, int* nb_membres);
 void afficher_membre(Membre *membre);
+void afficher_toute_info_membre(Membre *membre);
 
 int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *nb_membre) ;
 

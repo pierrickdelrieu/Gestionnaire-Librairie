@@ -202,6 +202,18 @@ void afficher_membre(Membre *membre) {
     printf("     email : %s     metier : %s\n", membre->email, membre->metier);
 }
 
+void afficher_toute_info_membre(Membre *membre) {
+    printf("%s %s (identifiant : %d)\n",membre->prenom, membre->nom, membre->identifiant);
+    printf("     Adresse : "); 
+    afficher_adresse(&(membre->adresse));
+    printf("     Email : %s\n",membre->email);
+    printf("     Metier : %s\n", membre->metier);
+
+    if((membre->liste_emprunt[0] == 0) && (membre->liste_emprunt[1] == 0) && (membre->liste_emprunt[2] == 0)){
+        printf("     Pret : Aucun pret en cour\n");
+    }
+}
+
 
 void lib_tab_membre(Membre **tab_membre, int *nb_membres) {
     int i;
@@ -213,16 +225,20 @@ void lib_tab_membre(Membre **tab_membre, int *nb_membres) {
     free(tab_membre);
 }
 
-int saisie_id_membre(int* id_membre, int* nb_membre) {
+int saisie_id_membre_tab_membre(Membre **tab_membre, int* id_membre, int* nb_membre) {
     printf("     Saisir l'identifiant du membre : ");
     scanf(" %d", id_membre);
     
-    if(*id_membre <= *nb_membre){
-        return (TRUE);
+    int valide = FALSE;
+    int i;
+    for(i=0; i<*(nb_membre); i++)
+    {
+        if((*id_membre) == tab_membre[i]->identifiant){
+            valide = TRUE;
+        }
     }
-    else{
-        return (FALSE);
-    }
+
+    return (valide);
 }
 
 int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *nb_membre) {
