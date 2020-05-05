@@ -43,7 +43,7 @@ void calcul_nb_membre(int *nb_membre) {
         //Fermeture du fichier
         fclose(fichier_membre);
 
-        *nb_membre = (*nb_membre) / 5; 
+        *nb_membre = (*nb_membre) / 11; 
 
     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
         printf("Erreur au niveau de l'ouverture du fichier\n");
@@ -95,12 +95,18 @@ Membre **creer_tab_membre(int *nb_membre) {
 
         for (i = 0; i < (*nb_membre); i++) {
             liste_membres[i] = creer_struct_membre();
-            fscanf(fichier_membre, "id : %d - %s %s\n", &(liste_membres[i]->identifiant), liste_membres[i]->prenom, liste_membres[i]->nom);
-            fscanf(fichier_membre, "adresse : %s | %s | %s | %s\n", liste_membres[i]->adresse.rue, liste_membres[i]->adresse.code_postal, liste_membres[i]->adresse.ville, liste_membres[i]->adresse.pays);
-            fscanf(fichier_membre, "email : %s - metier : %s\n", liste_membres[i]->email, liste_membres[i]->metier);
+            fscanf(fichier_membre, "id : %d\n", &(liste_membres[i]->identifiant));
+            fgets(liste_membres[i]->prenom, 20, fichier_membre);
+            fgets(liste_membres[i]->nom, 20, fichier_membre);
+            fgets(liste_membres[i]->adresse.rue, 50, fichier_membre);
+            fgets(liste_membres[i]->adresse.code_postal, 6, fichier_membre);
+            fgets(liste_membres[i]->adresse.ville, 30, fichier_membre);
+            fgets(liste_membres[i]->adresse.pays, 20, fichier_membre);
+            fgets(liste_membres[i]->email, 40, fichier_membre);
+            fgets(liste_membres[i]->metier, 30, fichier_membre);
             fscanf(fichier_membre, "pret : %d - %d - %d\n\n", &(liste_membres[i]->liste_emprunt[0]), &(liste_membres[i]->liste_emprunt[1]), &(liste_membres[i]->liste_emprunt[2]));
         }
-
+        
         //Fermeture du fichier
         fclose(fichier_membre);
 
@@ -276,9 +282,10 @@ void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie) {
 
     if (fichier_membre != NULL) {
 
-        fprintf(fichier_membre, "id : %d - %s %s\n", saisie->identifiant, saisie->prenom, saisie->nom);
-        fprintf(fichier_membre, "adresse : %s | %s | %s | %s\n", saisie->adresse.rue, saisie->adresse.code_postal, saisie->adresse.ville, saisie->adresse.pays);
-        fprintf(fichier_membre, "email : %s - metier : %s\n", saisie->email, saisie->metier);
+        fprintf(fichier_membre, "id : %d\n", saisie->identifiant);
+        fprintf(fichier_membre, "%s\n%s\n", saisie->prenom,saisie->nom);
+        fprintf(fichier_membre, "%s\n%s\n%s\n%s\n", saisie->adresse.rue,saisie->adresse.code_postal, saisie->adresse.ville, saisie->adresse.pays);
+        fprintf(fichier_membre, "%s\n%s\n", saisie->email,saisie->metier);
         fprintf(fichier_membre, "pret : 0 - 0 - 0\n\n");
 
         //Fermeture du fichier
@@ -303,10 +310,11 @@ void supr_membre_fichier_membre(FILE *fichier_membre, int *id_membre, Membre **t
         for(i=0; i<*(nb_membre); i++)
         {
             if(*id_membre != tab_membre[i]->identifiant){
-                fprintf(fichier_membre, "id : %d - %s %s\n", tab_membre[i]->identifiant, tab_membre[i]->prenom, tab_membre[i]->nom);
-                fprintf(fichier_membre, "adresse : %s | %s | %s | %s\n", tab_membre[i]->adresse.rue, tab_membre[i]->adresse.code_postal, tab_membre[i]->adresse.ville, tab_membre[i]->adresse.pays);
-                fprintf(fichier_membre, "email : %s - metier : %s\n", tab_membre[i]->email, tab_membre[i]->metier);
-                fprintf(fichier_membre, "pret : 0 - 0 - 0\n\n");
+                fprintf(fichier_membre, "id : %d\n", tab_membre[i]->identifiant);
+                fprintf(fichier_membre, "%s\n%s\n", tab_membre[i]->prenom ,tab_membre[i]->nom);
+                fprintf(fichier_membre, "%s\n%s\n%s\n%s\n", tab_membre[i]->adresse.rue, tab_membre[i]->adresse.code_postal, tab_membre[i]->adresse.ville, tab_membre[i]->adresse.pays);
+                fprintf(fichier_membre, "%s\n%s\n", tab_membre[i]->email,tab_membre[i]->metier);
+                fprintf(fichier_membre, "pret : %d - %d - %d\n\n", tab_membre[i]->liste_emprunt[0],tab_membre[i]->liste_emprunt[1],tab_membre[i]->liste_emprunt[2]);
             }
         }
 
