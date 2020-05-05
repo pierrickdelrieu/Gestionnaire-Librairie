@@ -10,7 +10,7 @@
 
 typedef struct {
     char rue[50];
-    char code_postal[6];
+    char code_postal[10];
     char ville[30];
     char pays[20];
 } Adresse;
