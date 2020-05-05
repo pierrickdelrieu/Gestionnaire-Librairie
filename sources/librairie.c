@@ -1,6 +1,44 @@
 
 #include "../headers/librairie.h"
 
+void reinitialise_librairie(int tab_donnee[2], Membre ***tab_membre,int *nb_membre, Admin ***tab_admin, int *nb_admin) {
+    int choix;
+
+    do{
+        supr_console();
+        affichage_sous_titre("REINITIALISATION DONNEE LIBRAIRIE");
+        printf("     Cette opération est irréversible\n\n\n");
+        printf("Saisir 1 pour valider et 0 pour quitter : ");
+        scanf(" %d", &choix);
+    }while((choix != 0) && (choix != 1));
+
+    if(choix == 1){
+        FILE *fichier_donnee = NULL;
+        fichier_donnee = fopen("sauvegardes/donnee.txt", "w"); //"W" correspond a la lecture seul - fopen renvoie un pointeur sur le fichier
+        fprintf(fichier_donnee, "nombre de membres total : 0\n");
+        fprintf(fichier_donnee, "nombre de livres total : 0\n");
+        fclose(fichier_donnee);
+
+        FILE *fichier_membre = NULL;
+        fichier_membre = fopen("sauvegardes/membres.txt", "w"); //"r" correspond a la lecture seul - fopen renvoie un pointeur sur le fichier
+        fclose(fichier_membre);
+
+        FILE *fichier_admin = NULL;
+        fichier_admin = fopen("sauvegardes/admin.txt", "w"); //"r" correspond a la lecture seul - fopen renvoie un pointeur sur le fichier
+        fprintf(fichier_admin, "id : %d mp : %s\n",ID_PROGRAMMEUR,MP_PROGRAMMEUR);
+        fclose(fichier_admin);
+
+        rafrachir_tab_donnee(tab_donnee);
+        rafrachir_tab_membre(tab_membre, nb_membre);
+        rafrachir_tab_admin(tab_admin, nb_admin);
+
+        supr_console();
+        printf("Toutes les données (membres, admin, livres, prets) de la librairies ont été supprimés\n");
+
+        sleep(2);
+        supr_console();
+    }
+}
 
 void creer_tab_donnee(int tab[2]) {
     FILE *fichier_donnee = NULL;
@@ -24,12 +62,12 @@ void creer_tab_donnee(int tab[2]) {
 
 void rafrachir_tab_donnee(int tab[2]){
     FILE *fichier_donnee = NULL;
-    fichier_donnee = fopen("sauvegardes/donnee.txt", "w"); //"r" correspond a l'ecriture seul - fopen renvoie un pointeur sur le fichier
+    fichier_donnee = fopen("sauvegardes/donnee.txt", "r"); //"r" correspond a l'ecriture seul - fopen renvoie un pointeur sur le fichier
 
     if (fichier_donnee != NULL) {
 
-        fprintf(fichier_donnee, "nombre de membres total : %d\n", tab[0]);
-        fprintf(fichier_donnee, "nombre de livres total : %d\n", tab[1]);
+        fscanf(fichier_donnee, "nombre de membres total : %d\n", &(tab[0]));
+        fscanf(fichier_donnee, "nombre de livres total : %d\n", &(tab[1]));
 
         //Fermeture du fichier
         fclose(fichier_donnee);

@@ -23,6 +23,8 @@ int main() {
 
     creer_tab_donnee(bibliotheque.donnee);
 
+    // reinitialise_librairie(bibliotheque.donnee,&(bibliotheque.gestion_membre.liste_membre),&(bibliotheque.gestion_membre.nb_membre), &(bibliotheque.gestion_admin.liste_admin), &(bibliotheque.gestion_admin.nb_admin));
+
 
     //.....................Gestion.librairie.....................
 
@@ -82,6 +84,10 @@ int main() {
                 saisie_nx_admin(&(bibliotheque.gestion_admin.liste_admin), &(bibliotheque.gestion_admin.nb_admin));
             } else if (choix_menu == 14) { //supprimer un admin
                 supr_admin(&(bibliotheque.gestion_admin.liste_admin), &(bibliotheque.gestion_admin.nb_admin));
+            } 
+
+            else if (choix_menu == 15) { //reinitialisé la librairie
+                reinitialise_librairie(bibliotheque.donnee,&(bibliotheque.gestion_membre.liste_membre),&(bibliotheque.gestion_membre.nb_membre), &(bibliotheque.gestion_admin.liste_admin), &(bibliotheque.gestion_admin.nb_admin));
             }
         }
     }

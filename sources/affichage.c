@@ -38,6 +38,8 @@ void affichage_choix_menu(int *choix) {
         printf("     |    13- Ajouter un administrateur de la librairie                          |\n");
         printf("     |    14- Supprimer un administrateur de la librairie                        |\n");
         printf("     |                                                                           |\n");
+        printf("     |    15- Reinitialisé toutes les données de la librairie                    |\n");
+        printf("     |                                                                           |\n");
         printf("     |    0- Quitter                                                             |\n");
         printf("     =============================================================================\n\n");
 
@@ -45,7 +47,7 @@ void affichage_choix_menu(int *choix) {
         scanf(" %d", choix);
 
         if ((*choix != 0) && (*choix != 1) && (*choix != 2) && (*choix != 3) && (*choix != 4) && (*choix != 5) && (*choix != 6) && (*choix != 7) && (*choix != 8) && (*choix != 9) && (*choix != 10) &&
-            (*choix != 11) && (*choix != 12) && (*choix != 13) && (*choix != 14)) {
+            (*choix != 11) && (*choix != 12) && (*choix != 13) && (*choix != 14) && (*choix != 15)) {
             valide =  FALSE;
         }
 

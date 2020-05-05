@@ -31,10 +31,11 @@ typedef struct
     int nb_pret;
 }Liste_pret;
 
+void reinitialise_librairie(int tab_donnee[2], Membre ***tab_membre,int *nb_membre, Admin ***tab_admin, int *nb_admin);
 
 typedef struct {
     int donnee[2];  //donnee[0] = nombre de membre depuis l'ouverture de la librairie
-                    //donnee[1] = nombre de membre depuis l'ouverture de la librairie
+                    // donnee[1] = nombre de livre depuis l'ouverture de la librairie
     Liste_admin gestion_admin;
     Liste_membre gestion_membre;
     Liste_livre gestion_livre;

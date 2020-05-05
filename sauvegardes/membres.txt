@@ -1,5 +1,0 @@
-id : 11 - Pierrick Delrieu
-adresse : 271 / 06270 / Villeneuve / France
-email : pierrickdelrieu@gmail.com - metier : Etudiant
-pret : 0 - 0 - 0
-
