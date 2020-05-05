@@ -96,7 +96,7 @@ Membre **creer_tab_membre(int *nb_membre) {
         for (i = 0; i < (*nb_membre); i++) {
             liste_membres[i] = creer_struct_membre();
             fscanf(fichier_membre, "id : %d - %s %s\n", &(liste_membres[i]->identifiant), liste_membres[i]->prenom, liste_membres[i]->nom);
-            fscanf(fichier_membre, "adresse : %s %s %s %s\n", liste_membres[i]->adresse.adresse, liste_membres[i]->adresse.code_postal, liste_membres[i]->adresse.ville, liste_membres[i]->adresse.pays);
+            fscanf(fichier_membre, "adresse : %s / %s / %s / %s\n", liste_membres[i]->adresse.rue, liste_membres[i]->adresse.code_postal, liste_membres[i]->adresse.ville, liste_membres[i]->adresse.pays);
             fscanf(fichier_membre, "email : %s - metier : %s\n", liste_membres[i]->email, liste_membres[i]->metier);
             fscanf(fichier_membre, "pret : %d - %d - %d\n\n", &(liste_membres[i]->liste_emprunt[0]), &(liste_membres[i]->liste_emprunt[1]), &(liste_membres[i]->liste_emprunt[2]));
         }
@@ -123,7 +123,7 @@ int saisie_adresse(Adresse *a) {
     int valide;
 
     printf("          Numéro et rue : ");
-    valide = saisie_chaine_caractere(a->adresse, 50);
+    valide = saisie_chaine_caractere(a->rue, 50);
     valide_tot = valide_tot + valide;
 
     printf("          Code postal : ");
@@ -147,12 +147,12 @@ int saisie_adresse(Adresse *a) {
 }
 
 void afficher_adresse(Adresse *a) {
-    printf("%s %s %s %s", a->adresse, a->code_postal, a->ville, a->pays);
+    printf("%s %s %s %s", a->rue, a->code_postal, a->ville, a->pays);
 }
 
 
 
-int saisie_champs_membre(Membre *membre, int* nb_membres) {
+int saisie_champs_membre(Membre *membre, int* nb_membres_totale) {
     int valide;
     int valide_tot = 0; //5 si pas d'erreur
 
@@ -184,7 +184,7 @@ int saisie_champs_membre(Membre *membre, int* nb_membres) {
     valide = saisie_chaine_caractere(membre->metier, 30);
     valide_tot = valide_tot + valide;
 
-    membre->identifiant = *nb_membres + 1;
+    membre->identifiant = *nb_membres_totale + 1;
 
     if(valide_tot == 5){
         return (TRUE);
@@ -241,13 +241,13 @@ int saisie_id_membre_tab_membre(Membre **tab_membre, int* id_membre, int* nb_mem
     return (valide);
 }
 
-int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *nb_membre) {
+int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *nb_membre, int *nb_membre_totale) {
 
     //retourne 1 (TRUE) si valeur saisie correspond a un membre deja existant et 0 sinon
     int valide = FALSE;
     int i;
 
-    valide = saisie_champs_membre(saisie, nb_membre);
+    valide = saisie_champs_membre(saisie, nb_membre_totale);
 
     if (valide == TRUE) {
         valide = FALSE;
@@ -272,7 +272,7 @@ void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie) {
     if (fichier_membre != NULL) {
 
         fprintf(fichier_membre, "id : %d - %s %s\n", saisie->identifiant, saisie->prenom, saisie->nom);
-        fprintf(fichier_membre, "adresse : %s %s %s %s\n", saisie->adresse.adresse, saisie->adresse.code_postal, saisie->adresse.ville, saisie->adresse.pays);
+        fprintf(fichier_membre, "adresse : %s / %s / %s / %s\n", saisie->adresse.rue, saisie->adresse.code_postal, saisie->adresse.ville, saisie->adresse.pays);
         fprintf(fichier_membre, "email : %s - metier : %s\n", saisie->email, saisie->metier);
         fprintf(fichier_membre, "pret : 0 - 0 - 0\n\n");
 

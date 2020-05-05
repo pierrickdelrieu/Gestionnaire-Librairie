@@ -12,7 +12,7 @@
 
 
 typedef struct {
-    char adresse[50]; //numéro + nom rue
+    char rue[50]; 
     char code_postal[6];
     char ville[20];
     char pays[20];
@@ -47,7 +47,7 @@ int saisie_champs_membre(Membre *membre, int* nb_membres);
 void afficher_membre(Membre *membre);
 void afficher_toute_info_membre(Membre *membre);
 
-int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *nb_membre) ;
+int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *nb_membre, int *nb_membre_totale) ;
 
 void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie);
 void rafrachir_tab_membre(Membre ***tab_membre, int *nb_membre);

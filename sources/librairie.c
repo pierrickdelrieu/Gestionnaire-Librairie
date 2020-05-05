@@ -2,6 +2,46 @@
 #include "../headers/librairie.h"
 
 
+void creer_tab_donnee(int tab[2]) {
+    FILE *fichier_donnee = NULL;
+    fichier_donnee = fopen("sauvegardes/donnee.txt", "r"); //"r" correspond a la lecture seul - fopen renvoie un pointeur sur le fichier
+
+    if (fichier_donnee != NULL) {
+
+        fscanf(fichier_donnee, "nombre de membres total : %d\n", &(tab[0]));
+        fscanf(fichier_donnee, "nombre de livres total : %d\n", &(tab[1]));
+
+        //Fermeture du fichier
+        fclose(fichier_donnee);
+
+    } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
+        printf("Erreur au niveau de l'ouverture du fichier\n");
+        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
+        printf("Gerer ceci dans les préférence de votre ordinateur\n");
+        exit(0); //Fin du programme
+    }
+}
+
+void rafrachir_tab_donnee(int tab[2]){
+    FILE *fichier_donnee = NULL;
+    fichier_donnee = fopen("sauvegardes/donnee.txt", "w"); //"r" correspond a l'ecriture seul - fopen renvoie un pointeur sur le fichier
+
+    if (fichier_donnee != NULL) {
+
+        fprintf(fichier_donnee, "nombre de membres total : %d\n", tab[0]);
+        fprintf(fichier_donnee, "nombre de livres total : %d\n", tab[1]);
+
+        //Fermeture du fichier
+        fclose(fichier_donnee);
+
+    } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
+        printf("Erreur au niveau de l'ouverture du fichier\n");
+        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
+        printf("Gerer ceci dans les préférence de votre ordinateur\n");
+        exit(0); //Fin du programme
+    }   
+}
+
 void connexion(Admin **tab_admin, int *nb_identifiant) {
     Admin saisie;
     int valide = TRUE;
@@ -106,7 +146,7 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant) {
 }
 
 
-void saisie_nx_membre(Membre ***tab_membre, int *nb_membre){
+void saisie_nx_membre(Membre ***tab_membre, int *nb_membre, int tab_donnee[2]){
     
     int valide = FALSE;
     Membre saisie;
@@ -120,7 +160,7 @@ void saisie_nx_membre(Membre ***tab_membre, int *nb_membre){
             printf("ERREUR (membre deja existant ou erreur de saisie)\nReesayer\n\n");
         }
 
-        valide = saisie_securise_membre_tab_membre(&saisie, *tab_membre, nb_membre);
+        valide = saisie_securise_membre_tab_membre(&saisie, *tab_membre,nb_membre, &(tab_donnee[0]));
     } while (valide == TRUE);
 
 
@@ -128,7 +168,12 @@ void saisie_nx_membre(Membre ***tab_membre, int *nb_membre){
     FILE *fichier_membre = NULL;
     ajout_membre_fichier_membre(fichier_membre, &(saisie));
 
-    rafrachir_tab_membre(tab_membre, nb_membre); //modif du nombre d'identifiant
+    rafrachir_tab_membre(tab_membre, nb_membre); //modif du nombre de membre
+
+    tab_donnee[0] ++;
+
+    rafrachir_tab_donnee(tab_donnee);
+    
 
     supr_console();
     printf("%s %s a bien était ajouté comme nouveau membre\n", saisie.prenom, saisie.nom);

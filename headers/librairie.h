@@ -43,11 +43,15 @@ typedef struct {
 
 void connexion();
 
+void creer_tab_donnee(int tab[2]);
+void rafrachir_tab_donnee(int tab[2]);
+
+
 void saisie_nx_admin(Admin ***tab_admin, int *nb_identifiant);
 void supr_admin(Admin ***tab_admin, int *nb_identifiant);
 void affichage_liste_admin(Admin ***tab_identifiant, int *nb_identifiant);
 
-void saisie_nx_membre(Membre ***tab_membre, int *nb_membre);
+void saisie_nx_membre(Membre ***tab_membre, int *nb_membre, int tab_donnee[2]);
 void affichage_liste_membre(Membre **tab_membre, int *nb_membre);
 
 void affichage_info_membre(Membre **tab_membre, int *nb_membre);
