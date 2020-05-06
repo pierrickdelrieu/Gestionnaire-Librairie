@@ -46,6 +46,11 @@ int compare_date(Date *d1, Date *d2) {
     return (retour);
 }
 
+void afficher_livre(Livre *livre) {
+    printf("\n                    %s (identifiant : %d)\n", livre->titre, livre->code);
+    printf("                    Auteur : %s\n", livre->auteur);
+}
+
 void afficher_toute_info_livre(Livre *livre) {
     printf("\n                    %s (identifiant : %d)\n", livre->titre, livre->code);
     printf("                    Auteur : %s\n", livre->auteur);

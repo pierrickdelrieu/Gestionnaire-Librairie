@@ -71,4 +71,8 @@ void affichage_info_membre(Membre **tab_membre, int *nb_membre);
 
 void affichage_info_livre(Livre **tab_livre, int *nb_livre);
 
+void affichage_liste_livre(Livre **tab_livre, int *nb_livre);
+
+void saisie_nx_livre(Livre ***tab_livre, int *nb_livre, int tab_donnee[2]);
+
 #endif /* librairie_h */

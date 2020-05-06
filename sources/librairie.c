@@ -92,6 +92,13 @@ void connexion(Admin **tab_admin, int *nb_identifiant) {
     } while (valide == FALSE);
 }
 
+
+/*
+ *
+ * Fonctions relatives aux admins
+ *
+ */
+
 void affichage_liste_admin(Admin ***tab_identifiant, int *nb_identifiant) {
     int choix;
 
@@ -179,6 +186,12 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant) {
     }
 }
 
+
+/*
+ *
+ * Fonctions relatives aux membres
+ *
+ */
 
 void saisie_nx_membre(Membre ***tab_membre, int *nb_membre, int tab_donnee[2]) {
 
@@ -325,6 +338,13 @@ void affichage_info_membre(Membre **tab_membre, int *nb_membre) {
     }
 }
 
+
+/*
+ *
+ * Fonctions relatives aux livres
+ *
+ */
+
 void affichage_info_livre(Livre **tab_livre, int *nb_livre) {
 
     if (*nb_livre == 0) {
@@ -361,4 +381,65 @@ void affichage_info_livre(Livre **tab_livre, int *nb_livre) {
 
         } while ((choix != 1) && (valide == FALSE));
     }
+}
+
+void affichage_liste_livre(Livre **tab_livre, int *nb_livre) {
+    int i;
+    int choix;
+
+    if (*nb_livre == 0) {
+        supr_console();
+        affichage_sous_titre("AFFICHAGE DES LIVRES");
+        printf("                        !!!Il y a aucun livre!!!\n");
+        sleep(2);
+        supr_console();
+    } else {
+        do {
+            supr_console();
+            affichage_sous_titre("AFFICHAGE DES LIVRES");
+            printf("     La librairie contient %d livre\n\n", *nb_livre);
+            for (i = 0; i < (*nb_livre); i++) {
+                afficher_livre(tab_livre[i]);
+            }
+
+            printf("     Saisir 1 pour revenir au menu : ");
+            scanf(" %d", &choix);
+        } while (choix != 1);
+    }
+}
+
+
+void saisie_nx_livre(Livre ***tab_livre, int *nb_livre, int tab_donnee[2]) {
+
+    int valide = FALSE;
+    Livre saisie;
+
+    //saisie du livre a ajouter
+    do {
+        supr_console();
+        affichage_sous_titre("AJOUT NOUVEAU LIVRE");
+
+        if (valide == TRUE) {
+            printf("ERREUR (livre deja existant ou erreur de saisie)\nReesayer\n\n");
+        }
+
+        valide = saisie_securise_livre_tab_livre(&saisie, *tab_livre, nb_livre, &(tab_donnee[0]));
+    } while (valide == TRUE);
+
+
+    //modification du contenu du fichier membre.txt
+    FILE *fichier_livre = NULL;
+    ajout_livre_fichier_livre(fichier_livre, &(saisie));
+
+    rafrachir_tab_livre(tab_livre, nb_livre); //modif du nombre de livre
+
+    tab_donnee[0]++;
+
+    rafrachir_fichier_donnee(tab_donnee);
+
+    supr_console();
+    printf("%s %s a bien était ajouté comme nouveau livre\n", saisie.prenom, saisie.nom);
+
+    sleep(2);
+    supr_console();
 }

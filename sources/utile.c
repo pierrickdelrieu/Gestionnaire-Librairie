@@ -4,6 +4,8 @@ void supr_console(void) {
     system(strcmp(SYSTEME_EXPLOITATION, "win") == 0 ? "cls" : "clear");
 }
 
+
+
 int saisie_chaine_caractere(char *chaine, int nb_cara_max) {
 
     //renvoie 1 si pas d'erreur et 0 sinon
