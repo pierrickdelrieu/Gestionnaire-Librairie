@@ -42,7 +42,7 @@ void affichage_choix_menu(int *choix) {
         printf("     =============================================================================\n\n");
 
         printf("                            Choix : ");
-        saisie_entier(&choix);
+        saisie_entier(choix);
 
         if ((*choix != 0) && (*choix != 1) && (*choix != 2) && (*choix != 3) && (*choix != 4) && (*choix != 5) && (*choix != 6) && (*choix != 7) && (*choix != 8) && (*choix != 9) && (*choix != 10) &&
             (*choix != 11) && (*choix != 12) && (*choix != 13) && (*choix != 14) && (*choix != 15)) {
