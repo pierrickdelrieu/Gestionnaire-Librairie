@@ -1,5 +1,11 @@
 #include "../headers/librairie.h"
 
+/*Reinitialisation de toute les valeurs dans librairie
+- le nombre de pret (donnee[1]) et de le nombre de membre (donnee[0]) depuis l'ouverture de la librairie
+- tous les administrateurs sauf celui du programmeur
+- tous les membres
+- tous les prets
+- tous les livres*/
 void reinitialise_librairie(int tab_donnee[2], Membre ***tab_membre, int *nb_membre, Admin ***tab_admin, int *nb_admin) {
     int choix;
 
@@ -16,17 +22,27 @@ void reinitialise_librairie(int tab_donnee[2], Membre ***tab_membre, int *nb_mem
         tab_donnee[1] = 0; //reinitialisation des livres
 
         FILE *fichier_membre = NULL;
-        fichier_membre = fopen("sauvegardes/membres.txt", "w"); //"r" correspond a la lecture seul - fopen renvoie un pointeur sur le fichier
+        fichier_membre = fopen("sauvegardes/membres.txt", "w"); //ouvre le fichier en mode ecriture et supprime tous sont contenue au préalable
         fclose(fichier_membre);
 
+        // FILE *fichier_prets = NULL;
+        // fichier_membre = fopen("sauvegardes/prets.txt", "w"); //ouvre le fichier en mode ecriture et supprime tous sont contenue au préalable
+        // fclose(fichier_prets);
+
+        // FILE *fichier_livres = NULL;
+        // fichier_membre = fopen("sauvegardes/livres.txt", "w"); //ouvre le fichier en mode ecriture et supprime tous sont contenue au préalable
+        // fclose(fichier_livres);
+
         FILE *fichier_admin = NULL;
-        fichier_admin = fopen("sauvegardes/admin.txt", "w"); //"r" correspond a la lecture seul - fopen renvoie un pointeur sur le fichier
+        fichier_admin = fopen("sauvegardes/admin.txt", "w"); //ouvre le fichier en mode ecriture et supprime tous sont contenue au préalable
         fprintf(fichier_admin, "id : %d mp : %s\n", ID_PROGRAMMEUR, MP_PROGRAMMEUR);
         fclose(fichier_admin);
 
         rafrachir_fichier_donnee(tab_donnee);
         rafrachir_tab_membre(tab_membre, nb_membre);
         rafrachir_tab_admin(tab_admin, nb_admin);
+
+        //ajout des fonctions rafraichir tab livres et tab pret
 
         supr_console();
         printf("Toutes les données (membres, admin, livres, prets) de la librairies ont été supprimés\n");
@@ -36,6 +52,9 @@ void reinitialise_librairie(int tab_donnee[2], Membre ***tab_membre, int *nb_mem
     }
 }
 
+
+/*recuperation des donnes se situant dans le fichier donnee.txt et modification du tableau en memoire
+cad la recuperation du nombre de pret et de membre depuis l'ouverture de la librairie*/
 void creer_tab_donnee(int tab[2]) {
     FILE *fichier_donnee = NULL;
     fichier_donnee = fopen("sauvegardes/donnee.txt", "r"); //"r" correspond a la lecture seul - fopen renvoie un pointeur sur le fichier
@@ -49,13 +68,12 @@ void creer_tab_donnee(int tab[2]) {
         fclose(fichier_donnee);
 
     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
-        printf("Erreur au niveau de l'ouverture du fichier\n");
-        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
-        printf("Gerer ceci dans les préférence de votre ordinateur\n");
-        exit(0); //Fin du programme
+        erreur_ouverture_fichier();
     }
 }
 
+
+/*modification du tableau de donnée en fonction du fichier donne.txt*/
 void rafrachir_fichier_donnee(int *tab) {
     FILE *fichier_donnee = NULL;
     fichier_donnee = fopen("sauvegardes/donnee.txt", "w"); //"w" correspond a l'ecriture seul - fopen renvoie un pointeur sur le fichier
@@ -69,17 +87,15 @@ void rafrachir_fichier_donnee(int *tab) {
         fclose(fichier_donnee);
 
     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
-        printf("Erreur au niveau de l'ouverture du fichier\n");
-        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
-        printf("Gerer ceci dans les préférence de votre ordinateur\n");
-        exit(0); //Fin du programme
+        erreur_ouverture_fichier();
     }
 }
 
+
+/*ecran de connexion*/
 void connexion(Admin **tab_admin, int *nb_identifiant) {
     Admin saisie;
     int valide = TRUE;
-
 
     do {
         supr_console();
@@ -93,11 +109,7 @@ void connexion(Admin **tab_admin, int *nb_identifiant) {
 }
 
 
-/*
- *
- * Fonctions relatives aux admins
- *
- */
+/***********************************************FONCTION ADMIN***********************************************/
 
 void affichage_liste_admin(Admin ***tab_identifiant, int *nb_identifiant) {
     int choix;
@@ -187,11 +199,7 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant) {
 }
 
 
-/*
- *
- * Fonctions relatives aux membres
- *
- */
+/**********************************************FONCTION MEMBRE**********************************************/
 
 void saisie_nx_membre(Membre ***tab_membre, int *nb_membre, int tab_donnee[2]) {
 
@@ -348,11 +356,8 @@ void affichage_info_membre(Membre **tab_membre, int *nb_membre) {
 }
 
 
-/*
- *
- * Fonctions relatives aux livres
- *
- */
+/***********************************************FONCTION LIVRE***********************************************/
+
 
 void affichage_info_livre(Livre **tab_livre, int *nb_livre) {
 
@@ -452,3 +457,7 @@ void saisie_nx_livre(Livre ***tab_livre, int *nb_livre, int tab_donnee[2]) {
     sleep(2);
     supr_console();
 }
+
+
+
+/***********************************************FONCTION PRET***********************************************/

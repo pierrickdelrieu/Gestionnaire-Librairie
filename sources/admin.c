@@ -1,6 +1,7 @@
 #include "../headers/admin.h"
 
 
+//creer la structure admin de maniere dynamique
 Admin *creer_struct_admin() {
     Admin *x;
 
@@ -10,58 +11,25 @@ Admin *creer_struct_admin() {
 }
 
 
+/*Libere la structure admin de maniere dynamique*/
 void lib_struct_admin(Admin *admin) {
     free(admin);
 }
 
-void calcul_nb_admin(int *nb_identifiant) {
-    FILE *fichier_admin = NULL;
 
-    fichier_admin = fopen("sauvegardes/admin.txt", "r"); //"w" correspond a la ecriture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
-
-    if (fichier_admin != NULL) {
-
-        //nombres d'identifiant
-        int cara;
-        *nb_identifiant = 0;
-        do {
-            cara = fgetc(fichier_admin);
-            if (cara == '\n') {
-                (*nb_identifiant)++;
-            }
-        } while (cara != EOF);
-
-        //Fermeture du fichier
-        fclose(fichier_admin);
-
-    } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
-        erreur_ouverture_fichier();
-    }
-}
-
-void rafrachir_tab_admin(Admin ***tab_admin, int *nb_identifiant) {
-
-    lib_tab_admin(*tab_admin, nb_identifiant);
-
-    calcul_nb_admin(nb_identifiant);
-
-    *tab_admin = creer_tab_admin(nb_identifiant);
-}
-
-
+/*Recuperation des sauvegardes faites dans le fichier admin*/
 Admin **creer_tab_admin(int *nb_identifiant) {
     Admin **tab_identifiant;
     FILE *fichier_admin = NULL;
 
     fichier_admin = fopen("sauvegardes/admin.txt", "r"); //"r" correspond a la lecture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
 
-    if (fichier_admin != NULL) {
+    if (fichier_admin != NULL) { //si le fichier est bien ouvert
 
-        //allocation du tableau d'identifiant
+        //allocation du tableau d'identifiant (dynamique)
         tab_identifiant = (Admin **) malloc((*nb_identifiant) * sizeof(Admin *));
 
-        //recup des identifiants
-        fseek(fichier_admin, 0, SEEK_SET); //remise du curseur au début du fichier
+        //recup des identifiants (parcours du fichier)
         int i;
 
         for (i = 0; i < (*nb_identifiant); i++) {
@@ -80,9 +48,11 @@ Admin **creer_tab_admin(int *nb_identifiant) {
 }
 
 
+/*Liberation du tableau contenant tous les admin*/
 void lib_tab_admin(Admin **tab_admin, int *nb_identifiant) {
     int i;
 
+    //liberation des structures
     for (i = 0; i < *nb_identifiant; i++) {
         lib_struct_admin(tab_admin[i]);
     }
@@ -90,6 +60,8 @@ void lib_tab_admin(Admin **tab_admin, int *nb_identifiant) {
     free(tab_admin);
 }
 
+
+/*Affichage de tous les administrateurs de la librairie*/
 void affichage_tab_admin(Admin **tab_identifiant, int *nb_identifiant) {
     int i;
 
@@ -103,6 +75,48 @@ void affichage_tab_admin(Admin **tab_identifiant, int *nb_identifiant) {
 }
 
 
+/*Permet de calculer le nombre d'administrateur a partir du fichier admin.txt
+Elle parcour le fichier et compte le nombre d'admin qu'il contient (sachant que un admin = 1 ligne)*/
+void calcul_nb_admin(int *nb_identifiant) {
+    FILE *fichier_admin = NULL;
+
+    fichier_admin = fopen("sauvegardes/admin.txt", "r"); //"r" correspond a la lecture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
+
+    if (fichier_admin != NULL) { //si le fichier est bien ouvert
+
+        //nombres d'identifiant
+        int cara;
+        *nb_identifiant = 0;
+        do {
+            cara = fgetc(fichier_admin);
+            if (cara == '\n') {
+                (*nb_identifiant)++;
+            }
+        } while (cara != EOF); //EOF signifie fin du fichier
+
+        //Fermeture du fichier
+        fclose(fichier_admin);
+
+    } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
+        erreur_ouverture_fichier();
+    }
+}
+
+
+/* Modifie le tableau d'admin en fonction des modifications (ajout et supression) qui ont eu lieu sur le fichier
+Cette fonction suprimme et recrer le tableau, la realocation est trop dangeureuse*/
+void rafrachir_tab_admin(Admin ***tab_admin, int *nb_identifiant) {
+
+    lib_tab_admin(*tab_admin, nb_identifiant);
+
+    calcul_nb_admin(nb_identifiant);
+
+    *tab_admin = creer_tab_admin(nb_identifiant);
+}
+
+
+/*Saisie d'un identifiant
+avec verif d'un nombre et pas d'un caractere, et verif d'un id a 8 chiffres*/
 int saisie_identifiant(Admin *admin) {
     printf("          Identifiant : ");
 //    saisie_entier(&(admin->identifiant));
@@ -118,6 +132,8 @@ int saisie_identifiant(Admin *admin) {
 }
 
 
+/*Saisie securise d'un identifint valide
+cad d'un identifiant pouvant acceder a la librairie*/
 int saisie_securise_id_tab_admin(Admin *saisie, Admin **tab_admin, int *nb_identifiant) {
 
     //retourne 1 (TRUE) si valeur saisie corresponde a une valeur du fichier admin.txt et retourne 0 (FALSE) sinon
@@ -150,10 +166,13 @@ int saisie_securise_id_tab_admin(Admin *saisie, Admin **tab_admin, int *nb_ident
 }
 
 
+/*Modification du fichier admin lors de l'ajout d'un admin
+apres la modification il faudra rafraichir les valeurs du tab admin et nb_admin
+ouverture du fichier en mode ajout pour ne pas modifier le contenue qui est deja dans le fichier*/
 void ajout_admin_fichier_admin(FILE *fichier_admin, Admin *saisie) {
     fichier_admin = fopen("sauvegardes/admin.txt", "a"); //"a" correspond a l'ajout - fopen renvoie un pointeur sur le fichier
 
-    if (fichier_admin != NULL) {
+    if (fichier_admin != NULL) { //fichier ouvert
 
         fprintf(fichier_admin, "id : %d mp : %s\n", saisie->identifiant, saisie->mot_de_passe);
 
@@ -165,10 +184,15 @@ void ajout_admin_fichier_admin(FILE *fichier_admin, Admin *saisie) {
     }
 }
 
+
+/*Modification du fichier admin lors de la supression d'un admin
+ouverture du fichier en mode ecriture pour suprimmer tous les elements du fichier
+les admins seront ensuite tous reinsérré sauf dont on demande la suppression
+apres la modification il faudra rafraichir les valeurs du tab admin et nb_admin*/
 void supr_admin_fichier_admin(FILE *fichier_admin, Admin **tab_admin, Admin *saisie, int *nb_identifiant) {
     fichier_admin = fopen("sauvegardes/admin.txt", "w"); //"w" correspond a l'ecriture - fopen renvoie un pointeur sur le fichier
 
-    if (fichier_admin != NULL) {
+    if (fichier_admin != NULL) { //fichier ouvert
 
         int i;
         for (i = 0; i < (*nb_identifiant); i++) {
