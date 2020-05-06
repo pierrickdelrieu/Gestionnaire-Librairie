@@ -57,3 +57,11 @@ void affichage_choix_menu(int *choix) {
 void affichage_sous_titre(char *sous_titre) {
     printf("                    ----- %s -----\n\n\n", sous_titre);
 }
+
+
+void erreur_ouverture_fichier(){
+    printf("Erreur au niveau de l'ouverture du fichier\n");
+    printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
+    printf("Gerer ceci dans les préférence de votre ordinateur\n");
+    exit(0); //Fin du programme
+}

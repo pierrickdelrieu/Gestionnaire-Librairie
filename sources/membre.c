@@ -45,10 +45,7 @@ void calcul_nb_membre(int *nb_membre) {
         *nb_membre = (*nb_membre) / 11; 
 
     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
-        printf("Erreur au niveau de l'ouverture du fichier\n");
-        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
-        printf("Gerer ceci dans les préférence de votre ordinateur\n");
-        exit(0); //Fin du programme
+        erreur_ouverture_fichier();
     }
 }
 
@@ -108,10 +105,7 @@ Membre **creer_tab_membre(int *nb_membre) {
         fclose(fichier_membre);
 
     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
-        printf("Erreur au niveau de l'ouverture du fichier\n");
-        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
-        printf("Gerer ceci dans les préférence de votre ordinateur\n");
-        exit(0); //Fin du programme
+        erreur_ouverture_fichier();
     }
 
     return (liste_membres);
@@ -248,10 +242,7 @@ void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie) {
         fclose(fichier_membre);
 
     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
-        printf("Erreur au niveau de l'ouverture du fichier\n");
-        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
-        printf("Gerer ceci dans les préférence de votre ordinateur\n");
-        exit(0); //Fin du programme
+        erreur_ouverture_fichier();
     }
 }
 
@@ -278,10 +269,7 @@ void supr_membre_fichier_membre(FILE *fichier_membre, int *id_membre, Membre **t
         fclose(fichier_membre);
 
     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
-        printf("Erreur au niveau de l'ouverture du fichier\n");
-        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
-        printf("Gerer ceci dans les préférence de votre ordinateur\n");
-        exit(0); //Fin du programme
+        erreur_ouverture_fichier();
     }
 }
 

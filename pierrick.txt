@@ -39,6 +39,7 @@
 06/05/2020 :
     - ajout, supr et consultation membre fini 
     - ajout fonction saisie entier
+    - ajout fonction de gestion de la non ouverture d'un fichier (affichage)
 
 A FAIRE
     - creer historique de connexion
