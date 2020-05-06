@@ -12,7 +12,15 @@ typedef struct {
     int nb_exemplaires_dispo;
 } Livre;
 
+int saisie_securise_livre_tab_livre(Livre *saisie, Livre **tab_livre, int *nb_livre, int *nb_livre_totale);
+
+int saisie_champs_livre(Livre *livre, int *nb_livre);
+
+void ajout_livre_fichier_livre(FILE *fichier_livre, Livre *saisie);
+
 int saisie_id_livre_tab_livre(Livre **tab_livre, int *id_livre, int *nb_livre);
+
+void rafrachir_tab_livre(Livre ***tab_livre, int *nb_livre);
 
 void afficher_toute_info_livre(Livre *livre);
 

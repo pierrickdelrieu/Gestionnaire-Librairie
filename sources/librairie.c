@@ -447,7 +447,7 @@ void saisie_nx_livre(Livre ***tab_livre, int *nb_livre, int tab_donnee[2]) {
     rafrachir_fichier_donnee(tab_donnee);
 
     supr_console();
-    printf("%s %s a bien était ajouté comme nouveau livre\n", saisie.prenom, saisie.nom);
+    printf("%s de %s a bien était ajouté comme nouveau livre\n", saisie.titre, saisie.auteur);
 
     sleep(2);
     supr_console();
