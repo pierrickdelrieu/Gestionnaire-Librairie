@@ -14,7 +14,7 @@
 
 
 typedef struct {
-    long identifiant;
+    int identifiant;
     char mot_de_passe[30];
 } Admin;
 
