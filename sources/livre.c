@@ -46,6 +46,69 @@ int compare_date(Date *d1, Date *d2) {
     return (retour);
 }
 
+Livre *creer_struct_livre() {
+    return (Livre *) malloc(sizeof(Livre));
+}
+
+Livre **creer_tab_livre(int *nb_livre) {
+    Livre **liste_livres;
+    FILE *fichier_livre = NULL;
+
+    fichier_livre = fopen("sauvegardes/livres.txt", "r"); //"r" correspond a la lecture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
+
+    if (fichier_livre != NULL) {
+
+        //allocation du tableau d'identifiant
+        liste_livres = (Livre **) malloc((*nb_livre) * sizeof(Livre *));
+
+        //recup des identifiants
+        int i;
+
+        for (i = 0; i < (*nb_livre); i++) {
+            liste_livres[i] = creer_struct_livre();
+            fscanf(
+                    fichier_livre,
+                    "titre : %[^'|']c | ",
+                    (char *) &(liste_livres[i]->titre)
+            );
+            fscanf(
+                    fichier_livre,
+                    "auteur : %[^'|']c | ",
+                    (char *) &(liste_livres[i]->auteur)
+            );
+            fscanf(
+                    fichier_livre,
+                    "code : %d | ",
+                    (int *) &(liste_livres[i]->code)
+            );
+            fscanf(
+                    fichier_livre,
+                    "nb_exemplaires : %d | ",
+                    (int *) &(liste_livres[i]->nb_exemplaires)
+            );
+            fscanf(
+                    fichier_livre,
+                    "nb_exemplaires : %d \n",
+                    (int *) &(liste_livres[i]->nb_exemplaires)
+            );}
+
+        //Fermeture du fichier
+        fclose(fichier_livre);
+
+    } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
+        printf("Erreur au niveau de l'ouverture du fichier\n");
+        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
+        printf("Gerer ceci dans les préférence de votre ordinateur\n");
+        exit(0); //Fin du programme
+    }
+
+    return (liste_livres);
+}
+
+void lib_struct_livre(Livre *livre) {
+    free(livre);
+}
+
 void afficher_livre(Livre *livre) {
     printf("\n                    %s (identifiant : %d)\n", livre->titre, livre->code);
     printf("                    Auteur : %s\n", livre->auteur);
@@ -93,10 +156,17 @@ int saisie_champs_livre(Livre *livre, int *nb_livre) {
     valide = saisie_chaine_caractere(livre->auteur, 20);
     valide_tot = valide_tot + valide;
 
-    livre->code = nb_livre + 1;
+    livre->code = *(nb_livre + 1);
     valide_tot = valide_tot + 1;
 
-    if (valide_tot == 3) {
+    printf("     Nombre d'exemplaire : ");
+    saisie_entier(&(livre->nb_exemplaires));
+    valide_tot = valide_tot + 1;
+
+    livre->nb_exemplaires_dispo = livre->nb_exemplaires;
+    valide_tot = valide_tot + 1;
+
+    if (valide_tot == 5) {
         return (TRUE);
     } else {
         return (FALSE);
@@ -115,7 +185,7 @@ int saisie_securise_livre_tab_livre(Livre *saisie, Livre **tab_livre, int *nb_li
 }
 
 void ajout_livre_fichier_livre(FILE *fichier_livre, Livre *saisie) {
-    fichier_livre = fopen("sauvegardes/livre.txt", "a"); //"a" correspond a l'ajout - fopen renvoie un pointeur sur le fichier
+    fichier_livre = fopen("sauvegardes/livres.txt", "a"); //"a" correspond a l'ajout - fopen renvoie un pointeur sur le fichier
 
     if (fichier_livre != NULL) {
         fprintf(
@@ -140,7 +210,7 @@ void ajout_livre_fichier_livre(FILE *fichier_livre, Livre *saisie) {
         );
         fprintf(
                 fichier_livre,
-                "nb_exemplaires : %d | ",
+                "nb_exemplaires : %d \n",
                 saisie->nb_exemplaires
         );
 
@@ -155,11 +225,46 @@ void ajout_livre_fichier_livre(FILE *fichier_livre, Livre *saisie) {
     }
 }
 
+void lib_tab_livre(Livre **tab_livre, int *nb_livre) {
+    int i;
+
+    for (i = 0; i < *nb_livre; i++) {
+        lib_struct_livre(tab_livre[i]);
+    }
+
+    free(tab_livre);
+}
+
+void calcul_nb_livre(int *nb_livre) {
+    FILE *fichier_livre = NULL;
+
+    fichier_livre = fopen("sauvegardes/livres.txt", "r"); //"w" correspond a la ecriture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
+
+    if (fichier_livre != NULL) {
+
+        //nombres d'identifiant
+        int cara;
+        *nb_livre = 0;
+        do {
+            cara = fgetc(fichier_livre);
+            if (cara == '\n') {
+                (*nb_livre)++;
+            }
+        } while (cara != EOF);
+
+        //Fermeture du fichier
+        fclose(fichier_livre);
+
+    } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
+        printf("Erreur au niveau de l'ouverture du fichier\n");
+        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
+        printf("Gerer ceci dans les préférence de votre ordinateur\n");
+        exit(0); //Fin du programme
+    }
+}
+
 void rafrachir_tab_livre(Livre ***tab_livre, int *nb_livre) {
-
     lib_tab_livre(*tab_livre, nb_livre);
-
     calcul_nb_livre(nb_livre);
-
     *tab_livre = creer_tab_livre(nb_livre);
 }

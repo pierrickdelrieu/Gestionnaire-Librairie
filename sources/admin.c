@@ -69,7 +69,7 @@ Admin **creer_tab_admin(int *nb_identifiant) {
 
         for (i = 0; i < (*nb_identifiant); i++) {
             tab_identifiant[i] = creer_struct_admin();
-            fscanf(fichier_admin, "id : %ld mp : %s\n", &(tab_identifiant[i]->identifiant), tab_identifiant[i]->mot_de_passe);
+            fscanf(fichier_admin, "id : %d mp : %s\n", &(tab_identifiant[i]->identifiant), tab_identifiant[i]->mot_de_passe);
         }
 
         //Fermeture du fichier
@@ -102,7 +102,7 @@ void affichage_tab_admin(Admin **tab_identifiant, int *nb_identifiant) {
     printf("Les identifiants et mot de passe des administrateurs sont : \n");
 
     for (i = 0; i < (*nb_identifiant); i++) {
-        printf("     id : %ld mp : %s\n", tab_identifiant[i]->identifiant, tab_identifiant[i]->mot_de_passe);
+        printf("     id : %d mp : %s\n", tab_identifiant[i]->identifiant, tab_identifiant[i]->mot_de_passe);
     }
 
     printf("\nSeul ces personnes ont les autoirisations pour gérer la bibliothèque\n\n");
@@ -111,10 +111,11 @@ void affichage_tab_admin(Admin **tab_identifiant, int *nb_identifiant) {
 
 int saisie_identifiant(Admin *admin) {
     printf("          Identifiant : ");
-    scanf(" %ld", &(admin->identifiant));
+//    saisie_entier(&(admin->identifiant));
+    scanf("%d", &(admin->identifiant));
     printf("          Mot de passe : ");
 //    saisie_chaine_caractere(admin->mot_de_passe,30);
-    scanf(" %s", (char *) &(admin->mot_de_passe));
+    scanf("%s", admin->mot_de_passe);
 
     if ((admin->identifiant < 10000000) || (admin->identifiant > 99999999)) {
         return FALSE;
@@ -160,7 +161,7 @@ void ajout_admin_fichier_admin(FILE *fichier_admin, Admin *saisie) {
 
     if (fichier_admin != NULL) {
 
-        fprintf(fichier_admin, "id : %ld mp : %s\n", saisie->identifiant, saisie->mot_de_passe);
+        fprintf(fichier_admin, "id : %d mp : %s\n", saisie->identifiant, saisie->mot_de_passe);
 
         //Fermeture du fichier
         fclose(fichier_admin);
@@ -181,7 +182,7 @@ void supr_admin_fichier_admin(FILE *fichier_admin, Admin **tab_admin, Admin *sai
         int i;
         for (i = 0; i < (*nb_identifiant); i++) {
             if (tab_admin[i]->identifiant != saisie->identifiant) {
-                fprintf(fichier_admin, "id : %ld mp : %s\n", tab_admin[i]->identifiant, tab_admin[i]->mot_de_passe);
+                fprintf(fichier_admin, "id : %d mp : %s\n", tab_admin[i]->identifiant, tab_admin[i]->mot_de_passe);
             }
         }
 

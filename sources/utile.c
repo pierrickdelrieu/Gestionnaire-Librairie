@@ -4,7 +4,17 @@ void supr_console(void) {
     system(strcmp(SYSTEME_EXPLOITATION, "win") == 0 ? "cls" : "clear");
 }
 
+void saisie_entier(int *entier){
+    int valide;
 
+    fflush(stdin);
+    valide = scanf("%d",entier);
+
+    if(valide == 0){
+        *entier = -1;
+    }
+    fflush(stdin);
+}
 
 int saisie_chaine_caractere(char *chaine, int nb_cara_max) {
 

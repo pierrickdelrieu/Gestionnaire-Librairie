@@ -40,7 +40,7 @@ typedef struct {
     Liste_pret gestion_pret;
 } Librairie;
 
-void connexion();
+void connexion(Admin **tab_admin, int *nb_identifiant);
 
 void creer_tab_donnee(int tab[2]);
 

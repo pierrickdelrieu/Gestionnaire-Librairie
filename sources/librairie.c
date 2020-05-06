@@ -8,7 +8,7 @@ void reinitialise_librairie(int tab_donnee[2], Membre ***tab_membre, int *nb_mem
         affichage_sous_titre("REINITIALISATION DONNEE LIBRAIRIE");
         printf("     Cette opération est irréversible\n\n\n");
         printf("Saisir 1 pour valider et 0 pour quitter : ");
-        scanf(" %d", &choix);
+        saisie_entier(&choix);
     } while ((choix != 0) && (choix != 1));
 
     if (choix == 1) {
@@ -107,7 +107,7 @@ void affichage_liste_admin(Admin ***tab_identifiant, int *nb_identifiant) {
         affichage_sous_titre("AFFICHAGE DES ADMINISTRATEURS");
         affichage_tab_admin(*tab_identifiant, nb_identifiant);
         printf("     Saisir 1 pour revenir au menu : ");
-        scanf(" %d", &choix);
+        saisie_entier(&choix);
     } while (choix != 1);
 }
 
@@ -133,7 +133,7 @@ void saisie_nx_admin(Admin ***tab_admin, int *nb_identifiant) {
     rafrachir_tab_admin(tab_admin, nb_identifiant); //modif du nombre d'identifiant
 
     supr_console();
-    printf("L'administrateur %ld a bien était ajouté\n", saisie.identifiant);
+    printf("L'administrateur %d a bien était ajouté\n", saisie.identifiant);
 
     sleep(2);
     supr_console();
@@ -179,7 +179,7 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant) {
         rafrachir_tab_admin(tab_admin, nb_identifiant); //modif de la valeur de nb_id
 
         supr_console();
-        printf("L'administrateur %ld a bien était suprimer\n", saisie.identifiant);
+        printf("L'administrateur %d a bien était suprimer\n", saisie.identifiant);
 
         sleep(2);
         supr_console();
@@ -265,7 +265,7 @@ void supr_membre(Membre ***tab_membre, int *nb_membre) {
             }
 
             printf("Voulez vous supprimer ce membre (1 : OUI - 0 : NON (retour au menu)): ");
-            scanf(" %d", &choix);
+            saisie_entier(&choix);
         }while((choix != 1) && (choix != 0));
 
         if(choix == 1){
@@ -304,7 +304,7 @@ void affichage_liste_membre(Membre **tab_membre, int *nb_membre) {
             }
 
             printf("     Saisir 1 pour revenir au menu : ");
-            scanf(" %d", &choix);
+            saisie_entier(&choix);
         } while (choix != 1);
     }
 }
@@ -340,7 +340,7 @@ void affichage_info_membre(Membre **tab_membre, int *nb_membre) {
                 }
 
                 printf("     Saisir 1 pour revenir au menu : ");
-                scanf(" %d", &choix);
+                saisie_entier(&choix);
             }
 
         } while ((choix != 1) && (valide == FALSE));
@@ -385,7 +385,7 @@ void affichage_info_livre(Livre **tab_livre, int *nb_livre) {
                 }
 
                 printf("     Saisir 1 pour revenir au menu : ");
-                scanf(" %d", &choix);
+                saisie_entier(&choix);
             }
 
         } while ((choix != 1) && (valide == FALSE));

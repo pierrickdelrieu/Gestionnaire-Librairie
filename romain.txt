@@ -19,5 +19,8 @@
     - recherche de livre
     - ajout de livre
 
+    - recuperation des livres depuis le fichier
+
 A FAIRE:
     - implemanter les prets
+    - regler le probleme d'affichage sur les livres

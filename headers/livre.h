@@ -12,6 +12,12 @@ typedef struct {
     int nb_exemplaires_dispo;
 } Livre;
 
+Livre *creer_struct_livre();
+
+Livre **creer_tab_livre(int *nb_livre);
+
+void lib_struct_livre(Livre *livre);
+
 int saisie_securise_livre_tab_livre(Livre *saisie, Livre **tab_livre, int *nb_livre, int *nb_livre_totale);
 
 int saisie_champs_livre(Livre *livre, int *nb_livre);
@@ -19,6 +25,10 @@ int saisie_champs_livre(Livre *livre, int *nb_livre);
 void ajout_livre_fichier_livre(FILE *fichier_livre, Livre *saisie);
 
 int saisie_id_livre_tab_livre(Livre **tab_livre, int *id_livre, int *nb_livre);
+
+void lib_tab_livre(Livre **tab_livre, int *nb_livre);
+
+void calcul_nb_livre(int *nb_livre);
 
 void rafrachir_tab_livre(Livre ***tab_livre, int *nb_livre);
 

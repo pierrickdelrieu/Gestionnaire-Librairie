@@ -190,7 +190,7 @@ void lib_tab_membre(Membre **tab_membre, int *nb_membres) {
 }
 
 int saisie_id_membre_tab_membre(Membre **tab_membre, int *id_membre, int *nb_membre) {
-    scanf(" %d", id_membre);
+    saisie_entier(id_membre);
 
     int valide = FALSE;
 

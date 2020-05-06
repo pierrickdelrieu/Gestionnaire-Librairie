@@ -20,6 +20,9 @@ int main() {
     calcul_nb_membre(&(bibliotheque.gestion_membre.nb_membre));
     bibliotheque.gestion_membre.liste_membre = creer_tab_membre(&(bibliotheque.gestion_membre.nb_membre));
 
+    calcul_nb_livre(&(bibliotheque.gestion_livre.nb_livre));
+    bibliotheque.gestion_livre.liste_livre = creer_tab_livre(&(bibliotheque.gestion_livre.nb_livre));
+
     creer_tab_donnee(bibliotheque.donnee);
 
 
