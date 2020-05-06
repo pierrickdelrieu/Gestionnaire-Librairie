@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include "utile.h"
+#include "affichage.h"
 
 typedef struct {
     char titre[20];

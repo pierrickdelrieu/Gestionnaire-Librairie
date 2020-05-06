@@ -8,6 +8,7 @@
 #include "livre.h"
 #include "adresse.h"
 #include "utile.h"
+#include "affichage.h"
 
 
 typedef struct {
