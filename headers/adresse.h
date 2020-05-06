@@ -9,10 +9,10 @@
 
 
 typedef struct {
-    char rue[50];
-    char code_postal[10];
-    char ville[30];
-    char pays[20];
+    char rue[70];
+    char code_postal[20];
+    char ville[50];
+    char pays[50];
 } Adresse;
 
 int saisie_adresse(Adresse *a);

@@ -93,14 +93,14 @@ Membre **creer_tab_membre(int *nb_membre) {
         for (i = 0; i < (*nb_membre); i++) {
             liste_membres[i] = creer_struct_membre();
             fscanf(fichier_membre, "id : %d\n", &(liste_membres[i]->identifiant));
-            lecture_chaine_cara_fichier(fichier_membre, liste_membres[i]->prenom, 20);
-            lecture_chaine_cara_fichier(fichier_membre, liste_membres[i]->nom, 20);
-            lecture_chaine_cara_fichier(fichier_membre, liste_membres[i]->adresse.rue, 50);
-            lecture_chaine_cara_fichier(fichier_membre, liste_membres[i]->adresse.code_postal, 10);
-            lecture_chaine_cara_fichier(fichier_membre, liste_membres[i]->adresse.ville, 30);
-            lecture_chaine_cara_fichier(fichier_membre, liste_membres[i]->adresse.pays, 20);
+            lecture_chaine_cara_fichier(fichier_membre, liste_membres[i]->prenom, 40);
+            lecture_chaine_cara_fichier(fichier_membre, liste_membres[i]->nom, 40);
+            lecture_chaine_cara_fichier(fichier_membre, liste_membres[i]->adresse.rue, 70);
+            lecture_chaine_cara_fichier(fichier_membre, liste_membres[i]->adresse.code_postal, 20);
+            lecture_chaine_cara_fichier(fichier_membre, liste_membres[i]->adresse.ville, 50);
+            lecture_chaine_cara_fichier(fichier_membre, liste_membres[i]->adresse.pays, 50);
             lecture_chaine_cara_fichier(fichier_membre, liste_membres[i]->email, 40);
-            lecture_chaine_cara_fichier(fichier_membre, liste_membres[i]->metier, 30);
+            lecture_chaine_cara_fichier(fichier_membre, liste_membres[i]->metier, 40);
             fscanf(fichier_membre, "pret : %d - %d - %d\n\n", &(liste_membres[i]->liste_emprunt[0]), &(liste_membres[i]->liste_emprunt[1]), &(liste_membres[i]->liste_emprunt[2]));
         }
         

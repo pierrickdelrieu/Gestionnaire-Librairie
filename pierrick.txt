@@ -38,6 +38,7 @@
 
 06/05/2020 :
     - ajout, supr et consultation membre fini 
+    - ajout fonction saisie entier
 
 A FAIRE
     - creer historique de connexion
