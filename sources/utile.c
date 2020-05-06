@@ -37,6 +37,7 @@ int saisie_chaine_caractere(char *chaine, int nb_cara_max) {
     } else {
         return FALSE; // On renvoie 0 s'il y a eu une erreur
     }
+    fflush(stdin);
 }
 
 int compare_chaine_caractere(char *chaine1, char *chaine2) {

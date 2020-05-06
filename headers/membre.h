@@ -11,12 +11,12 @@
 
 
 typedef struct {
-    char prenom[20];
-    char nom[20];
+    char prenom[40];
+    char nom[40];
     int identifiant; //id à 8 chiffres générer de manière aléatoire lors de l'inscription d'un nouveau membre
     Adresse adresse;
     char email[40];
-    char metier[30];
+    char metier[40];
     int liste_emprunt[3];
 } Membre;
 
