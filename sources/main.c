@@ -56,7 +56,7 @@ int main() {
 
                 //Livres
             else if (choix_menu == 5) { //Information sur un livre
-                printf("Information sur un livre\n");
+                affichage_info_livre(bibliotheque.gestion_livre.liste_livre, &(bibliotheque.gestion_livre.nb_livre));
             } else if (choix_menu == 6) { //consulter la liste des livres
                 printf("Consulter liste livres\n");
             } else if (choix_menu == 7) { //ajouter un livre
