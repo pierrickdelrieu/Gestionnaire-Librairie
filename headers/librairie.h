@@ -47,11 +47,16 @@ void creer_tab_donnee(int tab[2]);
 void rafrachir_fichier_donnee(int tab[2]);
 
 
+// Admin
+
 void saisie_nx_admin(Admin ***tab_admin, int *nb_identifiant);
 
 void supr_admin(Admin ***tab_admin, int *nb_identifiant);
 
 void affichage_liste_admin(Admin ***tab_identifiant, int *nb_identifiant);
+
+
+// Membre
 
 void saisie_nx_membre(Membre ***tab_membre, int *nb_membre, int tab_donnee[2]);
 
@@ -60,5 +65,10 @@ void supr_membre(Membre ***tab_membre, int *nb_membre);
 void affichage_liste_membre(Membre **tab_membre, int *nb_membre);
 
 void affichage_info_membre(Membre **tab_membre, int *nb_membre);
+
+
+// Livre
+
+void affichage_info_livre(Livre **tab_livre, int *nb_livre);
 
 #endif /* librairie_h */

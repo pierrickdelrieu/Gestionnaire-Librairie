@@ -333,3 +333,41 @@ void affichage_info_membre(Membre **tab_membre, int *nb_membre) {
         } while ((choix != 1) && (valide == FALSE));
     }
 }
+
+void affichage_info_livre(Livre **tab_livre, int *nb_livre) {
+
+    if (*nb_livre == 0) {
+        supr_console();
+        affichage_sous_titre("INFORMATION SUR UN LIVRE");
+        printf("                        !!!Il y a aucun livre!!!\n");
+        sleep(2);
+        supr_console();
+    } else {
+        int i;
+        int choix;
+        int id_livre;
+        int valide = FALSE;
+
+        do {
+            supr_console();
+            affichage_sous_titre("INFORMATION SUR UN LIVRE");
+            printf("     Saisir l'identifiant du membre ou 0 pour revenir au menu : ");
+
+
+            valide = saisie_id_livre_tab_livre(tab_livre, &id_livre, nb_livre);
+
+
+            if ((valide == TRUE) && (nb_livre != 0)) {
+                for (i = 0; i < (*nb_livre); i++) {
+                    if (tab_livre[i]->code == id_livre) {
+                        afficher_toute_info_livre(tab_livre[i]);
+                    }
+                }
+
+                printf("     Saisir 1 pour revenir au menu : ");
+                scanf(" %d", &choix);
+            }
+
+        } while ((choix != 1) && (valide == FALSE));
+    }
+}

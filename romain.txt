@@ -14,6 +14,10 @@
         - enregistrer dans le fichier
     - creation d'une fonction pour simplifier les timestamps
 
+06/05/2020:
+    - liste des livres
+    - recherche de livre
+    - ajout de livre
 
 A FAIRE:
     - implemanter les prets

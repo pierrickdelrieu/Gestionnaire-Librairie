@@ -179,7 +179,6 @@ void afficher_toute_info_membre(Membre *membre) {
     }
 }
 
-
 void lib_tab_membre(Membre **tab_membre, int *nb_membres) {
     int i;
 
