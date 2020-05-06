@@ -237,9 +237,9 @@ void supr_membre(Membre ***tab_membre, int *nb_membre) {
         printf("                        !!!Il y a aucun membre!!!\n");
         sleep(2);
         supr_console();
-    } else {
+    } 
+    else {
         int i;
-        int choix;
         int id_membre;
         int valide = FALSE;
 
@@ -249,28 +249,37 @@ void supr_membre(Membre ***tab_membre, int *nb_membre) {
             printf("     Saisir l'identifiant du membre a supprimer ou 0 pour retourner au menu : ");
 
             valide = saisie_id_membre_tab_membre(*tab_membre, &id_membre, nb_membre);
-        } while ((choix != 1) && (valide == FALSE));
+        } while (valide == FALSE);
 
-        // for(i=0; i<(*nb_membre); i++)
-        // {
-        //     if((*tab_membre)[i]->identifiant == id_membre){
-        //         affichage_toute_info_membre((*tab_membre)[i]);
-        //     }
-        // }
+        int choix;
+        do{
+            supr_console();
+            affichage_sous_titre("SUPRESSION D'UN MEMBRE");
+            if(id_membre != 0){
+                for(i=0; i<(*nb_membre); i++)
+                {
+                    if((*tab_membre)[i]->identifiant == id_membre){
+                        afficher_toute_info_membre((*tab_membre)[i]);
+                    }
+                }
+            }
 
-        // printf("Voulez vous supprimer ce membre (1 : OUI - 0 : NON (retour au menu)): ");
+            printf("Voulez vous supprimer ce membre (1 : OUI - 0 : NON (retour au menu)): ");
+            scanf(" %d", &choix);
+        }while((choix != 1) && (choix != 0));
 
+        if(choix == 1){
+            //supression et recréation du contenu du fichier membre.txt
+            FILE *fichier_membre = NULL;
+            supr_membre_fichier_membre(fichier_membre, &id_membre, *tab_membre, nb_membre);
+            rafrachir_tab_membre(tab_membre, nb_membre); //modif de la valeur de nb_membre
 
-        //supression et recréation du contenu du fichier membre.txt
-        FILE *fichier_membre = NULL;
-        supr_membre_fichier_membre(fichier_membre, &id_membre, *tab_membre, nb_membre);
-        rafrachir_tab_membre(tab_membre, nb_membre); //modif de la valeur de nb_membre
+            supr_console();
+            printf("Le membre %d a bien était suprimer\n", id_membre);
 
-        supr_console();
-        printf("Le membre %d a bien était suprimer\n", id_membre);
-
-        sleep(2);
-        supr_console();
+            sleep(2);
+            supr_console();
+        }
     }
 }
 

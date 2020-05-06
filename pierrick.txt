@@ -33,8 +33,13 @@
     - ajout fonctionnalité de reinitialisation librairie
     - ajour fonction de suppression mebre (pas fini)
     - travailler sur les fonctions membres
+    - creation lecture chaine caractere d'un fichier
+    - reuperation et sauvegardes des membres dans le fichier fonctionnelle
+
+06/05/2020 :
+    - ajout, supr et consultation membre fini 
 
 A FAIRE
     - creer historique de connexion
     - saisie nombre 
-    - creation des fonctions membres
+    - relier pret et membre
