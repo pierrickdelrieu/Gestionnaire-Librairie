@@ -227,6 +227,27 @@ int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *
 }
 
 
+/*initialisation d'un tableau contenant les indices des membres dans le tab_admin
+le tableau contient les indices des membres trier dans l'ordre alphabétique (tri au niveau des nom de famille)
+Cette fonction permet l'affichage de tous les membres*/
+void init_tab_tri_ordre_alpha(Membre **tab_membre, int *tab, int *nb_membre) {
+
+    int i, j;
+    int cpt;
+
+    for(i=0; i<(*nb_membre); i++)
+    {
+        cpt = 0;
+        for(j=0; j<(*nb_membre); j++)
+        {
+            if(compare_chaine_caractere(tab_membre[i]->nom, tab_membre[j]->nom) == 1)
+            cpt ++;
+        }
+        tab[cpt] = i;
+    }
+}
+
+
 /*Modification du fichier membres.txt lors de l'ajout d'un membre
 apres la modification il faudra rafraichir les valeurs du tab membre et nb_membre
 ouverture du fichier en mode ajout pour ne pas modifier le contenue qui est deja dans le fichier*/

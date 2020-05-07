@@ -62,7 +62,7 @@ void creer_tab_donnee(int tab[2]) {
     if (fichier_donnee != NULL) {
 
         fscanf(fichier_donnee, "nombre de membres total : %d\n", &(tab[0]));
-        fscanf(fichier_donnee, "nombre de livres total : %d\n", &(tab[1]));
+        fscanf(fichier_donnee, "nombre de prets total : %d\n", &(tab[1]));
 
         //Fermeture du fichier
         fclose(fichier_donnee);
@@ -81,7 +81,7 @@ void rafrachir_fichier_donnee(int *tab) {
     if (fichier_donnee != NULL) {
 
         fprintf(fichier_donnee, "nombre de membres total : %d\n", tab[0]);
-        fprintf(fichier_donnee, "nombre de livres total : %d\n", tab[1]);
+        fprintf(fichier_donnee, "nombre de prets total : %d\n", tab[1]);
 
         //Fermeture du fichier
         fclose(fichier_donnee);
@@ -302,8 +302,6 @@ void supr_membre(Membre ***tab_membre, int *nb_membre) {
 
 /*afichage de la liste des membre en ligne par ordre alphabétique*/
 void affichage_liste_membre(Membre **tab_membre, int *nb_membre) {
-    int i;
-    int choix;
 
     if (*nb_membre == 0) {
         supr_console();
@@ -312,20 +310,30 @@ void affichage_liste_membre(Membre **tab_membre, int *nb_membre) {
         sleep(2);
         supr_console();
     } else {
+        int i;
+        int choix;
+        int *tab_tri;
+        tab_tri = (int*) calloc(1,sizeof(int));
+
         do {
             supr_console();
             affichage_sous_titre("AFFICHAGE DES MEMBRES");
             printf("     La librairie contient %d membres\n\n", *nb_membre);
 
             //affichage dans l'ordre alphabétique
+            init_tab_tri_ordre_alpha(tab_membre, tab_tri, nb_membre);
             for (i = 0; i < (*nb_membre); i++) {
-                afficher_membre(tab_membre[i]);
+                afficher_membre(tab_membre[tab_tri[i]]);
             }
 
             printf("     Saisir 1 pour revenir au menu : ");
             saisie_entier(&choix);
         } while (choix != 1);
+
+        free(tab_tri);
     }
+
+
 }
 
 

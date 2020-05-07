@@ -37,6 +37,7 @@ void rafrachir_tab_membre(Membre ***tab_membre, int *nb_membre);
 int saisie_id_membre_tab_membre(Membre **tab_membre, int *id_membre, int *nb_membre);
 int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *nb_membre, int *nb_membre_totale);
 
+void init_tab_tri_ordre_alpha(Membre **tab_membre, int *tab, int *nb_membre);
 
 //Ajout et suppresion admin dans le fichier admin.txt
 void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie);

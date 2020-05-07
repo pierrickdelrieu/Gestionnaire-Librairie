@@ -41,6 +41,9 @@
     - ajout fonction saisie entier
     - ajout fonction de gestion de la non ouverture d'un fichier (affichage)
 
+07/05/2020 : 
+    - modification affichage membre pour que ca s'affiche dans ordre alpha
+
 A FAIRE
     - creer historique de connexion
     - saisie nombre 

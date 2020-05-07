@@ -1,8 +1,11 @@
 #include "../headers/utile.h"
 
+
+
 void supr_console(void) {
     system(strcmp(SYSTEME_EXPLOITATION, "win") == 0 ? "cls" : "clear");
 }
+
 
 void saisie_entier(int *entier){
     int valide;
@@ -38,9 +41,10 @@ int saisie_chaine_caractere(char *chaine, int nb_cara_max) {
     fflush(stdin);
 }
 
+
 int compare_chaine_caractere(char *chaine1, char *chaine2) {
 
-    //retroune 0 si chaine1= chaine2 et 1 si chaine chaine1>chaine2 et -1 si chaine chaine1<chaine2
+    //retroune 0 si chaine1 = chaine2 et 1 si chaine chaine1>chaine2 et -1 si chaine chaine1<chaine2
 
     int retour = TRUE;
 
@@ -54,6 +58,7 @@ int compare_chaine_caractere(char *chaine1, char *chaine2) {
         return (0);
     }
 }
+
 
 int lecture_chaine_cara_fichier(FILE *fichier, char *chaine, int taille_max) {
     int valide;
@@ -72,6 +77,7 @@ int lecture_chaine_cara_fichier(FILE *fichier, char *chaine, int taille_max) {
         return FALSE; // On renvoie 0 s'il y a eu une erreur
     }
 }
+
 
 void affichage_date_du_jour(void) {
     system(strcmp(SYSTEME_EXPLOITATION, "win") == 0 ? "echo  %date%-%time%" : "date");
