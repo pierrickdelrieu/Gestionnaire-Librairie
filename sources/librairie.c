@@ -111,6 +111,7 @@ void connexion(Admin **tab_admin, int *nb_identifiant) {
 
 /***********************************************FONCTION ADMIN***********************************************/
 
+/*affichage de la liste des admins*/
 void affichage_liste_admin(Admin ***tab_identifiant, int *nb_identifiant) {
     int choix;
 
@@ -123,6 +124,8 @@ void affichage_liste_admin(Admin ***tab_identifiant, int *nb_identifiant) {
     } while (choix != 1);
 }
 
+
+/*saisie d'un nouveau admin dans le tableau en memoire et dans le fichier*/
 void saisie_nx_admin(Admin ***tab_admin, int *nb_identifiant) {
 
     //Saise de l'administrateur a supprimer
@@ -151,6 +154,8 @@ void saisie_nx_admin(Admin ***tab_admin, int *nb_identifiant) {
     supr_console();
 }
 
+
+/*supression d'un admin dans le tableau en memoire et dans le fichier*/
 void supr_admin(Admin ***tab_admin, int *nb_identifiant) {
 
     //Saisie de l'administrateur a supprimer
@@ -201,6 +206,7 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant) {
 
 /**********************************************FONCTION MEMBRE**********************************************/
 
+/*ajout d'un membre dans le tableau en memoire et dans le fichier*/
 void saisie_nx_membre(Membre ***tab_membre, int *nb_membre, int tab_donnee[2]) {
 
     int valide = FALSE;
@@ -237,6 +243,8 @@ void saisie_nx_membre(Membre ***tab_membre, int *nb_membre, int tab_donnee[2]) {
     supr_console();
 }
 
+
+/*supression d'un membre dans le tableau en memoire et dans le fichier*/
 void supr_membre(Membre ***tab_membre, int *nb_membre) {
 
     if (*nb_membre == 0) {
@@ -292,6 +300,7 @@ void supr_membre(Membre ***tab_membre, int *nb_membre) {
 }
 
 
+/*afichage de la liste des membre en ligne par ordre alphabétique*/
 void affichage_liste_membre(Membre **tab_membre, int *nb_membre) {
     int i;
     int choix;
@@ -307,6 +316,8 @@ void affichage_liste_membre(Membre **tab_membre, int *nb_membre) {
             supr_console();
             affichage_sous_titre("AFFICHAGE DES MEMBRES");
             printf("     La librairie contient %d membres\n\n", *nb_membre);
+
+            //affichage dans l'ordre alphabétique
             for (i = 0; i < (*nb_membre); i++) {
                 afficher_membre(tab_membre[i]);
             }
@@ -317,6 +328,8 @@ void affichage_liste_membre(Membre **tab_membre, int *nb_membre) {
     }
 }
 
+
+/*affichage de toute les informations sur un membre en particulier*/
 void affichage_info_membre(Membre **tab_membre, int *nb_membre) {
 
     if (*nb_membre == 0) {

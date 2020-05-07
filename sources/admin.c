@@ -187,7 +187,7 @@ void ajout_admin_fichier_admin(FILE *fichier_admin, Admin *saisie) {
 
 /*Modification du fichier admin lors de la supression d'un admin
 ouverture du fichier en mode ecriture pour suprimmer tous les elements du fichier
-les admins seront ensuite tous reinsérré sauf dont on demande la suppression
+les admins seront ensuite tous reinsérré sauf celui dont on demande la suppression
 apres la modification il faudra rafraichir les valeurs du tab admin et nb_admin*/
 void supr_admin_fichier_admin(FILE *fichier_admin, Admin **tab_admin, Admin *saisie, int *nb_identifiant) {
     fichier_admin = fopen("sauvegardes/admin.txt", "w"); //"w" correspond a l'ecriture - fopen renvoie un pointeur sur le fichier

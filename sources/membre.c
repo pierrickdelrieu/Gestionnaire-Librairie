@@ -1,6 +1,7 @@
 #include "../headers/membre.h"
 
 
+//creer la structure membre de maniere dynamique
 Membre *creer_struct_membre() {
     Membre *x;
 
@@ -9,70 +10,14 @@ Membre *creer_struct_membre() {
     return (x);
 }
 
+
+/*Libere la structure admin de maniere dynamique*/
 void lib_struct_membre(Membre *membre) {
     free(membre);
 }
 
-void rafrachir_tab_membre(Membre ***tab_membre, int *nb_membre) {
 
-    lib_tab_membre(*tab_membre, nb_membre);
-
-    calcul_nb_membre(nb_membre);
-
-    *tab_membre = creer_tab_membre(nb_membre);
-}
-
-void calcul_nb_membre(int *nb_membre) {
-    FILE *fichier_membre = NULL;
-
-    fichier_membre = fopen("sauvegardes/membres.txt", "r"); //"w" correspond a la ecriture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
-
-    if (fichier_membre != NULL) {
-
-        //nombres d'identifiant
-        int cara;
-        *nb_membre = 0;
-        do {
-            cara = fgetc(fichier_membre);
-            if (cara == '\n') {
-                (*nb_membre)++;
-            }
-        } while (cara != EOF);
-
-        //Fermeture du fichier
-        fclose(fichier_membre);
-
-        *nb_membre = (*nb_membre) / 11; 
-
-    } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
-        erreur_ouverture_fichier();
-    }
-}
-
-int *creer_tri_tab_membre(Membre **liste_membre, int *nb_membre) {
-
-    /* le tableau tri_tab membre contient les identifiant des membres de manieres trier (nom)
-    */
-    int *tri_tab = NULL;
-
-    tri_tab = (int *) malloc((*nb_membre) * sizeof(int));
-
-    int i, j;
-    int position_tab;
-    for (i = 0; i < (*nb_membre); i++) {
-        position_tab = 0;
-        for (j = 0; j < (*nb_membre); i++) {
-            if (compare_chaine_caractere(liste_membre[i]->nom, liste_membre[j]->nom) == 1) {
-                position_tab++;
-            }
-        }
-        tri_tab[position_tab] = liste_membre[i]->identifiant;
-    }
-
-    return (tri_tab);
-}
-
-
+/*Recuperation des sauvegardes faites dans le fichier membres*/
 Membre **creer_tab_membre(int *nb_membre) {
     Membre **liste_membres;
     FILE *fichier_membre = NULL;
@@ -112,6 +57,49 @@ Membre **creer_tab_membre(int *nb_membre) {
 }
 
 
+/*Permet de calculer le nombre de membre a partir du fichier membre.txt
+Elle parcour le fichier et compte le nombre de membre qu'il contient (sachant que un membre = 11 ligne)*/
+void calcul_nb_membre(int *nb_membre) {
+    FILE *fichier_membre = NULL;
+
+    fichier_membre = fopen("sauvegardes/membres.txt", "r"); //"w" correspond a la ecriture seul (permet de limiter les erreurs) - fopen renvoie un pointeur sur le fichier
+
+    if (fichier_membre != NULL) {
+
+        //nombres d'identifiant
+        int cara;
+        *nb_membre = 0;
+        do {
+            cara = fgetc(fichier_membre);
+            if (cara == '\n') {
+                (*nb_membre)++;
+            }
+        } while (cara != EOF);
+
+        //Fermeture du fichier
+        fclose(fichier_membre);
+
+        *nb_membre = (*nb_membre) / 11; 
+
+    } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
+        erreur_ouverture_fichier();
+    }
+}
+
+
+/* Modifie le tableau de membre en fonction des modifications (ajout et supression) qui ont eu lieu sur le fichier
+Cette fonction suprimme et recrer le tableau, la realocation est trop dangeureuse*/
+void rafrachir_tab_membre(Membre ***tab_membre, int *nb_membre) {
+
+    lib_tab_membre(*tab_membre, nb_membre);
+
+    calcul_nb_membre(nb_membre);
+
+    *tab_membre = creer_tab_membre(nb_membre);
+}
+
+
+/*Saisie des champs de la structure d'un nouveau membre*/
 int saisie_champs_membre(Membre *membre, int *nb_membres_totale) {
     int valide;
     int valide_tot = 0; //5 si pas d'erreur
@@ -154,6 +142,7 @@ int saisie_champs_membre(Membre *membre, int *nb_membres_totale) {
 }
 
 
+/*Affiche un membre en ligne sans toute les infos sur les prets*/
 void afficher_membre(Membre *membre) {
 
     printf("%s %s  id : %d     adresse : ", membre->prenom, membre->nom, membre->identifiant);
@@ -161,6 +150,8 @@ void afficher_membre(Membre *membre) {
     printf("     email : %s     metier : %s\n", membre->email, membre->metier);
 }
 
+
+/*affiche la totalité du membre avec tous les détais sur les prets*/
 void afficher_toute_info_membre(Membre *membre) {
     printf("\n                    %s %s (identifiant : %d)\n", membre->prenom, membre->nom, membre->identifiant);
     printf("                    Adresse : ");
@@ -173,6 +164,8 @@ void afficher_toute_info_membre(Membre *membre) {
     }
 }
 
+
+/*libere de maniere dynamique le tableau de membre*/
 void lib_tab_membre(Membre **tab_membre, int *nb_membres) {
     int i;
 
@@ -183,6 +176,9 @@ void lib_tab_membre(Membre **tab_membre, int *nb_membres) {
     free(tab_membre);
 }
 
+
+/*saisie d'un identifiant valide (cad d'un membre existant)
+permet la verification lors de la supression ou la consultation d'un membre*/
 int saisie_id_membre_tab_membre(Membre **tab_membre, int *id_membre, int *nb_membre) {
     saisie_entier(id_membre);
 
@@ -202,6 +198,10 @@ int saisie_id_membre_tab_membre(Membre **tab_membre, int *id_membre, int *nb_mem
     return (valide);
 }
 
+
+/*saisie des champs d'un membre valide (cad d'un membre existant)
+permet la verification lors de la creation d'un nouveau membre
+on considere que un membre est different si il possede une adresse mail jamais enregistré*/
 int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *nb_membre, int *nb_membre_totale) {
 
     //retourne 1 (TRUE) si valeur saisie correspond a un membre deja existant et 0 sinon
@@ -227,6 +227,9 @@ int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *
 }
 
 
+/*Modification du fichier membres.txt lors de l'ajout d'un membre
+apres la modification il faudra rafraichir les valeurs du tab membre et nb_membre
+ouverture du fichier en mode ajout pour ne pas modifier le contenue qui est deja dans le fichier*/
 void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie) {
     fichier_membre = fopen("sauvegardes/membres.txt", "a"); //"a" correspond a l'ajout - fopen renvoie un pointeur sur le fichier
 
@@ -247,6 +250,10 @@ void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie) {
 }
 
 
+/*Modification du fichier membre.txt lors de la supression d'un membre
+ouverture du fichier en mode ecriture pour suprimmer tous les elements du fichier
+les membres seront ensuite tous reinsérré sauf celui dont on demande la suppression
+apres la modification il faudra rafraichir les valeurs du tab membre et nb_membre*/
 void supr_membre_fichier_membre(FILE *fichier_membre, int *id_membre, Membre **tab_membre, int *nb_membre) {
     fichier_membre = fopen("sauvegardes/membres.txt", "w"); //"w" correspond a l'ecriture - fopen renvoie un pointeur sur le fichier
 
