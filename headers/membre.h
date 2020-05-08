@@ -9,6 +9,7 @@
 #include "adresse.h"
 #include "utile.h"
 #include "affichage.h"
+#include "pret.h"
 
 
 typedef struct {
@@ -27,6 +28,7 @@ void lib_struct_membre(Membre *membre);
 int saisie_champs_membre(Membre *membre, int *nb_membres);
 void afficher_membre(Membre *membre);
 void afficher_toute_info_membre(Membre *membre);
+int calcul_nb_pret_membre(Membre *membre);
 
 
 //Creation, libération, modification et affichage du tableau d'admin

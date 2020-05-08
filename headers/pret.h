@@ -6,7 +6,7 @@
 #include "livre.h"
 #include "affichage.h"
 
-#define NB_EMPRUNT_MAX 3;
+#define NB_EMPRUNT_MAX 3
 
 typedef struct {
     int id_pret;

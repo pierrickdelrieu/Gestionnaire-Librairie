@@ -326,10 +326,6 @@ void affichage_liste_membre(Membre **tab_membre, int *nb_membre) {
                 afficher_membre(tab_membre[tab_tri[i]]);
             }
 
-            for (i = 0; i < (*nb_membre); i++) {
-                printf("%d, ", tab_tri[i]);
-            }
-
             printf("     Saisir 1 pour revenir au menu : ");
             saisie_entier(&choix);
         } while (choix != 1);

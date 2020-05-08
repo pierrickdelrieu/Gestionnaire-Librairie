@@ -142,12 +142,32 @@ int saisie_champs_membre(Membre *membre, int *nb_membres_totale) {
 }
 
 
+/*calcul du nombre de pret d'un membre*/
+int calcul_nb_pret_membre(Membre *membre){
+    int nb_pret = 0;
+    int i;
+    
+    for(i=0; i < NB_EMPRUNT_MAX; i++)
+    {
+        if(membre->liste_emprunt[i] != 0) {
+            nb_pret ++;
+        }
+    }
+
+    return (nb_pret);
+}
+
+
 /*Affiche un membre en ligne sans toute les infos sur les prets*/
 void afficher_membre(Membre *membre) {
+    int nb_pret;
+    
+    nb_pret = calcul_nb_pret_membre(membre);
 
-    printf("%s %s  id : %d     adresse : ", membre->nom, membre->prenom, membre->identifiant);
+    printf("%s %s  id : %d    adresse : ", membre->nom, membre->prenom, membre->identifiant);
     afficher_adresse(&(membre->adresse));
-    printf("     email : %s     metier : %s\n", membre->email, membre->metier);
+    printf("    email : %s    metier : %s", membre->email, membre->metier);
+    printf("     Pret : %d\n\n", nb_pret);
 }
 
 
@@ -159,7 +179,7 @@ void afficher_toute_info_membre(Membre *membre) {
     printf("\n                    Email : %s\n", membre->email);
     printf("                    Metier : %s\n", membre->metier);
 
-    if ((membre->liste_emprunt[0] == 0) && (membre->liste_emprunt[1] == 0) && (membre->liste_emprunt[2] == 0)) {
+    if (calcul_nb_pret_membre(membre) == 0) {
         printf("                    Pret : Aucun pret en cour\n\n");
     }
 }
@@ -244,6 +264,7 @@ void init_tab_tri_ordre_alpha(Membre **tab_membre, int *tab, int *nb_membre) {
                 cpt ++;
             }
         }
+
         if(tab[cpt] == 0){
             tab[cpt] = i;
         } 
