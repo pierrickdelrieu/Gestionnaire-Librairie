@@ -145,7 +145,7 @@ int saisie_champs_membre(Membre *membre, int *nb_membres_totale) {
 /*Affiche un membre en ligne sans toute les infos sur les prets*/
 void afficher_membre(Membre *membre) {
 
-    printf("%s %s  id : %d     adresse : ", membre->prenom, membre->nom, membre->identifiant);
+    printf("%s %s  id : %d     adresse : ", membre->nom, membre->prenom, membre->identifiant);
     afficher_adresse(&(membre->adresse));
     printf("     email : %s     metier : %s\n", membre->email, membre->metier);
 }
@@ -240,10 +240,16 @@ void init_tab_tri_ordre_alpha(Membre **tab_membre, int *tab, int *nb_membre) {
         cpt = 0;
         for(j=0; j<(*nb_membre); j++)
         {
-            if(compare_chaine_caractere(tab_membre[i]->nom, tab_membre[j]->nom) == 1)
-            cpt ++;
+            if(compare_chaine_caractere(tab_membre[i]->nom, tab_membre[j]->nom) == 1){ //tab_membre[i]->nom > tab_membre[j]->nom
+                cpt ++;
+            }
         }
-        tab[cpt] = i;
+        if(tab[cpt] == 0){
+            tab[cpt] = i;
+        } 
+        else{
+            tab[cpt+1] = i;
+        }
     }
 }
 

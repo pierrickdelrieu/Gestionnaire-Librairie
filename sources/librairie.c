@@ -218,7 +218,7 @@ void saisie_nx_membre(Membre ***tab_membre, int *nb_membre, int tab_donnee[2]) {
         affichage_sous_titre("AJOUT NOUVEAU MEMBRE");
 
         if (valide == TRUE) {
-            printf("ERREUR (membre deja existant ou erreur de saisie)\nReesayer\n\n");
+            printf("ERREUR (adresse mail deja existante)\nReesayer\n\n");
         }
 
         valide = saisie_securise_membre_tab_membre(&saisie, *tab_membre, nb_membre, &(tab_donnee[0]));
@@ -313,7 +313,7 @@ void affichage_liste_membre(Membre **tab_membre, int *nb_membre) {
         int i;
         int choix;
         int *tab_tri;
-        tab_tri = (int*) calloc(1,sizeof(int));
+        tab_tri = (int*) calloc(1,sizeof(int)); //les valeurs du tableau sont initialisé a 0
 
         do {
             supr_console();
@@ -324,6 +324,10 @@ void affichage_liste_membre(Membre **tab_membre, int *nb_membre) {
             init_tab_tri_ordre_alpha(tab_membre, tab_tri, nb_membre);
             for (i = 0; i < (*nb_membre); i++) {
                 afficher_membre(tab_membre[tab_tri[i]]);
+            }
+
+            for (i = 0; i < (*nb_membre); i++) {
+                printf("%d, ", tab_tri[i]);
             }
 
             printf("     Saisir 1 pour revenir au menu : ");
