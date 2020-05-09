@@ -7,8 +7,8 @@
 
 #include "utile.h"
 
-
-typedef struct {
+typedef struct
+{
     char rue[70];
     char code_postal[20];
     char ville[50];
@@ -19,6 +19,4 @@ int saisie_adresse(Adresse *a);
 
 void afficher_adresse(Adresse *a);
 
-
 #endif /* adresse_h */
-

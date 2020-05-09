@@ -1,7 +1,8 @@
 #ifndef date_h
 #define date_h
 
-typedef struct {
+typedef struct
+{
     int jour;
     int mois;
     int annee;
