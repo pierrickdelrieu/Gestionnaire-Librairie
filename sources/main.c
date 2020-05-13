@@ -64,11 +64,11 @@ int main() {
             else if (choix_menu == 5) { //Information sur un livre
                 affichage_info_livre(bibliotheque.gestion_livre.liste_livre, &(bibliotheque.gestion_livre.nb_livre));
             } else if (choix_menu == 6) { //consulter la liste des livres
-                affichage_liste_livre(bibliotheque.gestion_livre.liste_livre, &(bibliotheque.gestion_livre.nb_livre));
+                // affichage_liste_livre(bibliotheque.gestion_livre.liste_livre, &(bibliotheque.gestion_livre.nb_livre));
             } else if (choix_menu == 7) { //ajouter un livre
-                saisie_nx_livre(&(bibliotheque.gestion_livre.liste_livre), &(bibliotheque.gestion_livre.nb_livre), bibliotheque.donnee);
+                saisie_nx_livre(&(bibliotheque.gestion_livre.liste_livre), &(bibliotheque.gestion_livre.nb_livre));
             } else if (choix_menu == 8) { //supprimer un livre
-                printf("Supprimer un livre\n");
+                supr_livre(&(bibliotheque.gestion_livre.liste_livre), &(bibliotheque.gestion_livre.nb_livre));
             }
 
                 //Prêts
@@ -88,13 +88,7 @@ int main() {
             } else if (choix_menu == 14) { //supprimer un admin
                 supr_admin(&(bibliotheque.gestion_admin.liste_admin), &(bibliotheque.gestion_admin.nb_admin));
             } else if (choix_menu == 15) { //reinitialisé la librairie
-                reinitialise_librairie(
-                        bibliotheque.donnee,
-                        &(bibliotheque.gestion_membre.liste_membre),
-                        &(bibliotheque.gestion_membre.nb_membre),
-                        &(bibliotheque.gestion_admin.liste_admin),
-                        &(bibliotheque.gestion_admin.nb_admin)
-                );
+                reinitialise_librairie(bibliotheque.donnee, &(bibliotheque.gestion_admin), &(bibliotheque.gestion_membre), &(bibliotheque.gestion_livre), &(bibliotheque.gestion_pret));
             }
         }
     }

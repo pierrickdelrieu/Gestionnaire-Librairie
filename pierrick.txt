@@ -39,6 +39,15 @@
 06/05/2020 :
     - ajout, supr et consultation membre fini 
     - ajout fonction saisie entier
+    - ajout fonction de gestion de la non ouverture d'un fichier (affichage)
+
+07/05/2020 : 
+    - modification affichage membre pour que ca s'affiche dans ordre alpha
+
+13/05/2020 : 
+    - avancement sur les fonctions de livre
+    - realisation fonction ajout, supression et info sur un librairie
+    - probleme au niveau de l'allocation du tableau de pret de la structure livre
 
 A FAIRE
     - creer historique de connexion

@@ -11,4 +11,6 @@ void affichage_sous_titre(char *sous_titre);
 
 void affichage_choix_menu(int *choix);
 
+void erreur_ouverture_fichier();
+
 #endif /* affichage_h */

@@ -1,2 +1,2 @@
-nombre de membres total : 6
-nombre de livres total : 0
+nombre de membres total : 1
+nombre de prets total : 0

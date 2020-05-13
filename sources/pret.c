@@ -1,6 +1,7 @@
-
 #include "../headers/pret.h"
 #include "../headers/utile.h"
+
+#include <time.h>
 
 
 Pret *creer_struct_pret() {
@@ -67,10 +68,7 @@ Pret **creer_tab_pret(int *nb_pret) {
         fclose(fichier_pret);
 
     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
-        printf("Erreur au niveau de l'ouverture du fichier\n");
-        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
-        printf("Gerer ceci dans les préférence de votre ordinateur\n");
-        exit(0); //Fin du programme
+        erreur_ouverture_fichier();
     }
 
     return liste_prets;
@@ -96,10 +94,7 @@ void calcul_nb_pret(int *nb_pret) {
         fclose(fichier_pret);
 
     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
-        printf("Erreur au niveau de l'ouverture du fichier\n");
-        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
-        printf("Gerer ceci dans les préférence de votre ordinateur\n");
-        exit(0); //Fin du programme
+        erreur_ouverture_fichier();
     }
 }
 
@@ -187,10 +182,7 @@ void ajout_pret_fichier_pret(FILE *fichier_pret, Pret *saisie) {
         fclose(fichier_pret);
 
     } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
-        printf("Erreur au niveau de l'ouverture du fichier\n");
-        printf("Le programme n'a pas les autorisations nécessaire pour acceder aux fichiers de votre ordinateur\n");
-        printf("Gerer ceci dans les préférence de votre ordinateur\n");
-        exit(0); //Fin du programme
+        erreur_ouverture_fichier();
     }
 }
 
