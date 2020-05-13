@@ -30,7 +30,15 @@ void calcul_nb_pret(int *nb_pret);
 
 void lib_tab_pret(Pret **tab_pret, int *nb_pret);
 
-void ajout_pret_fichier_pret(Pret *saisie);
+int saisie_securise_pret_tab_pret(Pret *saisie, Pret **tab_pret, int *nb_pret, int *nb_pret_totale);
+
+int saisie_champs_pret(Pret *pret, int *nb_pret);
+
+void ajout_pret_fichier_pret(FILE *fichier_pret, Pret *saisie);
+
+void afficher_pret(Pret *pret);
+
+void afficher_toute_info_pret(Pret *pret);
 
 
 #endif /* pret_h */

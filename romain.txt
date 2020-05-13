@@ -21,6 +21,14 @@
 
     - recuperation des livres depuis le fichier
 
+08/05/2020:
+    - tentative d'implementation d'une meilleur fonction saisie_chaine_car...
+
+03/05/2020:
+    - finalisation de prets
+        - les lister
+        - les enregistrer
+
 A FAIRE:
     - implemanter les prets
     - regler le probleme d'affichage sur les livres

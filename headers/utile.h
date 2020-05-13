@@ -12,6 +12,8 @@
 #define TRUE 1
 #define FALSE 0
 
+void saisie_entier(int *entier);
+
 int saisie_chaine_caractere(char *chaine, int nb_cara_max);
 
 int compare_chaine_caractere(char *chaine1, char *chaine2);

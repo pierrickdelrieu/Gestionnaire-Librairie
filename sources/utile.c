@@ -4,13 +4,13 @@ void supr_console(void) {
     system(strcmp(SYSTEME_EXPLOITATION, "win") == 0 ? "cls" : "clear");
 }
 
-void saisie_entier(int *entier){
+void saisie_entier(int *entier) {
     int valide;
 
     fflush(stdin);
-    valide = scanf("%d",entier);
+    valide = scanf("%d", entier);
 
-    if(valide == 0){
+    if (valide == 0) {
         *entier = -1;
     }
     fflush(stdin);
@@ -37,6 +37,13 @@ int saisie_chaine_caractere(char *chaine, int nb_cara_max) {
     }
     fflush(stdin);
 }
+
+//int saisie_chaine_caractere(char *chaine, int nb_cara_max) {
+//    while (chaine != NULL && strlen(chaine) <= nb_cara_max)
+//        scanf("%s", chaine);
+//
+//    return 1;
+//}
 
 int compare_chaine_caractere(char *chaine1, char *chaine2) {
 

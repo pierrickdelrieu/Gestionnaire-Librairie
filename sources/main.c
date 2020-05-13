@@ -23,6 +23,9 @@ int main() {
     calcul_nb_livre(&(bibliotheque.gestion_livre.nb_livre));
     bibliotheque.gestion_livre.liste_livre = creer_tab_livre(&(bibliotheque.gestion_livre.nb_livre));
 
+    calcul_nb_pret(&(bibliotheque.gestion_pret.nb_pret));
+    bibliotheque.gestion_pret.liste_pret = creer_tab_pret(&(bibliotheque.gestion_pret.nb_pret));
+
     creer_tab_donnee(bibliotheque.donnee);
 
 
@@ -70,11 +73,11 @@ int main() {
 
                 //Prêts
             else if (choix_menu == 9) { //consulter la liste des prets
-                printf("Consulter liste prets\n");
+                affichage_liste_pret(bibliotheque.gestion_pret.liste_pret, &(bibliotheque.gestion_pret.nb_pret));
             } else if (choix_menu == 10) { //ajouter un pret
-                printf("Ajouter un pret\n");
+                saisie_nx_pret(&(bibliotheque.gestion_pret.liste_pret), &(bibliotheque.gestion_pret.nb_pret), bibliotheque.donnee);
             } else if (choix_menu == 11) { //supprimer un pret
-                printf("Supprimer un pret\n");
+                supr_pret(&(bibliotheque.gestion_pret.liste_pret), &(bibliotheque.gestion_pret.nb_pret));
             }
 
                 //Administrateurs

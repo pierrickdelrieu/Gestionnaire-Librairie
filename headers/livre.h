@@ -36,12 +36,4 @@ void afficher_toute_info_livre(Livre *livre);
 
 void afficher_livre(Livre *livre);
 
-//fonction Date
-// todo: a supprimer/deplacer
-void saisir_date(Date *d);
-
-void afficher_date(Date *d);
-
-int compare_date(Date *d1, Date *d2);
-
 #endif /* livre_h */
