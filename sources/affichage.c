@@ -19,18 +19,18 @@ void affichage_choix_menu(int *choix)
         affichage_date_du_jour();
 
         printf("\n\n\n");
-        printf("     =============================================================================\n");
-        printf("     |    1- Information sur un membre                                           |\n");
-        printf("     |    2- Consulter la liste des membres                                      |\n");
-        printf("     |    3- Ajouter un membre                                                   |\n");
-        printf("     |    4- Supprimer un membre                                                 |\n");
+        printf("     +===========================================================================+\n");
+        printf("     |     1- Information sur un membre                                          |\n");
+        printf("     |     2- Consulter la liste des membres                                     |\n");
+        printf("     |     3- Ajouter un membre                                                  |\n");
+        printf("     |     4- Supprimer un membre                                                |\n");
         printf("     |                                                                           |\n");
-        printf("     |    5- Information sur un livre                                            |\n");
-        printf("     |    6- Consulter la listes des livres                                      |\n");
-        printf("     |    7- Ajouter un livre                                                    |\n");
-        printf("     |    8- Supprimer un livre                                                  |\n");
+        printf("     |     5- Information sur un livre                                           |\n");
+        printf("     |     6- Consulter la listes des livres                                     |\n");
+        printf("     |     7- Ajouter un livre                                                   |\n");
+        printf("     |     8- Supprimer un livre                                                 |\n");
         printf("     |                                                                           |\n");
-        printf("     |    9- Consulter la liste des prêts                                        |\n");
+        printf("     |     9- Consulter la liste des prêts                                       |\n");
         printf("     |    10- Ajouter le pret d'un livre                                         |\n");
         printf("     |    11- Restituer un livre (supprimer le pret)                             |\n");
         printf("     |                                                                           |\n");
@@ -40,8 +40,8 @@ void affichage_choix_menu(int *choix)
         printf("     |                                                                           |\n");
         printf("     |    15- Reinitialisé toutes les données de la librairie                    |\n");
         printf("     |                                                                           |\n");
-        printf("     |    0- Quitter                                                             |\n");
-        printf("     =============================================================================\n\n");
+        printf("     |     0- Quitter                                                            |\n");
+        printf("     +===========================================================================+\n\n");
 
         printf("                            Choix : ");
         saisie_entier(choix);

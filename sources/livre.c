@@ -3,12 +3,7 @@
 //creer la structure livre de maniere dynamique
 Livre *creer_struct_livre()
 {
-    Livre *x;
-
-    x = (Livre *)malloc(sizeof(Livre));
-    x->tab_pret = NULL;
-
-    return (x);
+    return (Livre *) malloc(sizeof(Livre));
 }
 
 /*Libere la structure admin de maniere dynamique*/

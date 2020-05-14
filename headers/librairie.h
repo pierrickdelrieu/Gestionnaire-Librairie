@@ -77,4 +77,14 @@ void supr_livre(Livre ***tab_livre, int *nb_livre);
 
 void affichage_info_livre(Livre **tab_livre, int *nb_livre);
 
+// Pret
+
+void saisie_nx_pret(Pret ***tab_pret, int *nb_pret, int tab_donnee[2]);
+
+void supr_pret(Pret ***tab_pret, int *nb_pret);
+
+void affichage_liste_pret(Pret **tab_pret, int *nb_pret);
+
+void affichage_info_pret(Pret **tab_pret, int *nb_pret);
+
 #endif /* librairie_h */

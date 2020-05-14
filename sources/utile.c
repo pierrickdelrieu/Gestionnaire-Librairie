@@ -47,6 +47,13 @@ int saisie_chaine_caractere(char *chaine, int nb_cara_max)
     fflush(stdout);
 }
 
+//int saisie_chaine_caractere(char *chaine, int nb_cara_max) {
+//    while (chaine != NULL && strlen(chaine) <= nb_cara_max)
+//        scanf("%s", chaine);
+//
+//    return 1;
+//}
+
 int compare_chaine_caractere(char *chaine1, char *chaine2)
 {
 
