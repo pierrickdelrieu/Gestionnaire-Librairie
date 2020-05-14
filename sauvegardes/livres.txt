@@ -1,0 +1,6 @@
+Odysse
+Homere
+ROM-001
+nb_exemplaires : 10 - nb_exemplaires_dispos : 10
+pret : 0 - 0 - 0 - 0 - 0 - 0 - 0 - 0 - 0 - 0 - 
+

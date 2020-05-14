@@ -41,8 +41,8 @@ Livre **creer_tab_livre(int *nb_livre)
             liste_livres[i] = creer_struct_livre();
             lecture_chaine_cara_fichier(fichier_livre, liste_livres[i]->titre, 40);
             lecture_chaine_cara_fichier(fichier_livre, liste_livres[i]->auteur, 40);
-            lecture_chaine_cara_fichier(fichier_livre, liste_livres[i]->code, 8);
-            fscanf(fichier_livre, "nb_exemplaires : %d - nb_exemplaires_dispos %d\n\n", &(liste_livres[i]->nb_exemplaires), &(liste_livres[i]->nb_exemplaires_dispo));
+            lecture_chaine_cara_fichier(fichier_livre, liste_livres[i]->code, 9);
+            fscanf(fichier_livre, "nb_exemplaires : %d - nb_exemplaires_dispos : %d\n\n", &(liste_livres[i]->nb_exemplaires), &(liste_livres[i]->nb_exemplaires_dispo));
             
             fscanf(fichier_livre, "pret : ");
             liste_livres[i]->tab_pret = (int *) calloc(liste_livres[i]->nb_exemplaires, sizeof(int));
@@ -173,6 +173,7 @@ int saisie_champs_livre(Livre *livre)
 
     if (valide_tot == 4)
     {
+        livre->tab_pret = (int *) calloc(livre->nb_exemplaires,sizeof(int));
         livre->nb_exemplaires_dispo = livre->nb_exemplaires;
         return (TRUE);
     }
@@ -318,7 +319,7 @@ void ajout_livre_fichier_livre(FILE *fichier_livre, Livre *saisie)
         fprintf(fichier_livre, "%s\n", saisie->titre);
         fprintf(fichier_livre, "%s\n", saisie->auteur);
         fprintf(fichier_livre, "%s\n", saisie->code);
-        fprintf(fichier_livre, "nb_exemplaires : %d - nb_exemplaires_dispos %d\n", saisie->nb_exemplaires, saisie->nb_exemplaires_dispo);
+        fprintf(fichier_livre, "nb_exemplaires : %d - nb_exemplaires_dispos : %d\n", saisie->nb_exemplaires, saisie->nb_exemplaires_dispo);
             
         fprintf(fichier_livre, "pret : ");
         for(j=0; j<saisie->nb_exemplaires; j++)
@@ -357,7 +358,7 @@ void supr_livre_fichier_livre(FILE *fichier_livre, char *code, Livre **tab_livre
                 fprintf(fichier_livre, "%s\n", tab_livre[i]->titre);
                 fprintf(fichier_livre, "%s\n", tab_livre[i]->auteur);
                 fprintf(fichier_livre, "%s\n", tab_livre[i]->code);
-                fprintf(fichier_livre, "nb_exemplaires : %d - nb_exemplaires_dispos %d\n", tab_livre[i]->nb_exemplaires, tab_livre[i]->nb_exemplaires_dispo);
+                fprintf(fichier_livre, "nb_exemplaires : %d - nb_exemplaires_dispos : %d\n", tab_livre[i]->nb_exemplaires, tab_livre[i]->nb_exemplaires_dispo);
             
                 fprintf(fichier_livre, "pret : ");
                 for(j=0; j<tab_livre[i]->nb_exemplaires; j++)

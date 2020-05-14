@@ -415,7 +415,8 @@ void saisie_nx_livre(Livre ***tab_livre, int *nb_livre)
 {
 
     int valide = 1;
-    Livre saisie;
+    Livre* saisie;
+    saisie = creer_struct_livre();
 
     //saisie du livre a ajouter
     do
@@ -428,19 +429,20 @@ void saisie_nx_livre(Livre ***tab_livre, int *nb_livre)
             printf("ERREUR livre deja existant (code ou titre)\nReesayer\n\n");
         }
 
-        valide = saisie_securise_livre_in_tab_livre(&saisie, *tab_livre, nb_livre);
+        valide = saisie_securise_livre_in_tab_livre(saisie, *tab_livre, nb_livre);
     } while (valide == 1);
 
     //modification du contenu du fichier livre.txt
     FILE *fichier_livre = NULL;
-    ajout_livre_fichier_livre(fichier_livre, &(saisie));
+    ajout_livre_fichier_livre(fichier_livre, saisie);
 
     rafrachir_tab_livre(tab_livre, nb_livre); //modif du nombre de membre
 
     supr_console();
-    printf("%s - %s a bien était ajouté comme nouveau livre\n", saisie.titre, saisie.auteur);
+    printf("%s - %s a bien était ajouté comme nouveau livre\n", saisie->titre, saisie->auteur);
 
     sleep(2);
+    lib_struct_livre(saisie);
     supr_console();
 }
 
@@ -509,7 +511,7 @@ void supr_livre(Livre ***tab_livre, int *nb_livre)
     }
 }
 
-// /*afichage de la liste des membre en ligne par ordre alphabétique*/
+// /*affichage de la liste des membre en ligne par ordre alphabétique*/
 // void affichage_liste_membre(Membre **tab_membre, int *nb_membre)
 // {
 
