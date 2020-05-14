@@ -478,16 +478,45 @@ void supr_livre(Livre ***tab_livre, int *nb_livre)
 
         if (compare_chaine_caractere(code_livre, "0") != 0) //si on l'user ne veut pas retourner au menu
         {
-            //supression et recréation du contenu du fichier livre.txt
-            FILE *fichier_membre = NULL;
-            supr_livre_fichier_livre(fichier_membre, code_livre, *tab_livre, nb_livre);
-            rafrachir_tab_livre(tab_livre, nb_livre); //modif de la valeur de nb_livre
+            //affichage du livre
+            int i;
+            int indice_livre;
+            for (i=0; i<*nb_livre; i++)
+            {
+                if(compare_chaine_caractere(code_livre, (*tab_livre)[i]->code) == 0)
+                {
+                    indice_livre = i;
+                }
+            }
 
-            supr_console();
-            printf("Le livre %s a bien était suprimer\n", code_livre);
+            afficher_toute_info_livre((*tab_livre)[indice_livre]);
 
-            sleep(2);
-            supr_console();
+            if((*tab_livre)[indice_livre]->nb_exemplaires_dispo != (*tab_livre)[indice_livre]->nb_exemplaires){ //si il y a desprets en cours
+                printf("     Le livre ne peut pas etre suprimer, il y a des prets en cour\n");
+                printf("     Supprimer d'abord les prets pour pouvoir supprimer le livre\n");
+                sleep(3);
+                supr_console();
+            }
+            else{
+
+                int choix;
+                printf("Voulez vous supprimer ce livre (1 : OUI - autres choses : NON (retour au menu)): ");
+                saisie_entier(&choix);
+
+                if(choix == 1)
+                {
+                    //supression et recréation du contenu du fichier livre.txt
+                    FILE *fichier_membre = NULL;
+                    supr_livre_fichier_livre(fichier_membre, code_livre, *tab_livre, nb_livre);
+                    rafrachir_tab_livre(tab_livre, nb_livre); //modif de la valeur de nb_livre
+
+                    supr_console();
+                    printf("Le livre %s a bien était suprimer\n", code_livre);
+
+                    sleep(2);
+                    supr_console();
+                }
+            }
         }
     }
 }

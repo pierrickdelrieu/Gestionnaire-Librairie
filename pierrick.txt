@@ -49,6 +49,12 @@
     - realisation fonction ajout, supression et info sur un librairie
     - probleme au niveau de l'allocation du tableau de pret de la structure livre
 
+14/05/2020 : 
+    - ajout possibilité revenir au menu lors de la suppresion d'un livre
+    - ajout affichage et la confirmation de supression livre
+    - securisation de la non-supression d'un livre si il a des prets
+    - a faire : gerer l'allocation du tableau de pret d'un livre
+
 A FAIRE
     - creer historique de connexion
     - saisie nombre 
