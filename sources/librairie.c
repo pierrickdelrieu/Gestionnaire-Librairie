@@ -45,9 +45,8 @@ void reinitialise_librairie(int tab_donnee[2], Liste_admin *gestion_admin, Liste
         rafrachir_tab_membre(&(gestion_membre->liste_membre), &(gestion_membre->nb_membre));
         rafrachir_tab_admin(&(gestion_admin->liste_admin), &(gestion_admin->nb_admin));
         rafrachir_tab_livre(&(gestion_livre->liste_livre), &(gestion_livre->nb_livre));
-
-        //ajout des fonctions rafraichir tab livres et tab pret
-
+        rafrachir_tab_pret(&(gestion_pret->liste_pret),&(gestion_pret->nb_pret));
+        
         supr_console();
         printf("Toutes les données (membres, admin, livres, prets) de la librairies ont été supprimés\n");
 
@@ -461,7 +460,6 @@ void supr_livre(Livre ***tab_livre, int *nb_livre)
     else
     {
         int i;
-        int choix;
         char code_livre[8];
         int valide = FALSE;
 
@@ -469,7 +467,7 @@ void supr_livre(Livre ***tab_livre, int *nb_livre)
         {
             supr_console();
             affichage_sous_titre("SUPRESSION D'UN LIVRE");
-            printf("     Saisir le code du livre a supprimer (XXX-YYY) : ");
+            printf("     Saisir le code du livre a supprimer (XXX-YYY) ou 0 pour revenir au menu : ");
 
             valide = saisie_code_livre(code_livre);
 
@@ -478,7 +476,7 @@ void supr_livre(Livre ***tab_livre, int *nb_livre)
             }
         } while (valide == FALSE);
 
-        if (choix == 1)
+        if (compare_chaine_caractere(code_livre, "0") != 0) //si on l'user ne veut pas retourner au menu
         {
             //supression et recréation du contenu du fichier livre.txt
             FILE *fichier_membre = NULL;

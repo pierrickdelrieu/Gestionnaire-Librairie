@@ -1,2 +1,1 @@
-id : 83 | id_utilisateur : 1 | code_livre : aze | date_pret : 1589390800 | date_retour : 915269224 | etat_livre : 1 id : 83 | id_utilisateur : 1 | code_livre : ezf | date_pret : 1589390857 | date_retour : 1591205257 | etat_livre : 1 id : 83 | id_utilisateur : 1 | code_livre : ez3 | date_pret : 1589391865 | date_retour : 1591206265 | etat_livre : 1 
-id : 83 | id_utilisateur : 1 | code_livre : 5erf | date_pret : 1589400200 | date_retour : 1591214600 | etat_livre : 1 
+id : 83 | id_utilisateur : 1 | code_livre : ROM-001 | date_pret : 1589442327 | date_retour : 1591256727 | etat_livre : 1 

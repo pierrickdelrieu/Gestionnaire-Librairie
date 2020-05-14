@@ -114,27 +114,32 @@ int saisie_code_livre(char code[8])
     int i;
     if(valide == TRUE){
 
-        //verification des trois premieres lettres
-        for(i=0; i<3; i++){
-            if(('Z'>code[i]) && (code[i]<'A')){ //verif de lettre en majuscule
+        if(compare_chaine_caractere(code,"0") == 0){ //verification retour au menu
+            valide = TRUE;
+        }
+        else{
+             //verification des trois premieres lettres
+            for(i=0; i<3; i++){
+                if(('Z'>code[i]) && (code[i]<'A')){ //verif de lettre en majuscule
+                    valide = FALSE;
+                }
+            }
+
+            //verification de la presence du tiret
+            if(code[3] != '-'){
                 valide = FALSE;
             }
-        }
 
-        //verification de la presence du tiret
-        if(code[3] != '-'){
-            valide = FALSE;
-        }
-
-        //verification des trois derniers chiffres
-        for(i=4; i<7; i++){
-            if(('0'<code[i]) && (code[i]>'9')){ //verif de lettre en majuscule
-                valide = FALSE;
+            //verification des trois derniers chiffres
+            for(i=4; i<7; i++){
+                if(('0'<code[i]) && (code[i]>'9')){ //verif de lettre en majuscule
+                    valide = FALSE;
+                }
             }
-        }
 
-        if(valide == TRUE){
-            code[8] = '\0';
+            if(valide == TRUE){
+                code[8] = '\0';
+            }
         }
     }
 
@@ -242,13 +247,18 @@ int verif_code_livre_in_tab_libre(Livre **tab_livre, char* code_livre, int *nb_l
     int valide = FALSE;
 
     int i;
-    for (i = 0; i < *(nb_livre); i++)
-    {
-        if (compare_chaine_caractere(code_livre, tab_livre[i]->code) == 0) //si les chaines sont egales
+    if(compare_chaine_caractere(code_livre,"0") == 0){
+        valide = TRUE;
+    }
+    else{
+        for (i = 0; i < *(nb_livre); i++)
         {
-                valide = TRUE;
+            if (compare_chaine_caractere(code_livre, tab_livre[i]->code) == 0) //si les chaines sont egales
+            {
+                    valide = TRUE;
+            }
         }
-        }
+    }
 
     return (valide);
 }
@@ -267,7 +277,7 @@ int saisie_securise_livre_in_tab_livre(Livre *saisie, Livre **tab_livre, int *nb
         valide = verif_code_livre_in_tab_libre(tab_livre,saisie->code,nb_livre);
     }
 
-    if (valide == TRUE)
+    if ((valide == TRUE) && (compare_chaine_caractere(saisie->code,"0") != 0)) //si format correspondant 
     {
         valide = FALSE;
 
