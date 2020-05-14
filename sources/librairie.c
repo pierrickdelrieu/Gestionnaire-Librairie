@@ -581,9 +581,11 @@ void affichage_info_livre(Livre **tab_livre, int *nb_livre)
         int valide = FALSE;
 
         do{
+            choix = 1;
+
             supr_console();
             affichage_sous_titre("INFORMATION SUR UN LIVRE");
-            printf("     Saisir le code du livre a supprimer (XXX-YYY) : ");
+            printf("     Saisir le code du livre a supprimer (XXX-YYY) ou 0 pour revenir au menu : ");
 
             valide = saisie_code_livre(code_livre);
 
@@ -591,7 +593,8 @@ void affichage_info_livre(Livre **tab_livre, int *nb_livre)
                 valide = verif_code_livre_in_tab_libre(tab_livre,code_livre,nb_livre);
             }
 
-            if (valide == TRUE)
+
+            if ((valide == TRUE) && (compare_chaine_caractere(code_livre, "0") != 0))
             {
                 for (i = 0; i < (*nb_livre); i++)
                 {
@@ -608,7 +611,6 @@ void affichage_info_livre(Livre **tab_livre, int *nb_livre)
         } while ((choix != 1) && (valide == FALSE));
     }
 
-    sleep(2);
     supr_console();
 }
 

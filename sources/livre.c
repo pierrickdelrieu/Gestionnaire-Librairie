@@ -109,7 +109,16 @@ int saisie_code_livre(char code[8])
 {
     int valide;
     valide = saisie_chaine_caractere(code,8);
+    if (valide == TRUE){
+        valide= verif_code_livre(code);
+    }
 
+    return (valide);
+}
+
+int verif_code_livre(char* code)
+{
+    int valide;
     //verification de la forme du code
     int i;
     if(valide == TRUE){
@@ -120,7 +129,7 @@ int saisie_code_livre(char code[8])
         else{
              //verification des trois premieres lettres
             for(i=0; i<3; i++){
-                if(('Z'>code[i]) && (code[i]<'A')){ //verif de lettre en majuscule
+                if((code[i]>'Z') || (code[i]<'A')){ //verif de lettre en majuscule
                     valide = FALSE;
                 }
             }
@@ -132,13 +141,13 @@ int saisie_code_livre(char code[8])
 
             //verification des trois derniers chiffres
             for(i=4; i<7; i++){
-                if(('0'<code[i]) && (code[i]>'9')){ //verif de lettre en majuscule
+                if(('0'<code[i]) || (code[i]>'9')){ //verif du chiffre
                     valide = FALSE;
                 }
             }
 
-            if(valide == TRUE){
-                code[8] = '\0';
+            if(code[8] != '\0'){
+                valide = FALSE;
             }
         }
     }
@@ -247,15 +256,17 @@ int verif_code_livre_in_tab_libre(Livre **tab_livre, char* code_livre, int *nb_l
     int valide = FALSE;
 
     int i;
-    if(compare_chaine_caractere(code_livre,"0") == 0){
+    
+    if(verif_code_livre(code_livre) == TRUE){
         valide = TRUE;
     }
-    else{
+    if((valide == TRUE) && (compare_chaine_caractere(code_livre, "0") != 0)){
+        valide = FALSE;
         for (i = 0; i < *(nb_livre); i++)
         {
             if (compare_chaine_caractere(code_livre, tab_livre[i]->code) == 0) //si les chaines sont egales
             {
-                    valide = TRUE;
+                valide = TRUE;
             }
         }
     }
@@ -264,7 +275,8 @@ int verif_code_livre_in_tab_libre(Livre **tab_livre, char* code_livre, int *nb_l
 }
 
 /*saisie des champs d'un livre valide (cad d'un livre existant)
-permet la verification lors de la creation d'un nouveau livre*/
+permet la verification lors de la creation d'un nouveau livre
+Un livre est considéré comme existant si le code du livre existe deja*/
 int saisie_securise_livre_in_tab_livre(Livre *saisie, Livre **tab_livre, int *nb_livre)
 {
 
@@ -275,34 +287,6 @@ int saisie_securise_livre_in_tab_livre(Livre *saisie, Livre **tab_livre, int *nb
 
     if(valide == TRUE){
         valide = verif_code_livre_in_tab_libre(tab_livre,saisie->code,nb_livre);
-    }
-
-    if ((valide == TRUE) && (compare_chaine_caractere(saisie->code,"0") != 0)) //si format correspondant 
-    {
-        valide = FALSE;
-
-        //verification des titres
-        int i;
-        int ind_titre_similaire = 0;
-        for (i = 0; i < *(nb_livre); i++)
-        {
-            if (compare_chaine_caractere(saisie->titre, tab_livre[i]->titre) == 0) //si les chaines sont egales
-            {
-                valide = TRUE;
-                ind_titre_similaire = i;
-            }
-        }
-
-        //verification de l'auteur
-        if(valide == TRUE){
-            if (compare_chaine_caractere(saisie->auteur, tab_livre[ind_titre_similaire]->auteur) == 0) //si les chaines sont egales
-            {
-                valide = TRUE;
-            }
-            else{
-                valide = FALSE;
-            }
-        }
     }
 
     return (valide);

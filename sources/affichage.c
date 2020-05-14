@@ -20,25 +20,32 @@ void affichage_choix_menu(int *choix)
 
         printf("\n\n\n");
         printf("     +===========================================================================+\n");
+        printf("     | MEMBRES                                                                   |\n");
         printf("     |     1- Information sur un membre                                          |\n");
         printf("     |     2- Consulter la liste des membres                                     |\n");
         printf("     |     3- Ajouter un membre                                                  |\n");
         printf("     |     4- Supprimer un membre                                                |\n");
         printf("     |                                                                           |\n");
+        printf("     | LIVRES                                                                    |\n");
         printf("     |     5- Information sur un livre                                           |\n");
         printf("     |     6- Consulter la listes des livres                                     |\n");
         printf("     |     7- Ajouter un livre                                                   |\n");
         printf("     |     8- Supprimer un livre                                                 |\n");
         printf("     |                                                                           |\n");
+        printf("     | PRETS                                                                     |\n");
         printf("     |     9- Consulter la liste des prêts                                       |\n");
         printf("     |    10- Ajouter le pret d'un livre                                         |\n");
         printf("     |    11- Restituer un livre (supprimer le pret)                             |\n");
         printf("     |                                                                           |\n");
-        printf("     |    12- Consulter la liste des administrateurs de la librairie             |\n");
-        printf("     |    13- Ajouter un administrateur de la librairie                          |\n");
-        printf("     |    14- Supprimer un administrateur de la librairie                        |\n");
+        printf("     | ADMINISTRATEURS                                                           |\n");
+        printf("     |    12- Consulter la liste des administrateurs                             |\n");
+        printf("     |    13- Ajouter un administrateur                                          |\n");
+        printf("     |    14- Supprimer un administrateur                                        |\n");
         printf("     |                                                                           |\n");
+        printf("     | AUTRES                                                                    |\n");
         printf("     |    15- Reinitialisé toutes les données de la librairie                    |\n");
+        printf("     |    16- Notice de l'application                                            |\n");
+        printf("     |    17- A propos                                                           |\n");
         printf("     |                                                                           |\n");
         printf("     |     0- Quitter                                                            |\n");
         printf("     +===========================================================================+\n\n");
@@ -47,7 +54,7 @@ void affichage_choix_menu(int *choix)
         saisie_entier(choix);
 
         if ((*choix != 0) && (*choix != 1) && (*choix != 2) && (*choix != 3) && (*choix != 4) && (*choix != 5) && (*choix != 6) && (*choix != 7) && (*choix != 8) && (*choix != 9) && (*choix != 10) &&
-            (*choix != 11) && (*choix != 12) && (*choix != 13) && (*choix != 14) && (*choix != 15))
+            (*choix != 11) && (*choix != 12) && (*choix != 13) && (*choix != 14) && (*choix != 15) && (*choix != 16) && (*choix != 17))
         {
             valide = FALSE;
         }

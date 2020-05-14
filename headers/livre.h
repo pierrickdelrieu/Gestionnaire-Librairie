@@ -29,6 +29,7 @@ int saisie_securise_livre_in_tab_livre(Livre *saisie, Livre **tab_livre, int *nb
 
 //Saisie et affichage livre
 int saisie_code_livre(char code[8]);
+int verif_code_livre(char* code);
 int saisie_champs_livre(Livre *livre);
 void afficher_livre(Livre *livre);
 void afficher_toute_info_livre(Livre *livre);

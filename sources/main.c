@@ -35,7 +35,6 @@ int main() {
     connexion(bibliotheque.gestion_admin.liste_admin, &(bibliotheque.gestion_admin.nb_admin));
     supr_console();
 
-    //Saisie date du jour
     affichage_titre_app();
     printf("Connexion reuissi !\n\n");
     sleep(2);
@@ -87,8 +86,15 @@ int main() {
                 saisie_nx_admin(&(bibliotheque.gestion_admin.liste_admin), &(bibliotheque.gestion_admin.nb_admin));
             } else if (choix_menu == 14) { //supprimer un admin
                 supr_admin(&(bibliotheque.gestion_admin.liste_admin), &(bibliotheque.gestion_admin.nb_admin));
-            } else if (choix_menu == 15) { //reinitialisé la librairie
+            } 
+            
+                //Autres
+            else if (choix_menu == 15) { //reinitialisé la librairie
                 reinitialise_librairie(bibliotheque.donnee, &(bibliotheque.gestion_admin), &(bibliotheque.gestion_membre), &(bibliotheque.gestion_livre), &(bibliotheque.gestion_pret));
+            }else if (choix_menu == 16) { //notice de l'application
+                //a faire
+            }else if (choix_menu == 17) { //a propos
+                // a faire
             }
         }
     }

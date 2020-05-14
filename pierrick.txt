@@ -53,9 +53,9 @@
     - ajout possibilité revenir au menu lors de la suppresion d'un livre
     - ajout affichage et la confirmation de supression livre
     - securisation de la non-supression d'un livre si il a des prets
-    - a faire : gerer l'allocation du tableau de pret d'un livre
+    - a faire : gerer l'allocation du tableau de pret d'un livre car engendre arret du prog
+    - ajout dans le menu des fonctionnalités a propos et notice (a réaliser)
+    - gerer la saisie du code livre dans saisie nx livre
 
-A FAIRE
-    - creer historique de connexion
-    - saisie nombre 
-    - relier pret et membre
+A noter : 
+    Un livre est considéré comme existant si le code du livre existe deja*/
