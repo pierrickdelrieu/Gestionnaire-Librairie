@@ -191,9 +191,9 @@ void afficher_pret(Pret *pret) {
 }
 
 void afficher_toute_info_pret(Pret *pret) {
-    printf("     %d: %d -> %s \n", pret->id_pret, pret->id_utilisateur, pret->code_livre);
-    printf("     Date d'emprunt: ");
+    printf("     id : %d     id membre : %d     code livre : %s \n", pret->id_pret, pret->id_utilisateur, pret->code_livre);
+    printf("     Date d'emprunt : ");
     afficher_date(definir_date(pret->date_pret));
-    printf("\n     Date de retour: ");
+    printf("\n     Date de retour : ");
     afficher_date(definir_date(pret->date_pret));
 }

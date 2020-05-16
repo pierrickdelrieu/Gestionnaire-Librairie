@@ -65,7 +65,13 @@
 
     L'ajout, la supression et la consultation d'un livre son completement ok
     Il faudra simplement ajouter l'affichage des prets du livre dans les infos sur celui-ci
-    
+
+A FAIRE    
+- ajout de pénalité d'un membre (au bout de n pénalité, le membre ne peux plus emprunté pendant x semaines)
+
+OUVERTURE
+- ajout de la possibilité d'aouter des commentaires sur le livres pour mieux conseiller le membre (modification livre)
+- ajout de tri par critere (tanche d'age ...)
 
 A noter : 
     - Un livre est considéré comme existant si le code du livre existe deja
