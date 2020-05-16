@@ -6,7 +6,6 @@
 
 #include "utile.h"
 #include "affichage.h"
-#include "pret.h"
 
 typedef struct {
     char titre[40];

@@ -152,7 +152,8 @@ int saisie_champs_membre(Membre *membre, int *nb_membres_totale)
     }
 }
 
-/*calcul du nombre de pret d'un membre*/
+/*calcul du nombre de pret d'un membre
+retourne le nombre de pret*/
 int calcul_nb_pret_membre(Membre *membre)
 {
     int nb_pret = 0;
@@ -357,3 +358,10 @@ void supr_membre_fichier_membre(FILE *fichier_membre, int *id_membre, Membre **t
         erreur_ouverture_fichier();
     }
 }
+
+
+
+// void affichage_prenom_nom_id_membre(int *id_membre, Membre **tab_membre)
+// {
+
+// }

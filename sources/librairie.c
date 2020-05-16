@@ -631,40 +631,43 @@ void affichage_info_livre(Livre **tab_livre, int *nb_livre)
 
 /***********************************************FONCTION PRET***********************************************/
 
-void saisie_nx_pret(Pret ***tab_pret, int *nb_pret, int tab_donnee[2]) {
+void saisie_nx_pret(Liste_membre *gestion_membre, Liste_livre *gestion_livre, Liste_pret *gestion_pret, int tab_donnee[2]) {
 
-    int valide = FALSE;
-    Pret saisie;
+    int valide = TRUE;
+    Pret* saisie;
+    saisie = creer_struct_pret();
 
     //saisie du pret a ajouter
     do {
         supr_console();
         affichage_sous_titre("AJOUT NOUVEAU PRET");
 
-        if (valide == TRUE) {
-            printf("ERREUR (PRET deja existant ou erreur de saisie)\nReesayer\n\n");
+        if (valide == FALSE) {
+            printf("ERREUR (pret deja existant ou livre et membre inexistant)\nReesayer\n\n");
         }
 
-        valide = saisie_securise_pret_tab_pret(&saisie, *tab_pret, nb_pret, &(tab_donnee[0]));
+        valide = saisie_champ_pret_securise(saisie, gestion_membre->liste_membre, gestion_livre->liste_livre, &(gestion_membre->nb_membre), &(gestion_livre->nb_livre));
     } while (valide == TRUE);
 
 
     //modification du contenu du fichier prets.txt
     FILE *fichier_pret = NULL;
-    ajout_pret_fichier_pret(fichier_pret, &(saisie));
-
-    rafrachir_tab_pret(tab_pret, nb_pret); //modif du nombre de pret
+    ajout_pret_fichier_pret(fichier_pret, saisie);
+    rafrachir_tab_pret(&(gestion_pret->liste_pret), &(gestion_pret->nb_pret)); //modif du nombre de pret
 
     tab_donnee[0]++;
-
     rafrachir_fichier_donnee(tab_donnee);
 
+    ajout_pret_struct_membre(saisie, gestion_membre->liste_membre);
+    ajout_pret_struct_livre(saisie,gestion_membre->liste_membre);
+
 
     supr_console();
-    printf("Le pret pour le livre %s à bien été enregistré\n", saisie.code_livre);
-
+    printf("Le pret pour le livre %s à bien été enregistré\n", saisie->code_livre);
+    lib_struct_pret(saisie);
     sleep(2);
     supr_console();
+
 }
 
 void supr_pret(Pret ***tab_pret, int *nb_pret) {

@@ -74,7 +74,7 @@ int main() {
             else if (choix_menu == 9) { //consulter la liste des prets
                 affichage_liste_pret(bibliotheque.gestion_pret.liste_pret, &(bibliotheque.gestion_pret.nb_pret));
             } else if (choix_menu == 10) { //ajouter un pret
-                saisie_nx_pret(&(bibliotheque.gestion_pret.liste_pret), &(bibliotheque.gestion_pret.nb_pret), bibliotheque.donnee);
+                saisie_nx_pret(&(bibliotheque.gestion_membre), &(bibliotheque.gestion_livre), &(bibliotheque.gestion_pret), bibliotheque.donnee);
             } else if (choix_menu == 11) { //supprimer un pret
                 supr_pret(&(bibliotheque.gestion_pret.liste_pret), &(bibliotheque.gestion_pret.nb_pret));
             }

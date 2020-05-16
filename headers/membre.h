@@ -9,7 +9,8 @@
 #include "adresse.h"
 #include "utile.h"
 #include "affichage.h"
-#include "pret.h"
+
+#define NB_EMPRUNT_MAX 3
 
 
 typedef struct {

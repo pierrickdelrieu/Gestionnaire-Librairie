@@ -4,13 +4,15 @@
 #include <stdio.h>
 #include "utile.h"
 #include "affichage.h"
+#include "livre.h"
+#include "membre.h"
 
 #define NB_EMPRUNT_MAX 3
 
 typedef struct
 {
     int id_pret;
-    int id_utilisateur;
+    int id_membre;
     char code_livre[7];
     int date_pret;   // timestamp
     int date_retour; // timestamp
@@ -29,14 +31,20 @@ void calcul_nb_pret(int *nb_pret);
 
 void lib_tab_pret(Pret **tab_pret, int *nb_pret);
 
-int saisie_securise_pret_tab_pret(Pret *saisie, Pret **tab_pret, int *nb_pret, int *nb_pret_totale);
+int saisie_securise_pret_tab_pret(Pret *saisie, Pret **tab_pret, int *nb_pret);
 
-int saisie_champs_pret(Pret *pret, int *nb_pret);
+int saisie_champs_pret(Pret *pret);
+
+int saisie_champ_pret_securise(Pret *saisie, Membre **tab_membre, Livre **tab_livre, int *nb_membre, int *nb_livre);
 
 void ajout_pret_fichier_pret(FILE *fichier_pret, Pret *saisie);
 
 void afficher_pret(Pret *pret);
 
 void afficher_toute_info_pret(Pret *pret);
+
+
+void ajout_pret_struct_membre(Pret *pret, Membre **tab_membre);
+void ajout_pret_struct_livre(Pret *pret, Livre **tab_livre);
 
 #endif /* pret_h */
