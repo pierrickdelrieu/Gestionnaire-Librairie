@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include "utile.h"
-#include "livre.h"
 #include "affichage.h"
 
 #define NB_EMPRUNT_MAX 3

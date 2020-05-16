@@ -413,7 +413,7 @@ void affichage_info_membre(Membre **tab_membre, int *nb_membre)
 void saisie_nx_livre(Livre ***tab_livre, int *nb_livre)
 {
 
-    int valide = 1;
+    int valide = TRUE;
     Livre* saisie;
     saisie = creer_struct_livre();
 
@@ -423,13 +423,13 @@ void saisie_nx_livre(Livre ***tab_livre, int *nb_livre)
         supr_console();
         affichage_sous_titre("AJOUT NOUVEAU LIVRE");
 
-        if (valide == 0)
+        if (valide == FALSE)
         {
-            printf("ERREUR livre deja existant (code ou titre)\nReesayer\n\n");
+            printf("ERREUR livre deja existant ou code non valide\nReesayer\n\n");
         }
 
-        valide = saisie_securise_livre_in_tab_livre(saisie, *tab_livre, nb_livre);
-    } while (valide == 1);
+        valide = saisie_securise_livre_not_in_tab_livre(saisie, *tab_livre, nb_livre);
+    } while (valide == FALSE);
 
     //modification du contenu du fichier livre.txt
     FILE *fichier_livre = NULL;
@@ -461,18 +461,26 @@ void supr_livre(Livre ***tab_livre, int *nb_livre)
     {
         int i;
         char code_livre[8];
-        int valide = FALSE;
+        int valide = TRUE;
 
         do
         {
             supr_console();
             affichage_sous_titre("SUPRESSION D'UN LIVRE");
+
+            if(valide == FALSE){
+                printf("     ERREUR\n");
+            }
+
             printf("     Saisir le code du livre a supprimer (XXX-YYY) ou 0 pour revenir au menu : ");
 
             valide = saisie_code_livre(code_livre);
 
             if(valide == TRUE){
                 valide = verif_code_livre_in_tab_libre(*tab_livre,code_livre,nb_livre);
+            }
+            else if(compare_chaine_caractere(code_livre, "0") == 0){ //chaine egale (l'user veut revenir au menu)
+                valide = TRUE;
             }
         } while (valide == FALSE);
 
@@ -491,10 +499,10 @@ void supr_livre(Livre ***tab_livre, int *nb_livre)
 
             afficher_toute_info_livre((*tab_livre)[indice_livre]);
 
-            if((*tab_livre)[indice_livre]->nb_exemplaires_dispo != (*tab_livre)[indice_livre]->nb_exemplaires){ //si il y a desprets en cours
+            if((*tab_livre)[indice_livre]->nb_exemplaires_dispo != (*tab_livre)[indice_livre]->nb_exemplaires){ //si il y a des prets en cours
                 printf("     Le livre ne peut pas etre suprimer, il y a des prets en cour\n");
                 printf("     Supprimer d'abord les prets pour pouvoir supprimer le livre\n");
-                sleep(3);
+                sleep(4);
                 supr_console();
             }
             else{
@@ -578,19 +586,25 @@ void affichage_info_livre(Livre **tab_livre, int *nb_livre)
         int i;
         int choix;
         char code_livre[8];
-        int valide = FALSE;
+        int valide = TRUE;
 
         do{
-            choix = 1;
+            choix = 0;
 
             supr_console();
             affichage_sous_titre("INFORMATION SUR UN LIVRE");
+
+            if(valide == FALSE){
+                printf("     ERREUR\n");
+            }
+
             printf("     Saisir le code du livre a supprimer (XXX-YYY) ou 0 pour revenir au menu : ");
-
             valide = saisie_code_livre(code_livre);
-
             if(valide == TRUE){
                 valide = verif_code_livre_in_tab_libre(tab_livre,code_livre,nb_livre);
+            }
+            else if(compare_chaine_caractere(code_livre, "0") == 0){ //chaine egale (l'user veut revenir au menu)
+                valide = TRUE;
             }
 
 

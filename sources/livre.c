@@ -9,7 +9,6 @@ Livre *creer_struct_livre()
 /*Libere la structure admin de maniere dynamique*/
 void lib_struct_livre(Livre *livre)
 {
-    free(livre->tab_pret);
     free(livre);
 }
 
@@ -38,15 +37,6 @@ Livre **creer_tab_livre(int *nb_livre)
             lecture_chaine_cara_fichier(fichier_livre, liste_livres[i]->auteur, 40);
             lecture_chaine_cara_fichier(fichier_livre, liste_livres[i]->code, 9);
             fscanf(fichier_livre, "nb_exemplaires : %d - nb_exemplaires_dispos : %d\n\n", &(liste_livres[i]->nb_exemplaires), &(liste_livres[i]->nb_exemplaires_dispo));
-            
-            fscanf(fichier_livre, "pret : ");
-            liste_livres[i]->tab_pret = (int *) calloc(liste_livres[i]->nb_exemplaires, sizeof(int));
-            for(j=0; j<(liste_livres[i]->nb_exemplaires - liste_livres[i]->nb_exemplaires_dispo); j++)
-            {
-                fscanf(fichier_livre, "%d - ",&(liste_livres[i]->tab_pret[j]));
-            }
-
-            fscanf(fichier_livre, "\n\n");
         }
 
         //Fermeture du fichier
@@ -86,7 +76,7 @@ void calcul_nb_livre(int *nb_livre)
         //Fermeture du fichier
         fclose(fichier_livre);
 
-        *nb_livre = (*nb_livre) / 4;
+        *nb_livre = (*nb_livre) / 5;
     }
     else
     { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
@@ -118,38 +108,44 @@ int saisie_code_livre(char code[8])
 
 int verif_code_livre(char* code)
 {
-    int valide;
-    //verification de la forme du code
+    int valide = TRUE;
     int i;
+    
+    //verification de la forme du code
+    if(strlen(code) == 7){
+        valide = TRUE;
+    }
+    else
+    {
+        valide = FALSE;
+    }
+    
+
     if(valide == TRUE){
 
-        if(compare_chaine_caractere(code,"0") == 0){ //verification retour au menu
-            valide = TRUE;
-        }
-        else{
-             //verification des trois premieres lettres
-            for(i=0; i<3; i++){
-                if((code[i]>'Z') || (code[i]<'A')){ //verif de lettre en majuscule
-                    valide = FALSE;
-                }
-            }
-
-            //verification de la presence du tiret
-            if(code[3] != '-'){
-                valide = FALSE;
-            }
-
-            //verification des trois derniers chiffres
-            for(i=4; i<7; i++){
-                if(('0'<code[i]) || (code[i]>'9')){ //verif du chiffre
-                    valide = FALSE;
-                }
-            }
-
-            if(code[8] != '\0'){
+        // if(compare_chaine_caractere(code,"0") == 0){ //verification retour au menu
+        //     valide = TRUE;
+        // }
+        // else{
+        //verification des trois premieres lettres
+        for(i=0; i<3; i++){
+            if((code[i]>'Z') || (code[i]<'A')){ //verif de lettre en majuscule
                 valide = FALSE;
             }
         }
+
+        //verification de la presence du tiret
+        if(code[3] != '-'){
+            valide = FALSE;
+        }
+
+        //verification des trois derniers chiffres
+        for(i=4; i<7; i++){
+            if((code[i]<'0') || (code[i]>'9')){ //verif du chiffre
+                valide = FALSE;
+            }
+        }
+        // }
     }
 
     return (valide);
@@ -175,14 +171,12 @@ int saisie_champs_livre(Livre *livre)
 
     printf("     Saisie nombre d'exemplaires : ");
     saisie_entier(&(livre->nb_exemplaires));
-    if(livre->nb_exemplaires > 0){
-        valide_tot = valide_tot + valide;
-    }
+    valide_tot = valide_tot + 1;
+    
 
 
     if (valide_tot == 4)
     {
-        livre->tab_pret = (int *) calloc(livre->nb_exemplaires,sizeof(int));
         livre->nb_exemplaires_dispo = livre->nb_exemplaires;
         return (TRUE);
     }
@@ -194,45 +188,45 @@ int saisie_champs_livre(Livre *livre)
 
 
 /*calcul du nombre de pret d'un livre*/
-int calcul_nb_pret_livre(Livre *livre)
-{
-    int nb_pret = 0;
-    int i;
+// int calcul_nb_pret_livre(Livre *livre)
+// {
+//     int nb_pret = 0;
+//     int i;
 
-    for (i = 0; i < livre->nb_exemplaires; i++)
-    {
-        if (livre->tab_pret[i] != 0)
-        {
-            nb_pret++;
-        }
-    }
+//     for (i = 0; i < livre->nb_exemplaires; i++)
+//     {
+//         if (livre->tab_pret[i] != 0)
+//         {
+//             nb_pret++;
+//         }
+//     }
 
-    return (nb_pret);
-}
+//     return (nb_pret);
+// }
 
 /*Affiche un livre en ligne sans toute les infos sur les prets*/
 void afficher_livre(Livre *livre)
 {
-    int nb_pret;
+    // int nb_pret;
 
-    nb_pret = calcul_nb_pret_livre(livre);
+    // nb_pret = calcul_nb_pret_livre(livre);
 
-    printf("Titre : %s     Auteur : %s     Code : %s     Nombre exemplaires totals : %d     Nombre exemplaires dispo : %d     Nombre de prets : %d", livre->titre, livre->auteur, livre->code,livre->nb_exemplaires, livre->nb_exemplaires_dispo, nb_pret);
+    printf("Titre : %s     Auteur : %s     Code : %s     Nombre exemplaires totals : %d     Nombre exemplaires dispo : %d", livre->titre, livre->auteur, livre->code,livre->nb_exemplaires, livre->nb_exemplaires_dispo);
 }
 
 /*affiche la totalité du livre avec tous les détais sur les prets*/
 void afficher_toute_info_livre(Livre *livre)
 {
-    printf("                    Titre : %s\n", livre->titre);
+    printf("\n                    Titre : %s\n", livre->titre);
     printf("                    Auteur : %s\n", livre->auteur);
     printf("                    Code : %s\n", livre->code);
     printf("                    Nombre d'exemplaires totals : %d\n", livre->nb_exemplaires);
-    printf("                    Nombre d'exemplaires disponibles : %d\n", livre->nb_exemplaires_dispo);
+    printf("                    Nombre d'exemplaires disponibles : %d\n\n", livre->nb_exemplaires_dispo);
 
-    if (calcul_nb_pret_livre(livre) == 0)
-    {
-        printf("                    Pret : Aucun pret en cour\n\n");
-    }
+    // if (calcul_nb_pret_livre(livre) == 0)
+    // {
+    //     printf("                    Pret : Aucun pret en cour\n\n");
+    // }
 }
 
 /*libere de maniere dynamique le tableau de livre*/
@@ -257,17 +251,11 @@ int verif_code_livre_in_tab_libre(Livre **tab_livre, char* code_livre, int *nb_l
 
     int i;
     
-    if(verif_code_livre(code_livre) == TRUE){
-        valide = TRUE;
-    }
-    if((valide == TRUE) && (compare_chaine_caractere(code_livre, "0") != 0)){
-        valide = FALSE;
-        for (i = 0; i < *(nb_livre); i++)
+    for (i = 0; i < *(nb_livre); i++)
+    {
+        if (compare_chaine_caractere(code_livre, tab_livre[i]->code) == 0) //si les chaines sont egales
         {
-            if (compare_chaine_caractere(code_livre, tab_livre[i]->code) == 0) //si les chaines sont egales
-            {
-                valide = TRUE;
-            }
+            valide = TRUE;
         }
     }
 
@@ -277,19 +265,28 @@ int verif_code_livre_in_tab_libre(Livre **tab_livre, char* code_livre, int *nb_l
 /*saisie des champs d'un livre valide (cad d'un livre existant)
 permet la verification lors de la creation d'un nouveau livre
 Un livre est considéré comme existant si le code du livre existe deja*/
-int saisie_securise_livre_in_tab_livre(Livre *saisie, Livre **tab_livre, int *nb_livre)
+int saisie_securise_livre_not_in_tab_livre(Livre *saisie, Livre **tab_livre, int *nb_livre)
 {
 
-    //retourne 1 (TRUE) si valeur saisie correspond a un livre deja existant et 0 (FALSE) sinon
-    int valide = FALSE;
+    //retourne 1 (TRUE) si valeur saisie correspond a un livre non existant et 0 (FALSE) sinon
+    int valide;
 
     valide = saisie_champs_livre(saisie);
 
     if(valide == TRUE){
         valide = verif_code_livre_in_tab_libre(tab_livre,saisie->code,nb_livre);
+        //valide = 1 (TRUE) si code existant et 0 (FALSE) sinon
+
+        //inversion de la sorie
+        if(valide == TRUE){
+            valide = FALSE;
+        }
+        else{
+            valide = TRUE;
+        }
     }
 
-    return (valide);
+    return(valide);
 }
 
 
@@ -308,15 +305,7 @@ void ajout_livre_fichier_livre(FILE *fichier_livre, Livre *saisie)
         fprintf(fichier_livre, "%s\n", saisie->titre);
         fprintf(fichier_livre, "%s\n", saisie->auteur);
         fprintf(fichier_livre, "%s\n", saisie->code);
-        fprintf(fichier_livre, "nb_exemplaires : %d - nb_exemplaires_dispos : %d\n", saisie->nb_exemplaires, saisie->nb_exemplaires_dispo);
-            
-        fprintf(fichier_livre, "pret : ");
-        for(j=0; j<saisie->nb_exemplaires; j++)
-        {
-            fprintf(fichier_livre, "0 - ");
-        }
-
-        fprintf(fichier_livre, "\n\n");
+        fprintf(fichier_livre, "nb_exemplaires : %d - nb_exemplaires_dispos : %d\n\n", saisie->nb_exemplaires, saisie->nb_exemplaires_dispo);
 
         //Fermeture du fichier
         fclose(fichier_livre);
@@ -347,15 +336,7 @@ void supr_livre_fichier_livre(FILE *fichier_livre, char *code, Livre **tab_livre
                 fprintf(fichier_livre, "%s\n", tab_livre[i]->titre);
                 fprintf(fichier_livre, "%s\n", tab_livre[i]->auteur);
                 fprintf(fichier_livre, "%s\n", tab_livre[i]->code);
-                fprintf(fichier_livre, "nb_exemplaires : %d - nb_exemplaires_dispos : %d\n", tab_livre[i]->nb_exemplaires, tab_livre[i]->nb_exemplaires_dispo);
-            
-                fprintf(fichier_livre, "pret : ");
-                for(j=0; j<tab_livre[i]->nb_exemplaires; j++)
-                {
-                    fprintf(fichier_livre, "%d - ", tab_livre[i]->tab_pret[j]);
-                }
-
-                fprintf(fichier_livre, "\n\n");
+                fprintf(fichier_livre, "nb_exemplaires : %d - nb_exemplaires_dispos : %d\n\n", tab_livre[i]->nb_exemplaires, tab_livre[i]->nb_exemplaires_dispo);
             }
         }
 

@@ -6,6 +6,7 @@
 
 #include "utile.h"
 #include "affichage.h"
+#include "pret.h"
 
 typedef struct {
     char titre[40];
@@ -13,7 +14,6 @@ typedef struct {
     char code[9]; //XXX-YYY\0
     int nb_exemplaires; //total
     int nb_exemplaires_dispo;
-    int* tab_pret;
 } Livre;
 
 Livre *creer_struct_livre();
@@ -25,7 +25,7 @@ void lib_tab_livre(Livre **tab_livre, int *nb_livres);
 void calcul_nb_livre(int *nb_livre);
 void rafrachir_tab_livre(Livre ***tab_livre, int *nb_livre);
 int verif_code_livre_in_tab_libre(Livre **tab_livre, char* code_livre, int *nb_livre);
-int saisie_securise_livre_in_tab_livre(Livre *saisie, Livre **tab_livre, int *nb_livre);
+int saisie_securise_livre_not_in_tab_livre(Livre *saisie, Livre **tab_livre, int *nb_livre);
 
 //Saisie et affichage livre
 int saisie_code_livre(char code[8]);
@@ -33,7 +33,7 @@ int verif_code_livre(char* code);
 int saisie_champs_livre(Livre *livre);
 void afficher_livre(Livre *livre);
 void afficher_toute_info_livre(Livre *livre);
-int calcul_nb_pret_livre(Livre *livre);
+// int calcul_nb_pret_livre(Livre *livre);
 
 //Fichier livres.txt
 void ajout_livre_fichier_livre(FILE *fichier_livre, Livre *saisie);
