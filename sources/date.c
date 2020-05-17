@@ -1,4 +1,5 @@
 #include "../headers/date.h"
+#include <time.h>
 
 
 void saisir_date(Date *d) {
@@ -16,16 +17,26 @@ void saisir_date(Date *d) {
     scanf(" %d", &(d->annee));
 }
 
-int recuperer_timestamp(Date *date) {
-    return 42;
+long int recuperer_timestamp(Date *date) {
+    struct tm t;
+
+    t.tm_year = date->annee;
+    t.tm_mon = date->mois;
+    t.tm_mday = date->jour;
+    t.tm_hour = 0;
+    t.tm_min = 0;
+    t.tm_sec = 0;
+
+    return mktime(&t);
 }
 
-Date *definir_date(int timestamp) {
+Date *definir_date(long int timestamp) {
+    struct tm *dts = localtime(&timestamp);
     Date *date;
 
-    date->jour = 8;
-    date->mois = 12;
-    date->annee = 2001;
+    date->jour = dts->tm_mday;
+    date->mois = dts->tm_mon;
+    date->annee = dts->tm_year;
 
     return date;
 }

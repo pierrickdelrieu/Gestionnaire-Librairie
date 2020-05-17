@@ -659,7 +659,7 @@ void saisie_nx_pret(Liste_membre *gestion_membre, Liste_livre *gestion_livre, Li
     rafrachir_fichier_donnee(tab_donnee);
 
     ajout_pret_struct_membre(saisie, gestion_membre->liste_membre);
-    ajout_pret_struct_livre(saisie,gestion_membre->liste_membre);
+    ajout_pret_struct_livre(saisie, gestion_livre->liste_livre);
 
 
     supr_console();

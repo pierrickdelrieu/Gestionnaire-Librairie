@@ -12,9 +12,9 @@ typedef struct
 
 void saisir_date(Date *d);
 
-int recuperer_timestamp(Date *date);
+long int recuperer_timestamp(Date *date);
 
-Date *definir_date(int timestamp);
+Date *definir_date(long int timestamp);
 
 void afficher_date(Date *date);
 

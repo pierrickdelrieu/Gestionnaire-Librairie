@@ -1,2 +1,2 @@
-nombre de membres total : 2
+nombre de membres total : 7
 nombre de prets total : 0

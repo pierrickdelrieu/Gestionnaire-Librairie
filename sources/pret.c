@@ -229,7 +229,7 @@ int saisie_champ_pret_securise(Pret *saisie, Membre **tab_membre, Livre **tab_li
         }
 
         //verifier si le membre peut encore emprunté un livre (pret en retard ou pret max atteint)
-        if(valide = TRUE){
+        if(valide == TRUE){
             if(calcul_nb_pret_membre(tab_membre[indice_membre]) == 0) //si il y a aucun pret
                 valide = TRUE;
             else 
@@ -291,7 +291,7 @@ void ajout_pret_struct_membre(Pret *pret, Membre **tab_membre)
         }   
         else
             valide ++;
-    }while(valide = 0);
+    }while(valide == 0);
 }
 
 
