@@ -243,7 +243,6 @@ permet la verification lors de la creation d'un nouveau membre
 on considere que un membre est different si il possede une adresse mail jamais enregistré*/
 int saisie_securise_membre_tab_membre(Membre *saisie, Membre **tab_membre, int *nb_membre, int *nb_membre_totale)
 {
-
     //retourne 1 (TRUE) si valeur saisie correspond a un membre deja existant et 0 sinon
     int valide = FALSE;
     int i;
@@ -365,3 +364,32 @@ void supr_membre_fichier_membre(FILE *fichier_membre, int *id_membre, Membre **t
 // {
 
 // }
+
+
+
+void rafraichir_fichier_membre(FILE *fichier_membre, Membre **tab_membre, int *nb_membre)
+{
+    fichier_membre = fopen("sauvegardes/membres.txt", "w"); //"w" correspond a l'ecriture - fopen renvoie un pointeur sur le fichier
+
+    if (fichier_membre != NULL)
+    {
+        int i;
+        int j;
+
+        for (i = 0; i < *(nb_membre); i++)
+        {
+            fprintf(fichier_membre, "id : %d\n", tab_membre[i]->identifiant);
+            fprintf(fichier_membre, "%s\n%s\n", tab_membre[i]->prenom, tab_membre[i]->nom);
+            fprintf(fichier_membre, "%s\n%s\n%s\n%s\n", tab_membre[i]->adresse.rue, tab_membre[i]->adresse.code_postal, tab_membre[i]->adresse.ville, tab_membre[i]->adresse.pays);
+            fprintf(fichier_membre, "%s\n%s\n", tab_membre[i]->email, tab_membre[i]->metier);
+            fprintf(fichier_membre, "pret : %d - %d - %d\n\n", tab_membre[i]->liste_emprunt[0], tab_membre[i]->liste_emprunt[1], tab_membre[i]->liste_emprunt[2]);
+        }
+
+        //Fermeture du fichier
+        fclose(fichier_membre);
+    }
+    else
+    { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
+        erreur_ouverture_fichier();
+    }
+}

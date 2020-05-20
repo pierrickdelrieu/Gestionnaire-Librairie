@@ -46,6 +46,7 @@ void init_tab_tri_ordre_alpha(Membre **tab_membre, int *tab, int *nb_membre);
 void ajout_membre_fichier_membre(FILE *fichier_membre, Membre *saisie);
 void supr_membre_fichier_membre(FILE *fichier_membre, int *id_membre, Membre **tab_membre, int *nb_membre);
 void calcul_nb_membre(int *nb_membre);
+void rafraichir_fichier_membre(FILE *fichier_membre, Membre **tab_membre, int *nb_membre);
 
 #endif /* membre_h */
 

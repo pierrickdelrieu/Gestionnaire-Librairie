@@ -633,41 +633,63 @@ void affichage_info_livre(Livre **tab_livre, int *nb_livre)
 
 void saisie_nx_pret(Liste_membre *gestion_membre, Liste_livre *gestion_livre, Liste_pret *gestion_pret, int tab_donnee[2]) {
 
-    int valide = TRUE;
-    Pret* saisie;
-    saisie = creer_struct_pret();
 
-    //saisie du pret a ajouter
-    do {
+    if ((gestion_livre->nb_livre == 0) || (gestion_membre->nb_membre == 0))
+    {
         supr_console();
         affichage_sous_titre("AJOUT NOUVEAU PRET");
+        printf("                !!!Il y a aucun livre ou aucun membre!!!\n");
+        sleep(2);
+        supr_console();
+    }
+    else{
 
-        if (valide == FALSE) {
-            printf("ERREUR (pret deja existant ou livre et membre inexistant)\nReesayer\n\n");
+    
+        int valide = TRUE;
+        Pret* saisie;
+        saisie = creer_struct_pret();
+
+        //saisie du pret a ajouter
+        do {
+            supr_console();
+            affichage_sous_titre("AJOUT NOUVEAU PRET");
+
+            if (valide == FALSE) {
+                printf("ERREUR\nPret deja existant ou livre et membre inexistant ou il n'est pas possible d'emprunté le livre)\nReesayer\n\n");
+            }
+
+            printf("Saisir le pret ou saisir 0 pour revenir au menu : \n");
+            valide = saisie_champ_pret_securise(saisie, gestion_membre->liste_membre, gestion_livre->liste_livre, gestion_pret->liste_pret, &(gestion_membre->nb_membre), &(gestion_livre->nb_livre), &(gestion_pret->nb_pret), tab_donnee);
+        } while (valide == FALSE);
+
+
+        if((saisie->id_membre != 0) && (compare_chaine_caractere(saisie->code_livre,"0") != 0)) { //si l'utilisateur ne veut pas revenir au menu
+            //modification du contenu du fichier prets.txt
+            FILE *fichier_pret = NULL;
+            ajout_pret_fichier_pret(fichier_pret, saisie);
+            rafrachir_tab_pret(&(gestion_pret->liste_pret), &(gestion_pret->nb_pret)); //modif du nombre de pret
+
+            //Ajout du pret dans le mebre correspondant
+            FILE *fichier_membre = NULL;
+            ajout_pret_struct_membre(saisie, gestion_membre->liste_membre);
+            rafraichir_fichier_membre(fichier_membre, gestion_membre->liste_membre, &(gestion_membre->nb_membre));
+
+            //Modification du nombre de pret depuis l'ouverture de la librairie (id pret tot)
+            tab_donnee[1] ++;
+            rafrachir_fichier_donnee(tab_donnee);
+
+            //Ajout du pret dans le livre correspondant
+            FILE *fichier_livre = NULL;
+            ajout_pret_struct_livre(saisie,gestion_livre->liste_livre);
+            rafraichir_fichier_livre(fichier_livre, gestion_livre->liste_livre, &(gestion_livre->nb_livre));
+
+            supr_console();
+            printf("Le pret pour le livre %s à bien été enregistré\n", saisie->code_livre);
+            lib_struct_pret(saisie);
+            sleep(2);
+            supr_console();
         }
-
-        valide = saisie_champ_pret_securise(saisie, gestion_membre->liste_membre, gestion_livre->liste_livre, &(gestion_membre->nb_membre), &(gestion_livre->nb_livre));
-    } while (valide == TRUE);
-
-
-    //modification du contenu du fichier prets.txt
-    FILE *fichier_pret = NULL;
-    ajout_pret_fichier_pret(fichier_pret, saisie);
-    rafrachir_tab_pret(&(gestion_pret->liste_pret), &(gestion_pret->nb_pret)); //modif du nombre de pret
-
-    tab_donnee[0]++;
-    rafrachir_fichier_donnee(tab_donnee);
-
-    ajout_pret_struct_membre(saisie, gestion_membre->liste_membre);
-    ajout_pret_struct_livre(saisie,gestion_membre->liste_membre);
-
-
-    supr_console();
-    printf("Le pret pour le livre %s à bien été enregistré\n", saisie->code_livre);
-    lib_struct_pret(saisie);
-    sleep(2);
-    supr_console();
-
+    }
 }
 
 void supr_pret(Pret ***tab_pret, int *nb_pret) {
@@ -682,7 +704,6 @@ void supr_pret(Pret ***tab_pret, int *nb_pret) {
     else {
         int i;
         int id_pret;
-//        int valide = FALSE;
         int valide = TRUE;
 
         do {

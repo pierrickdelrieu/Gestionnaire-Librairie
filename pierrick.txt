@@ -69,6 +69,11 @@
     - travaille sur l'ajout d'un nx pret (securisation de la saisie et ajout du pret dans membre et livre)
         a continuer
 
+17/05/2020 : 
+    - travaille sur l'ajout d'un nx pret (securisation de la saisie et ajout du pret dans membre et livre)
+        a continuer
+
+
 A FAIRE    
 - ajout de pénalité d'un membre (au bout de n pénalité, le membre ne peux plus emprunté pendant x semaines)
 

@@ -298,7 +298,6 @@ permet la verification lors de la creation d'un nouveau livre
 Un livre est considéré comme existant si le code du livre existe deja*/
 int saisie_securise_livre_not_in_tab_livre(Livre *saisie, Livre **tab_livre, int *nb_livre)
 {
-
     //retourne 1 (TRUE) si valeur saisie correspond a un livre non existant et 0 (FALSE) sinon
     int valide;
 
@@ -369,6 +368,33 @@ void supr_livre_fichier_livre(FILE *fichier_livre, char *code, Livre **tab_livre
                 fprintf(fichier_livre, "%s\n", tab_livre[i]->code);
                 fprintf(fichier_livre, "nb_exemplaires : %d - nb_exemplaires_dispos : %d\n\n", tab_livre[i]->nb_exemplaires, tab_livre[i]->nb_exemplaires_dispo);
             }
+        }
+
+        //Fermeture du fichier
+        fclose(fichier_livre);
+    }
+    else
+    { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
+        erreur_ouverture_fichier();
+    }
+}
+
+
+void rafraichir_fichier_livre(FILE *fichier_livre, Livre **tab_livre, int *nb_livre)
+{
+    fichier_livre = fopen("sauvegardes/livres.txt", "w"); //"w" correspond a l'ecriture - fopen renvoie un pointeur sur le fichier
+
+    if (fichier_livre != NULL)
+    {
+        int i;
+        int j;
+
+        for (i = 0; i < *(nb_livre); i++)
+        {
+            fprintf(fichier_livre, "%s\n", tab_livre[i]->titre);
+            fprintf(fichier_livre, "%s\n", tab_livre[i]->auteur);
+            fprintf(fichier_livre, "%s\n", tab_livre[i]->code);
+            fprintf(fichier_livre, "nb_exemplaires : %d - nb_exemplaires_dispos : %d\n\n", tab_livre[i]->nb_exemplaires, tab_livre[i]->nb_exemplaires_dispo);
         }
 
         //Fermeture du fichier

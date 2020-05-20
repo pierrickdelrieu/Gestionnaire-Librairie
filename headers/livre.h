@@ -38,4 +38,6 @@ void afficher_toute_info_livre(Livre *livre);
 void ajout_livre_fichier_livre(FILE *fichier_livre, Livre *saisie);
 void supr_livre_fichier_livre(FILE *fichier_livre, char *code, Livre **tab_livre, int *nb_livre);
 
+void rafraichir_fichier_livre(FILE *fichier_livre, Livre **tab_livre, int *nb_livre);
+
 #endif /* livre_h */

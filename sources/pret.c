@@ -33,35 +33,12 @@ Pret **creer_tab_pret(int *nb_pret) {
 
         for (i = 0; i < (*nb_pret); i++) {
             liste_prets[i] = creer_struct_pret();
-            fscanf(
-                    fichier_pret,
-                    "id : %d | ", &liste_prets[i]->id_pret
-            );
-            fscanf(
-                    fichier_pret,
-                    "id_membre : %d | ",
-                    &liste_prets[i]->id_membre
-            );
-            fscanf(
-                    fichier_pret,
-                    "code_livre : %s | ",
-                    liste_prets[i]->code_livre
-            );
-            fscanf(
-                    fichier_pret,
-                    "date_pret : %d | ",
-                    &(liste_prets[i]->date_pret)
-            );
-            fscanf(
-                    fichier_pret,
-                    "date_retour : %d | ",
-                    &(liste_prets[i]->date_retour)
-            );
-            fscanf(
-                    fichier_pret,
-                    "etat_livre : %d | ",
-                    &(liste_prets[i]->etat_livre)
-            );
+            fscanf(fichier_pret, "id : %d | ", &liste_prets[i]->id_pret);
+            fscanf(fichier_pret, "id_membre : %d | ", &liste_prets[i]->id_membre);
+            fscanf(fichier_pret, "code_livre : %s | ", liste_prets[i]->code_livre);
+            fscanf(fichier_pret, "date_pret : %d | ", &(liste_prets[i]->date_pret));
+            fscanf(fichier_pret, "date_retour : %d | ", &(liste_prets[i]->date_retour));
+            fscanf(fichier_pret, "etat_livre : %d | ", &(liste_prets[i]->etat_livre));
         }
 
         fclose(fichier_pret);
@@ -103,11 +80,8 @@ void rafrachir_tab_pret(Pret ***tab_pret, int *nb_pret) {
     *tab_pret = creer_tab_pret(nb_pret);
 }
 
-int saisie_securise_pret_tab_pret(Pret *saisie, Pret **tab_pret, int *nb_pret) {
-    return saisie_champs_pret(saisie);
-}
 
-int saisie_champs_pret(Pret *pret) {
+int saisie_champs_pret(Pret *pret, int *donnee) {
     int valide;
     int valide_tot = 0; //2 si pas d'erreur
     int timestamp = (int) time(NULL);
@@ -122,16 +96,16 @@ int saisie_champs_pret(Pret *pret) {
         valide = 1;
     }
     valide_tot = valide_tot + valide;
-    // scanf("%d", &(pret->id_membre));
 
     printf("     Code livre : ");
     valide = saisie_code_livre(pret->code_livre);
     valide_tot = valide_tot + valide;
-    // scanf("%s", pret->code_livre);
 
     pret->etat_livre = 1;
     pret->date_pret = timestamp;
     pret->date_retour = timestamp + 1 * 3600 * 24 * 7 * 3;
+
+    pret->id_pret = donnee[1] + 1;
 
     if (valide_tot == 2) {
         return (TRUE);
@@ -152,37 +126,12 @@ void ajout_pret_fichier_pret(FILE *fichier_pret, Pret *saisie) {
     fichier_pret = fopen("sauvegardes/prets.txt", "a"); //"a" correspond a l'ajout - fopen renvoie un pointeur sur le fichier
 
     if (fichier_pret != NULL) {
-        fprintf(
-                fichier_pret,
-                "id : %d | ",
-                saisie->id_pret
-        );
-        fprintf(
-                fichier_pret,
-                "id_membre : %d | ",
-                saisie->id_membre
-        );
-        fprintf(
-                fichier_pret,
-                "code_livre : %s | ",
-                saisie->code_livre
-        );
-        fprintf(
-                fichier_pret,
-                "date_pret : %d | ",
-                saisie->date_pret
-        );
-        fprintf(
-                fichier_pret,
-                "date_retour : %d | ",
-                saisie->date_retour
-                // 1 * 3600 * 24 * 7 * 3 -> 1sec * 3600 (donc heure) * 24 (donc jour) * 7 (donc semaine) * 3 (donc 3 semaines)
-        );
-        fprintf(
-                fichier_pret,
-                "etat_livre : %d \n",
-                saisie->etat_livre
-        );
+        fprintf(fichier_pret, "id : %d | ", saisie->id_pret);
+        fprintf(fichier_pret, "id_membre : %d | ", saisie->id_membre);
+        fprintf(fichier_pret, "code_livre : %s | ", saisie->code_livre);
+        fprintf(fichier_pret, "date_pret : %d | ", saisie->date_pret);
+        fprintf(fichier_pret, "date_retour : %d | ", saisie->date_retour); // 1 * 3600 * 24 * 7 * 3 -> 1sec * 3600 (donc heure) * 24 (donc jour) * 7 (donc semaine) * 3 (donc 3 semaines)
+        fprintf(fichier_pret, "etat_livre : %d \n", saisie->etat_livre);
 
         //Fermeture du fichier
         fclose(fichier_pret);
@@ -193,11 +142,11 @@ void ajout_pret_fichier_pret(FILE *fichier_pret, Pret *saisie) {
 }
 
 void afficher_pret(Pret *pret) {
-    printf("     %d: %d -> %s \n", pret->id_pret, pret->id_membre, pret->code_livre);
+    printf("     id : %d     id membre : %d     code livre : %s\n", pret->id_pret, pret->id_membre, pret->code_livre);
 }
 
 void afficher_toute_info_pret(Pret *pret) {
-    printf("     id : %d     id membre : %d     code livre : %s \n", pret->id_pret, pret->id_membre, pret->code_livre);
+    printf("     id : %d     id membre : %d     code livre : %s\n", pret->id_pret, pret->id_membre, pret->code_livre);
     printf("     Date d'emprunt : ");
     afficher_date(definir_date(pret->date_pret));
     printf("\n     Date de retour : ");
@@ -207,91 +156,133 @@ void afficher_toute_info_pret(Pret *pret) {
 
 /*fonction utilisé pour l'ajout d'un pret
 verification si le mebre existe et verification si le livre existe*/
-int saisie_champ_pret_securise(Pret *saisie, Membre **tab_membre, Livre **tab_livre, int *nb_membre, int *nb_livre)
+int saisie_champ_pret_securise(Pret *saisie, Membre **tab_membre, Livre **tab_livre, Pret **tab_pret, int *nb_membre, int *nb_livre, int *nb_pret, int *donnee)
 {
     //la fonction retourne 1 (TRUE) si la saisie du pret est valide (livre et membre existant) et 0 (FALSE) sinon
     int valide;
 
-    valide = saisie_champs_pret(saisie);
+    valide = saisie_champs_pret(saisie, donnee);
 
-    if(valide == TRUE){
-        int i;
+    if((saisie->id_membre == 0) || (compare_chaine_caractere(saisie->code_livre,"0") == 0)) { //si l'utilisateur veut revenir au menu
+        valide = TRUE;
+    }
+    else if(valide == TRUE) {
+
+        if(valide == FALSE) {
+            int i;
         
-        //verification du membre
-        int indice_membre = -1;
-        valide = FALSE;
-        for(i=0; i<(*nb_membre); i++)
-        {
-            if(saisie->id_membre == tab_membre[i]->identifiant) {
-                valide = TRUE;
-                indice_membre = i;
-            }
-        }
-
-        //verifier si le membre peut encore emprunté un livre (pret en retard ou pret max atteint)
-        if(valide = TRUE){
-            if(calcul_nb_pret_membre(tab_membre[indice_membre]) == 0) //si il y a aucun pret
-                valide = TRUE;
-            else 
-                valide = FALSE;
-        }
-
-        //verification du livre
-        int indice_livre = -1;
-        if(valide == TRUE) {
-            valide = FALSE;
-            for(i=0; i<(*nb_livre); i++)
+            // verification si l'identifiant du membre existe
+            int indice_membre = -1;
+            for(i=0; i<(*nb_membre); i++)
             {
-                if(saisie->code_livre == tab_livre[i]->code) {
+                if(saisie->id_membre == tab_membre[i]->identifiant) {
                     valide = TRUE;
-                    indice_livre = i;
+                    indice_membre = i;
                 }
             }
-        }
 
-        //verification si le livre est disponible
-        if(valide == TRUE){
-            if(tab_livre[i]->nb_exemplaires_dispo != 0)
-                valide = TRUE;
-            else
+            // verification si le membre a atteint le nombre de pret maximum
+            if(valide == TRUE) {
+                if(calcul_nb_pret_membre(tab_membre[indice_membre]) == NB_EMPRUNT_MAX-1) { //si il y a aucun pret
+                    valide = TRUE;
+                }   
+                else {
+                    valide = FALSE;
+                }
+            }
+
+            // verification si le membre a des prets en retard
+            if(valide == TRUE){
+                if(membre_nb_pret_retard(tab_pret, nb_pret, tab_membre, &(saisie->id_membre)) != 0) { //si au moins un pret en retard
+                    valide = FALSE;
+                } else {
+                    valide = TRUE;
+                }
+            }
+
+            //verification du livre
+            int indice_livre = -1;
+            if(valide == TRUE) {
                 valide = FALSE;
+                for(i=0; i<(*nb_livre); i++)
+                {
+                    if(compare_chaine_caractere(saisie->code_livre, tab_livre[i]->code) == 0) {
+                        valide = TRUE;
+                        indice_livre = i;
+                    }
+                }
+            }
+
+            //verification si le livre est disponible
+            if(valide == TRUE){
+                if((indice_livre != -1) && (tab_livre[i]->nb_exemplaires_dispo != 0)) {
+                    valide = TRUE;
+                }
+                else {
+                    valide = FALSE;
+                }
+            }
         }
     }
 
     return (valide);
 }
 
-/*verification si un membre a des prets en retard
-La fonction retourne un tableau avec les indices des prets étant en retard dans le tableau de pret*/
-// int* membre_nb_pret_retard(Pret **tab_pret, int *id_membre)
-// {
-//     int* tab_indice = NULL;
-    
 
-// }
+
+/*verification si un membre a des prets en retard
+La fonction retourne le nombre de pret en retard d'un membre*/
+int membre_nb_pret_retard(Pret **tab_pret, int *nb_pret, Membre **tab_membre, int *id_membre)
+{
+    // recuperation de l'indice du membre dans le tableau de membre
+    int i = 0;
+    while(tab_membre[i]->identifiant != *id_membre) {
+        i++;
+    }
+
+    int nb_pret_membre;
+    nb_pret_membre = calcul_nb_pret_membre(tab_membre[i]);
+
+    // recuperation des
+    int nb_pret_retard = 0;
+    int j; //parcours le tableau de pret
+    int k; //parcours les id prets de la structure membre
+    for(j=0; j<(*nb_pret); j++)
+    {
+        for(k=0; k<nb_pret_membre; k++) //on parcours tout les prets
+        {
+            if(tab_pret[j]->id_pret == tab_membre[i]->liste_emprunt[k]) { //on regarde si le pret correspond au membre
+                if(tab_pret[j]->etat_livre == 0){ //le pret est en retard
+                    nb_pret_retard ++;
+                }
+            }
+        }
+    }
+    
+    return (nb_pret_retard);
+}
 
 
 /*cette fonction est a appellé seulement si la fonction saisie champs pret securise est verifié*/
 void ajout_pret_struct_membre(Pret *pret, Membre **tab_membre)
 {
-
-    //recuperation de l'indice du membre dans le tableau de membre
-    int i;
-    do{
+    // recuperation de l'indice du membre dans le tableau de membre
+    int i = 0;
+    while(tab_membre[i]->identifiant != pret->id_membre) {
         i++;
-    } while(tab_membre[i]->identifiant != pret->id_membre);
-
+    }
 
     //modification du membre
     int valide = 0;
-    do{
-        if(tab_membre[i]->liste_emprunt[valide] != 0){
-            tab_membre[i]->liste_emprunt[valide] = pret->id_pret;
-            valide = -1;
+    do {
+        if(tab_membre[i]->liste_emprunt[valide] == 0) { //si c'est la case a modifier (entrer l'id du pret)
+            tab_membre[i]->liste_emprunt[valide] = pret->id_pret; //enregistrement de l'identifiant du pret
+            valide = 0;
         }   
-        else
+        else {
             valide ++;
-    }while(valide = 0);
+        }
+    } while(valide != 0);
 }
 
 
@@ -299,13 +290,48 @@ void ajout_pret_struct_membre(Pret *pret, Membre **tab_membre)
 void ajout_pret_struct_livre(Pret *pret, Livre **tab_livre)
 {
     //recuperation de l'indice du livre dans le tableau de livre
-    int i;
-    do{
+    int i = 0;
+    while(compare_chaine_caractere(tab_livre[i]->code, pret->code_livre) != 0) {
         i++;
-    } while(tab_livre[i]->code != pret->code_livre);
-
+    }
 
     //modification du livre (supression d'un exemplaire disponible)
     tab_livre[i]->nb_exemplaires_dispo --; 
- 
+}
+
+
+
+/*cette fonction est a appellé seulement si la fonction saisie champs pret securise est verifié*/
+void supr_pret_struct_livre(Pret *pret, Livre **tab_livre)
+{
+    //recuperation de l'indice du livre dans le tableau de livre
+    int i = 0;
+    while(compare_chaine_caractere(tab_livre[i]->code, pret->code_livre) != 0) {
+        i++;
+    }
+
+    //modification du livre (ajout d'un exemplaire disponible)
+    tab_livre[i]->nb_exemplaires_dispo ++; 
+}
+
+
+void supr_pret_struct_membre(Pret *pret, Membre **tab_membre)
+{
+    //recuperation de l'indice du membre dans le tableau de membre
+    int i = 0;
+    while(tab_membre[i]->identifiant != pret->id_membre){
+        i++;
+    }
+
+    //modification du membre
+    int valide = 0;
+    do {
+        if(tab_membre[i]->liste_emprunt[valide] == pret->id_pret) { //si c'est le membre a mdifier
+            tab_membre[i]->liste_emprunt[valide] = 0; //supression de l'enregistrement de l'identifiant du pret
+            valide = -1;
+        }   
+        else {
+            valide ++;
+        }
+    } while(valide != -1);
 }
