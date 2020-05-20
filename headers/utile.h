@@ -20,8 +20,6 @@ int compare_chaine_caractere(char *chaine1, char *chaine2);
 
 int lecture_chaine_cara_fichier(FILE *fichier, char *chaine, int taille_max);
 
-void saisie_entier(int *entier);
-
 
 //...................SYSTEME D'EXLOITATION....................
 #ifdef _WIN32

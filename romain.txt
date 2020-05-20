@@ -29,6 +29,11 @@
         - les lister
         - les enregistrer
 
+17/05/20:
+    - création des fonctions utiles pour la date
+        - définir une date a partir d'un timestamp
+        - definir le timestamp a partir d'une date
+
 A FAIRE:
     - implemanter les prets
     - regler le probleme d'affichage sur les livres
