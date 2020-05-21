@@ -571,10 +571,10 @@ void supr_livre(Livre ***tab_livre, int *nb_livre)
 // }
 
 /*affichage de toute les informations sur un livre en particulier*/
-void affichage_info_livre(Livre **tab_livre, int *nb_livre)
+void affichage_info_livre(Liste_livre *gestion_livre, Liste_membre *gestion_membre, Liste_pret *gestion_pret)
 {
 
-    if (*nb_livre == 0)
+    if (gestion_livre->nb_livre == 0)
     {
         supr_console();
         affichage_sous_titre("INFORMATION SUR UN LIVRE");
@@ -599,10 +599,10 @@ void affichage_info_livre(Livre **tab_livre, int *nb_livre)
                 printf("     ERREUR\n");
             }
 
-            printf("     Saisir le code du livre a supprimer (XXX-YYY) ou 0 pour revenir au menu : ");
+            printf("     Saisir le code du livre a consulter (XXX-YYY) ou 0 pour revenir au menu : ");
             valide = saisie_code_livre(code_livre);
             if(valide == TRUE){
-                valide = verif_code_livre_in_tab_libre(tab_livre,code_livre,nb_livre);
+                valide = verif_code_livre_in_tab_libre(gestion_livre->liste_livre, code_livre, &gestion_livre->nb_livre);
             }
             else if(compare_chaine_caractere(code_livre, "0") == 0){ //chaine egale (l'user veut revenir au menu)
                 valide = TRUE;
@@ -611,11 +611,12 @@ void affichage_info_livre(Livre **tab_livre, int *nb_livre)
 
             if ((valide == TRUE) && (compare_chaine_caractere(code_livre, "0") != 0))
             {
-                for (i = 0; i < (*nb_livre); i++)
+                for (i = 0; i < gestion_livre->nb_livre; i++)
                 {
-                    if (compare_chaine_caractere(tab_livre[i]->code, code_livre) == 0) //chaine identique
+                    if (compare_chaine_caractere(gestion_livre->liste_livre[i]->code, code_livre) == 0) //chaine identique
                     {
-                        afficher_toute_info_livre(tab_livre[i]);
+                        afficher_toute_info_livre(gestion_livre->liste_livre[i]);
+                        affichage_info_pret_livre(gestion_livre->liste_livre[i], gestion_pret->liste_pret, &gestion_pret->nb_pret, gestion_membre->liste_membre, &gestion_membre->nb_membre);
                     }
                 }
 

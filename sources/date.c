@@ -19,8 +19,8 @@ void saisir_date(Date *d) {
 long int recuperer_timestamp(Date *date) {
     struct tm t;
 
-    t.tm_year = date->annee;
-    t.tm_mon = date->mois;
+    t.tm_year = date->annee - 1900;
+    t.tm_mon = date->mois - 1;
     t.tm_mday = date->jour;
     t.tm_hour = 0;
     t.tm_min = 0;

@@ -221,44 +221,9 @@ void afficher_toute_info_livre(Livre *livre)
     printf("                    Auteur : %s\n", livre->auteur);
     printf("                    Code : %s\n", livre->code);
     printf("                    Nombre d'exemplaires totals : %d\n", livre->nb_exemplaires);
-    printf("                    Nombre d'exemplaires disponibles : %d\n\n", livre->nb_exemplaires_dispo);
-
-    // if (calcul_nb_pret_livre(livre) == 0)
-    // {
-    //     printf("                    Pret : Aucun pret en cour\n\n");
-    // }
+    printf("                    Nombre d'exemplaires disponibles : %d\n", livre->nb_exemplaires_dispo);
 }
 
-// void afficher_toute_info_livre(Livre *livre, Pret **tab_pret, int *nb_pret)
-// {
-//     printf("\n                    Titre : %s\n", livre->titre);
-//     printf("                    Auteur : %s\n", livre->auteur);
-//     printf("                    Code : %s\n", livre->code);
-//     printf("                    Nombre d'exemplaires totals : %d\n", livre->nb_exemplaires);
-//     printf("                    Nombre d'exemplaires disponibles : %d\n\n", livre->nb_exemplaires_dispo);
-
-//     if (calcul_nb_pret_livre(livre) == 0)
-//     {
-//         printf("                    Pret : Aucun pret en cour\n\n");
-//     }
-//     else{
-//         printf("                    Pret : ");
-//         int i;
-
-//         for(i=0; i<(*nb_pret); i++)
-//         {
-//             if (compare_chaine_caractere(tab_pret[i]->code_livre, livre->code) == 0){
-//                 //afficher pret livre
-//             }
-//         }
-//     }
-// }
-
-// void afficher_pret_livre(Pret *pret)
-// {
-//     /*membre (prenom, nom et id) - cf fonction dans membre.c
-//       pret (etat du pret*/
-// }
 
 /*libere de maniere dynamique le tableau de livre*/
 void lib_tab_livre(Livre **tab_livre, int *nb_livres)

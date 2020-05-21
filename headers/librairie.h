@@ -75,7 +75,7 @@ void saisie_nx_livre(Livre ***tab_livre, int *nb_livre);
 
 void supr_livre(Livre ***tab_livre, int *nb_livre);
 
-void affichage_info_livre(Livre **tab_livre, int *nb_livre);
+void affichage_info_livre(Liste_livre *gestion_livre, Liste_membre *gestion_membre, Liste_pret *gestion_pret);
 
 // Pret
 
