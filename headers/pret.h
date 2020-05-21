@@ -48,6 +48,7 @@ void afficher_toute_info_pret(Pret *pret);
 int saisie_champ_pret_securise_ajout(Pret *saisie, Membre **tab_membre, Livre **tab_livre, Pret **tab_pret, int *nb_membre, int *nb_livre, int *nb_pret, int *donnee);;
 
 int membre_nb_pret_retard(Pret **tab_pret, int *nb_pret, Membre **tab_membre, int *id_membre);
+void affichage_info_pret_membre(Membre *membre, Pret **tab_pret, int *nb_pret, Livre **tab_livre, int *nb_livre);
 
 void actualisation_pret_en_retard(Pret **tab_pret, int *nb_pret);
 void ajout_pret_struct_membre(Pret *pret, Membre **tab_membre);

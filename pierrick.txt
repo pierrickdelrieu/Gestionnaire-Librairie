@@ -77,6 +77,7 @@
     - mise en fonction de la recuperation des dates sur le systemes
     - creation fonction qui verifie en chaque debut de programme si des prets sont en retard pour modifier leur status
     - fonction ajout nouveau pret ok
+    - ajout de l'affichage des prets d'un membre dans la fonction affichage_info_membre
     
 
 A FAIRE    

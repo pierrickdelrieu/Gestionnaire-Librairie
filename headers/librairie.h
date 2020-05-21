@@ -67,7 +67,7 @@ void supr_membre(Membre ***tab_membre, int *nb_membre);
 
 void affichage_liste_membre(Membre **tab_membre, int *nb_membre);
 
-void affichage_info_membre(Membre **tab_membre, int *nb_membre);
+void affichage_info_membre(Liste_membre *gestion_membre, Liste_pret *gestion_pret, Liste_livre *gestion_livre);
 
 // Livre
 

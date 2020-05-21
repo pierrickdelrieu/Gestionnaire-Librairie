@@ -363,10 +363,10 @@ void affichage_liste_membre(Membre **tab_membre, int *nb_membre)
 }
 
 /*affichage de toute les informations sur un membre en particulier*/
-void affichage_info_membre(Membre **tab_membre, int *nb_membre)
+void affichage_info_membre(Liste_membre *gestion_membre, Liste_pret *gestion_pret, Liste_livre *gestion_livre)
 {
 
-    if (*nb_membre == 0)
+    if (gestion_membre->nb_membre == 0)
     {
         supr_console();
         affichage_sous_titre("INFORMATION SUR UN MEMBRE");
@@ -387,15 +387,16 @@ void affichage_info_membre(Membre **tab_membre, int *nb_membre)
             affichage_sous_titre("INFORMATION SUR UN MEMBRE");
             printf("     Saisir l'identifiant du membre ou 0 pour revenir au menu : ");
 
-            valide = saisie_id_membre_tab_membre(tab_membre, &id_membre, nb_membre);
+            valide = saisie_id_membre_tab_membre(gestion_membre->liste_membre, &id_membre, &gestion_membre->nb_membre);
 
             if ((valide == TRUE) && (id_membre != 0))
             {
-                for (i = 0; i < (*nb_membre); i++)
+                for (i = 0; i < gestion_membre->nb_membre; i++)
                 {
-                    if (tab_membre[i]->identifiant == id_membre)
+                    if (gestion_membre->liste_membre[i]->identifiant == id_membre)
                     {
-                        afficher_toute_info_membre(tab_membre[i]);
+                        afficher_toute_info_membre(gestion_membre->liste_membre[i]);
+                        affichage_info_pret_membre(gestion_membre->liste_membre[i],gestion_pret->liste_pret, &gestion_pret->nb_pret, gestion_livre->liste_livre, &gestion_livre->nb_livre);
                     }
                 }
 

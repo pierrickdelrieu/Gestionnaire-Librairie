@@ -190,11 +190,6 @@ void afficher_toute_info_membre(Membre *membre)
     afficher_adresse(&(membre->adresse));
     printf("\n                    Email : %s\n", membre->email);
     printf("                    Metier : %s\n", membre->metier);
-
-    if (calcul_nb_pret_membre(membre) == 0)
-    {
-        printf("                    Pret : Aucun pret en cour\n\n");
-    }
 }
 
 /*libere de maniere dynamique le tableau de membre*/

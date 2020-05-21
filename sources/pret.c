@@ -396,3 +396,46 @@ void rafraichir_fichier_pret(Pret **tab_pret, int *nb_pret)
         erreur_ouverture_fichier();
     }
 }
+
+
+void affichage_info_pret_membre(Membre *membre, Pret **tab_pret, int *nb_pret, Livre **tab_livre, int *nb_livre)
+{
+    int nb_pret_membre;
+    nb_pret_membre = calcul_nb_pret_membre(membre);
+
+    if (nb_pret_membre == 0){
+        printf("                    Pret : Aucun pret en cour\n\n");
+    }
+    else{
+        int i;
+
+        for(i=0; i<nb_pret_membre; i++)
+        {
+            //recuperation de l'indice du pret dans le tableau de pret
+            int indice_pret = 0;
+            while(tab_pret[indice_pret]->id_pret != membre->liste_emprunt[i]) {
+                indice_pret++;
+            }
+
+            //recuperation de l'indice du livre dans le tableau de livre
+            int indice_livre = 0;
+            while(compare_chaine_caractere(tab_livre[indice_livre]->code, tab_pret[indice_pret]->code_livre) != 0) {
+                indice_livre++;
+            }
+        
+            if(membre->liste_emprunt[i] !=0){
+                printf("                    Pret -     id_pret : %d   ", tab_pret[indice_pret]->id_pret);
+                affichage_titre_auteur_code_livre(tab_livre[i]->code, tab_livre);
+
+                if(tab_pret[indice_pret]->etat_livre == 1) { //pret a jour
+                    printf("     A JOUR (date de retour : ");
+                    afficher_date(&tab_pret[indice_pret]->date_retour);
+                } else {
+                    printf("     EN RETARD (date de retour : ");
+                    afficher_date(&tab_pret[indice_pret]->date_retour);
+                }
+                printf(")\n");
+            }
+        }
+    }
+}
