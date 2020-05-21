@@ -631,9 +631,8 @@ void affichage_info_livre(Livre **tab_livre, int *nb_livre)
 
 /***********************************************FONCTION PRET***********************************************/
 
-void saisie_nx_pret(Liste_membre *gestion_membre, Liste_livre *gestion_livre, Liste_pret *gestion_pret, int tab_donnee[2]) {
-
-
+void saisie_nx_pret(Liste_membre *gestion_membre, Liste_livre *gestion_livre, Liste_pret *gestion_pret, int tab_donnee[2]) 
+{
     if ((gestion_livre->nb_livre == 0) || (gestion_membre->nb_membre == 0))
     {
         supr_console();
@@ -650,8 +649,9 @@ void saisie_nx_pret(Liste_membre *gestion_membre, Liste_livre *gestion_livre, Li
         saisie = creer_struct_pret();
 
         //saisie du pret a ajouter
+        supr_console();
         do {
-            supr_console();
+            // supr_console();
             affichage_sous_titre("AJOUT NOUVEAU PRET");
 
             if (valide == FALSE) {
@@ -659,8 +659,11 @@ void saisie_nx_pret(Liste_membre *gestion_membre, Liste_livre *gestion_livre, Li
             }
 
             printf("Saisir le pret ou saisir 0 pour revenir au menu : \n");
-            valide = saisie_champ_pret_securise(saisie, gestion_membre->liste_membre, gestion_livre->liste_livre, gestion_pret->liste_pret, &(gestion_membre->nb_membre), &(gestion_livre->nb_livre), &(gestion_pret->nb_pret), tab_donnee);
+            valide = saisie_champ_pret_securise_ajout(saisie, gestion_membre->liste_membre, gestion_livre->liste_livre, gestion_pret->liste_pret, &(gestion_membre->nb_membre), &(gestion_livre->nb_livre), &(gestion_pret->nb_pret), tab_donnee);
         } while (valide == FALSE);
+
+
+        printf("ok");
 
 
         if((saisie->id_membre != 0) && (compare_chaine_caractere(saisie->code_livre,"0") != 0)) { //si l'utilisateur ne veut pas revenir au menu

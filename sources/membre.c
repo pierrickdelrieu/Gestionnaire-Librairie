@@ -161,8 +161,7 @@ int calcul_nb_pret_membre(Membre *membre)
 
     for (i = 0; i < NB_EMPRUNT_MAX; i++)
     {
-        if (membre->liste_emprunt[i] != 0)
-        {
+        if (membre->liste_emprunt[i] != 0) {
             nb_pret++;
         }
     }

@@ -73,6 +73,10 @@
     - travaille sur l'ajout d'un nx pret (securisation de la saisie et ajout du pret dans membre et livre)
         a continuer
 
+21/05/2020 :
+    - mise en fonction de la recuperation des dates sur le systemes
+    - creation fonction qui verifie en chaque debut de programme si des prets sont en retard pour modifier leur status
+    
 
 A FAIRE    
 - ajout de pénalité d'un membre (au bout de n pénalité, le membre ne peux plus emprunté pendant x semaines)

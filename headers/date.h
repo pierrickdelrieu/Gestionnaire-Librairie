@@ -2,6 +2,7 @@
 #define date_h
 
 #include <stdio.h>
+#include <time.h>
 
 typedef struct
 {
@@ -14,7 +15,7 @@ void saisir_date(Date *d);
 
 long int recuperer_timestamp(Date *date);
 
-Date *definir_date(long int timestamp);
+Date definir_date(long int timestamp);
 
 void afficher_date(Date *date);
 

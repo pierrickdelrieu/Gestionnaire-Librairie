@@ -99,7 +99,3 @@ int lecture_chaine_cara_fichier(FILE *fichier, char *chaine, int taille_max)
     }
 }
 
-void affichage_date_du_jour(void)
-{
-    system(strcmp(SYSTEME_EXPLOITATION, "win") == 0 ? "echo  %date%-%time%" : "date");
-}

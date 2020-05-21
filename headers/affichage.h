@@ -13,4 +13,6 @@ void affichage_choix_menu(int *choix);
 
 void erreur_ouverture_fichier();
 
+void affichage_date_du_jour();
+
 #endif /* affichage_h */

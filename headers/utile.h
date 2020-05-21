@@ -36,7 +36,5 @@ void supr_console(void);
 
 void system_pause();
 
-void affichage_date_du_jour();
-
 #endif /* utile_h */
 

@@ -1,7 +1,6 @@
 #include "../headers/date.h"
 #include <time.h>
 
-
 void saisir_date(Date *d) {
     do {
         printf("     jour : ");
@@ -30,13 +29,13 @@ long int recuperer_timestamp(Date *date) {
     return mktime(&t);
 }
 
-Date *definir_date(long int timestamp) {
+Date definir_date(long int timestamp) {
     struct tm *dts = localtime(&timestamp);
-    Date *date;
+    Date date;
 
-    date->jour = dts->tm_mday;
-    date->mois = dts->tm_mon;
-    date->annee = dts->tm_year;
+    date.jour = dts->tm_mday;
+    date.mois = dts->tm_mon + 1;
+    date.annee = 1900 + dts->tm_year;
 
     return date;
 }

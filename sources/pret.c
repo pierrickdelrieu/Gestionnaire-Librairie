@@ -1,7 +1,5 @@
 #include "../headers/pret.h"
 
-#include <time.h>
-
 
 Pret *creer_struct_pret() {
     return (Pret *) malloc(sizeof(Pret));
@@ -30,15 +28,20 @@ Pret **creer_tab_pret(int *nb_pret) {
     if (fichier_pret != NULL) {
         liste_prets = (Pret **) malloc((*nb_pret) * sizeof(Pret *));
         int i;
+        long int date_pret, date_retour;
 
         for (i = 0; i < (*nb_pret); i++) {
             liste_prets[i] = creer_struct_pret();
             fscanf(fichier_pret, "id : %d | ", &liste_prets[i]->id_pret);
             fscanf(fichier_pret, "id_membre : %d | ", &liste_prets[i]->id_membre);
             fscanf(fichier_pret, "code_livre : %s | ", liste_prets[i]->code_livre);
-            fscanf(fichier_pret, "date_pret : %d | ", &(liste_prets[i]->date_pret));
-            fscanf(fichier_pret, "date_retour : %d | ", &(liste_prets[i]->date_retour));
+            fscanf(fichier_pret, "date_pret : %ld | ", &(date_pret));
+            fscanf(fichier_pret, "date_retour : %ld | ", &(date_retour));
             fscanf(fichier_pret, "etat_livre : %d | ", &(liste_prets[i]->etat_livre));
+
+            // conversion du timestamp en date
+            liste_prets[i]->date_pret = definir_date(date_pret);
+            liste_prets[i]->date_retour = definir_date(date_retour);
         }
 
         fclose(fichier_pret);
@@ -84,7 +87,7 @@ void rafrachir_tab_pret(Pret ***tab_pret, int *nb_pret) {
 int saisie_champs_pret(Pret *pret, int *donnee) {
     int valide;
     int valide_tot = 0; //2 si pas d'erreur
-    int timestamp = (int) time(NULL);
+    long int timestamp = (int) time(NULL);
 
     printf("     Identifiant membre : ");
     saisie_entier(&(pret->id_membre));
@@ -102,8 +105,8 @@ int saisie_champs_pret(Pret *pret, int *donnee) {
     valide_tot = valide_tot + valide;
 
     pret->etat_livre = 1;
-    pret->date_pret = timestamp;
-    pret->date_retour = timestamp + 1 * 3600 * 24 * 7 * 3;
+    pret->date_pret = definir_date(timestamp);
+    pret->date_retour = definir_date(timestamp + 1 * 3600 * 24 * 7 * 3); // 3 semaines plus tard
 
     pret->id_pret = donnee[1] + 1;
 
@@ -129,9 +132,10 @@ void ajout_pret_fichier_pret(FILE *fichier_pret, Pret *saisie) {
         fprintf(fichier_pret, "id : %d | ", saisie->id_pret);
         fprintf(fichier_pret, "id_membre : %d | ", saisie->id_membre);
         fprintf(fichier_pret, "code_livre : %s | ", saisie->code_livre);
-        fprintf(fichier_pret, "date_pret : %d | ", saisie->date_pret);
-        fprintf(fichier_pret, "date_retour : %d | ", saisie->date_retour); // 1 * 3600 * 24 * 7 * 3 -> 1sec * 3600 (donc heure) * 24 (donc jour) * 7 (donc semaine) * 3 (donc 3 semaines)
+        fprintf(fichier_pret, "date_pret : %ld | ", recuperer_timestamp(&saisie->date_pret));
+        fprintf(fichier_pret, "date_retour : %ld | ", recuperer_timestamp(&saisie->date_retour)); // 1 * 3600 * 24 * 7 * 3 -> 1sec * 3600 (donc heure) * 24 (donc jour) * 7 (donc semaine) * 3 (donc 3 semaines)
         fprintf(fichier_pret, "etat_livre : %d \n", saisie->etat_livre);
+
 
         //Fermeture du fichier
         fclose(fichier_pret);
@@ -148,86 +152,87 @@ void afficher_pret(Pret *pret) {
 void afficher_toute_info_pret(Pret *pret) {
     printf("     id : %d     id membre : %d     code livre : %s\n", pret->id_pret, pret->id_membre, pret->code_livre);
     printf("     Date d'emprunt : ");
-    afficher_date(definir_date(pret->date_pret));
+    afficher_date(&pret->date_pret);
     printf("\n     Date de retour : ");
-    afficher_date(definir_date(pret->date_pret));
+    afficher_date(&pret->date_retour);
 }
 
 
 /*fonction utilisé pour l'ajout d'un pret
 verification si le mebre existe et verification si le livre existe*/
-int saisie_champ_pret_securise(Pret *saisie, Membre **tab_membre, Livre **tab_livre, Pret **tab_pret, int *nb_membre, int *nb_livre, int *nb_pret, int *donnee)
+int saisie_champ_pret_securise_ajout(Pret *saisie, Membre **tab_membre, Livre **tab_livre, Pret **tab_pret, int *nb_membre, int *nb_livre, int *nb_pret, int *donnee)
 {
     //la fonction retourne 1 (TRUE) si la saisie du pret est valide (livre et membre existant) et 0 (FALSE) sinon
     int valide;
 
     valide = saisie_champs_pret(saisie, donnee);
 
-    if((saisie->id_membre == 0) || (compare_chaine_caractere(saisie->code_livre,"0") == 0)) { //si l'utilisateur veut revenir au menu
+    if ((saisie->id_membre == 0) || (compare_chaine_caractere(saisie->code_livre,"0") == 0)) { //si l'utilisateur veut revenir au menu
         valide = TRUE;
     }
-    else if(valide == TRUE) {
-
-        if(valide == FALSE) {
-            int i;
+    else if (valide == TRUE) {
+        int i;
         
-            // verification si l'identifiant du membre existe
-            int indice_membre = -1;
-            for(i=0; i<(*nb_membre); i++)
-            {
-                if(saisie->id_membre == tab_membre[i]->identifiant) {
-                    valide = TRUE;
-                    indice_membre = i;
-                }
+        // verification si l'identifiant du membre existe
+        int indice_membre = -1;
+        valide = FALSE;
+        for(i=0; i<(*nb_membre); i++)
+        {
+            if(saisie->id_membre == tab_membre[i]->identifiant) {
+                valide = TRUE;
+                indice_membre = i;
             }
+        }
 
-            // verification si le membre a atteint le nombre de pret maximum
-            if(valide == TRUE) {
-                if(calcul_nb_pret_membre(tab_membre[indice_membre]) == NB_EMPRUNT_MAX-1) { //si il y a aucun pret
-                    valide = TRUE;
-                }   
-                else {
-                    valide = FALSE;
-                }
-            }
+        // verification si le membre a atteint le nombre de pret maximum
+        if(valide == TRUE) {
+            valide = FALSE;
 
-            // verification si le membre a des prets en retard
-            if(valide == TRUE){
-                if(membre_nb_pret_retard(tab_pret, nb_pret, tab_membre, &(saisie->id_membre)) != 0) { //si au moins un pret en retard
-                    valide = FALSE;
-                } else {
-                    valide = TRUE;
-                }
-            }
-
-            //verification du livre
-            int indice_livre = -1;
-            if(valide == TRUE) {
+            if(calcul_nb_pret_membre(tab_membre[indice_membre]) < NB_EMPRUNT_MAX) { //si il y a aucun pret
+                valide = TRUE;
+            }   
+            else {
                 valide = FALSE;
-                for(i=0; i<(*nb_livre); i++)
-                {
-                    if(compare_chaine_caractere(saisie->code_livre, tab_livre[i]->code) == 0) {
-                        valide = TRUE;
-                        indice_livre = i;
-                    }
+            }
+        }
+
+        // verification si le membre a des prets en retard
+        if(valide == TRUE){
+            if(membre_nb_pret_retard(tab_pret, nb_pret, tab_membre, &(saisie->id_membre)) != 0) { //si au moins un pret en retard
+                valide = FALSE;
+            } else {
+                valide = TRUE;
+            }
+        }
+
+
+        //verification du livre
+        int indice_livre = -1;
+        if(valide == TRUE) {
+            valide = FALSE;
+            for(i=0; i<(*nb_livre); i++)
+            {
+                if(compare_chaine_caractere(saisie->code_livre, tab_livre[i]->code) == 0) {
+                    valide = TRUE;
+                    indice_livre = i;
                 }
             }
+        }
 
-            //verification si le livre est disponible
-            if(valide == TRUE){
-                if((indice_livre != -1) && (tab_livre[i]->nb_exemplaires_dispo != 0)) {
-                    valide = TRUE;
-                }
-                else {
-                    valide = FALSE;
-                }
+
+        //verification si le livre est disponible
+        if(valide == TRUE){
+            if(tab_livre[indice_livre]->nb_exemplaires_dispo != 0) {
+                valide = TRUE;
+            }
+            else {
+                valide = FALSE;
             }
         }
     }
 
     return (valide);
 }
-
 
 
 /*verification si un membre a des prets en retard
@@ -243,13 +248,13 @@ int membre_nb_pret_retard(Pret **tab_pret, int *nb_pret, Membre **tab_membre, in
     int nb_pret_membre;
     nb_pret_membre = calcul_nb_pret_membre(tab_membre[i]);
 
-    // recuperation des
+    // calul du nombre de pret en retard
     int nb_pret_retard = 0;
     int j; //parcours le tableau de pret
     int k; //parcours les id prets de la structure membre
     for(j=0; j<(*nb_pret); j++)
     {
-        for(k=0; k<nb_pret_membre; k++) //on parcours tout les prets
+        for(k=0; k<nb_pret_membre; k++) //on parcours tout les prets du membre
         {
             if(tab_pret[j]->id_pret == tab_membre[i]->liste_emprunt[k]) { //on regarde si le pret correspond au membre
                 if(tab_pret[j]->etat_livre == 0){ //le pret est en retard
@@ -300,7 +305,6 @@ void ajout_pret_struct_livre(Pret *pret, Livre **tab_livre)
 }
 
 
-
 /*cette fonction est a appellé seulement si la fonction saisie champs pret securise est verifié*/
 void supr_pret_struct_livre(Pret *pret, Livre **tab_livre)
 {
@@ -334,4 +338,61 @@ void supr_pret_struct_membre(Pret *pret, Membre **tab_membre)
             valide ++;
         }
     } while(valide != -1);
+}
+
+
+/*actualisation des prets en retard ou non en debut de programme
+entraine la modification des structures prets (rafrachir en meme temps le fichier pret*/
+void actualisation_pret_en_retard(Pret **tab_pret, int *nb_pret)
+{
+    Date d1, d2;
+    Date date_du_jour;
+
+    //recuperation de la date du jour
+    int timestamp = (int) time(NULL);
+
+    date_du_jour = definir_date(timestamp);
+
+    //modification des valeurs en retard 
+    int i;
+    for(i=0; i<*(nb_pret); i++)
+    {
+        if(tab_pret[i]->etat_livre == 1) { // si le livre enregistré comme pas en retard
+            if(compare_date(&date_du_jour, &tab_pret[i]->date_retour) == 1) { //si le livre doit changer de statut (il est aujourd'hui en retard)
+                tab_pret[i]->etat_livre = 0; //on change le statut du livre qui devient en retard
+            }
+        }
+    }
+
+    //modification du fichier membre
+    rafraichir_fichier_pret(tab_pret, nb_pret);
+}
+
+
+void rafraichir_fichier_pret(Pret **tab_pret, int *nb_pret) 
+{
+    FILE* fichier_pret = NULL;
+
+    fichier_pret = fopen("sauvegardes/prets.txt", "w"); //"w" correspond a l'ecriture (supression du contenu au préalable) - fopen renvoie un pointeur sur le fichier
+
+    if (fichier_pret != NULL) {
+
+        int i;
+
+        for(i=0; i<*(nb_pret); i++)
+        {
+            fprintf(fichier_pret, "id : %d | ", tab_pret[i]->id_pret);
+            fprintf(fichier_pret, "id_membre : %d | ", tab_pret[i]->id_membre);
+            fprintf(fichier_pret, "code_livre : %s | ", tab_pret[i]->code_livre);
+            fprintf(fichier_pret, "date_pret : %ld | ", recuperer_timestamp(&tab_pret[i]->date_pret));
+            fprintf(fichier_pret, "date_retour : %ld | ", recuperer_timestamp(&tab_pret[i]->date_retour)); // 1 * 3600 * 24 * 7 * 3 -> 1sec * 3600 (donc heure) * 24 (donc jour) * 7 (donc semaine) * 3 (donc 3 semaines)
+            fprintf(fichier_pret, "etat_livre : %d \n", tab_pret[i]->etat_livre);
+        }
+
+        //Fermeture du fichier
+        fclose(fichier_pret);
+
+    } else { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
+        erreur_ouverture_fichier();
+    }
 }
