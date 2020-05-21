@@ -30,6 +30,7 @@ int saisie_champs_membre(Membre *membre, int *nb_membres);
 void afficher_membre(Membre *membre);
 void afficher_toute_info_membre(Membre *membre);
 int calcul_nb_pret_membre(Membre *membre);
+void affichage_prenom_nom_id_membre(int *id_membre, Membre **tab_membre);
 
 
 //Creation, libération, modification et affichage du tableau d'admin

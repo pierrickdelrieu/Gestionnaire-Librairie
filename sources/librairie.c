@@ -649,9 +649,8 @@ void saisie_nx_pret(Liste_membre *gestion_membre, Liste_livre *gestion_livre, Li
         saisie = creer_struct_pret();
 
         //saisie du pret a ajouter
-        supr_console();
         do {
-            // supr_console();
+            supr_console();
             affichage_sous_titre("AJOUT NOUVEAU PRET");
 
             if (valide == FALSE) {
@@ -663,34 +662,56 @@ void saisie_nx_pret(Liste_membre *gestion_membre, Liste_livre *gestion_livre, Li
         } while (valide == FALSE);
 
 
-        printf("ok");
-
-
         if((saisie->id_membre != 0) && (compare_chaine_caractere(saisie->code_livre,"0") != 0)) { //si l'utilisateur ne veut pas revenir au menu
-            //modification du contenu du fichier prets.txt
-            FILE *fichier_pret = NULL;
-            ajout_pret_fichier_pret(fichier_pret, saisie);
-            rafrachir_tab_pret(&(gestion_pret->liste_pret), &(gestion_pret->nb_pret)); //modif du nombre de pret
+            int choix = 0;
+            do {
+                supr_console();
+                affichage_sous_titre("AJOUT NOUVEAU PRET");
 
-            //Ajout du pret dans le mebre correspondant
-            FILE *fichier_membre = NULL;
-            ajout_pret_struct_membre(saisie, gestion_membre->liste_membre);
-            rafraichir_fichier_membre(fichier_membre, gestion_membre->liste_membre, &(gestion_membre->nb_membre));
+                printf("Le membre ");
+                affichage_prenom_nom_id_membre(&saisie->id_membre, gestion_membre->liste_membre);
+                printf("empreunte le livre ");
+                affichage_titre_auteur_code_livre(saisie->code_livre, gestion_livre->liste_livre);
+                
+                printf("\n\nDate de retour maximum : ");
+                afficher_date(&saisie->date_retour);
 
-            //Modification du nombre de pret depuis l'ouverture de la librairie (id pret tot)
-            tab_donnee[1] ++;
-            rafrachir_fichier_donnee(tab_donnee);
+                printf("\n\n");
 
-            //Ajout du pret dans le livre correspondant
-            FILE *fichier_livre = NULL;
-            ajout_pret_struct_livre(saisie,gestion_livre->liste_livre);
-            rafraichir_fichier_livre(fichier_livre, gestion_livre->liste_livre, &(gestion_livre->nb_livre));
+                if((choix != 0) && (choix != 1)) {
+                    printf("ERREUR\n");
+                }
+                printf("Pour valider le pret ci-dessus taper 1 ou 0 pour revenir au menu : ");
+                saisie_entier(&choix);
+            } while((choix != 0) && (choix != 1));
 
-            supr_console();
-            printf("Le pret pour le livre %s à bien été enregistré\n", saisie->code_livre);
-            lib_struct_pret(saisie);
-            sleep(2);
-            supr_console();
+
+            if(choix == 1) { 
+                //modification du contenu du fichier prets.txt
+                FILE *fichier_pret = NULL;
+                ajout_pret_fichier_pret(fichier_pret, saisie);
+                rafrachir_tab_pret(&(gestion_pret->liste_pret), &(gestion_pret->nb_pret)); //modif du nombre de pret
+
+                //Ajout du pret dans le mebre correspondant
+                FILE *fichier_membre = NULL;
+                ajout_pret_struct_membre(saisie, gestion_membre->liste_membre);
+                rafraichir_fichier_membre(fichier_membre, gestion_membre->liste_membre, &(gestion_membre->nb_membre));
+
+                //Modification du nombre de pret depuis l'ouverture de la librairie (id pret tot)
+                tab_donnee[1] ++;
+                rafrachir_fichier_donnee(tab_donnee);
+
+                //Ajout du pret dans le livre correspondant
+                FILE *fichier_livre = NULL;
+                ajout_pret_struct_livre(saisie,gestion_livre->liste_livre);
+                rafraichir_fichier_livre(fichier_livre, gestion_livre->liste_livre, &(gestion_livre->nb_livre));
+
+                supr_console();
+                printf("Le pret pour le livre %s à bien été enregistré\n", saisie->code_livre);
+                lib_struct_pret(saisie);
+                sleep(2);
+                supr_console();
+            }
         }
     }
 }

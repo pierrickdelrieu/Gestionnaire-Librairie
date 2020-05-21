@@ -198,7 +198,7 @@ int saisie_champ_pret_securise_ajout(Pret *saisie, Membre **tab_membre, Livre **
 
         // verification si le membre a des prets en retard
         if(valide == TRUE){
-            if(membre_nb_pret_retard(tab_pret, nb_pret, tab_membre, &(saisie->id_membre)) != 0) { //si au moins un pret en retard
+            if(membre_nb_pret_retard(tab_pret, nb_pret, tab_membre, &(saisie->id_membre)) > 0) { //si au moins un pret en retard
                 valide = FALSE;
             } else {
                 valide = TRUE;
@@ -358,7 +358,7 @@ void actualisation_pret_en_retard(Pret **tab_pret, int *nb_pret)
     for(i=0; i<*(nb_pret); i++)
     {
         if(tab_pret[i]->etat_livre == 1) { // si le livre enregistré comme pas en retard
-            if(compare_date(&date_du_jour, &tab_pret[i]->date_retour) == 1) { //si le livre doit changer de statut (il est aujourd'hui en retard)
+            if(compare_date(&date_du_jour, &tab_pret[i]->date_retour) == -1) { //si le livre doit changer de statut (il est aujourd'hui en retard)
                 tab_pret[i]->etat_livre = 0; //on change le statut du livre qui devient en retard
             }
         }

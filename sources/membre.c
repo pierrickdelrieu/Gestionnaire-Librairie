@@ -359,10 +359,16 @@ void supr_membre_fichier_membre(FILE *fichier_membre, int *id_membre, Membre **t
 
 
 
-// void affichage_prenom_nom_id_membre(int *id_membre, Membre **tab_membre)
-// {
+void affichage_prenom_nom_id_membre(int *id_membre, Membre **tab_membre)
+{
+    // recuperation de l'indice du membre dans le tableau de membre
+    int i = 0;
+    while(tab_membre[i]->identifiant != *id_membre) {
+        i++;
+    }
 
-// }
+    printf("%s %s (id : %d) ",tab_membre[i]->prenom, tab_membre[i]->nom, tab_membre[i]->identifiant);
+}
 
 
 

@@ -405,3 +405,16 @@ void rafraichir_fichier_livre(FILE *fichier_livre, Livre **tab_livre, int *nb_li
         erreur_ouverture_fichier();
     }
 }
+
+
+
+void affichage_titre_auteur_code_livre(char *code_livre, Livre **tab_livre)
+{
+    //recuperation de l'indice du livre dans le tableau de livre
+    int i = 0;
+    while(compare_chaine_caractere(tab_livre[i]->code, code_livre) != 0) {
+        i++;
+    }
+
+    printf("%s de %s (code : %s) ",tab_livre[i]->titre, tab_livre[i]->auteur, tab_livre[i]->code);
+}

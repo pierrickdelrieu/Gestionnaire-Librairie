@@ -32,12 +32,13 @@ int verif_code_livre(char* code);
 int saisie_champs_livre(Livre *livre);
 void afficher_livre(Livre *livre);
 void afficher_toute_info_livre(Livre *livre);
-// int calcul_nb_pret_livre(Livre *livre);
 
 //Fichier livres.txt
 void ajout_livre_fichier_livre(FILE *fichier_livre, Livre *saisie);
 void supr_livre_fichier_livre(FILE *fichier_livre, char *code, Livre **tab_livre, int *nb_livre);
 
 void rafraichir_fichier_livre(FILE *fichier_livre, Livre **tab_livre, int *nb_livre);
+
+void affichage_titre_auteur_code_livre(char *code_livre, Livre **tab_livre);
 
 #endif /* livre_h */
