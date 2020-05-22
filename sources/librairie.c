@@ -261,24 +261,38 @@ void saisie_nx_membre(Membre ***tab_membre, int *nb_membre, int tab_donnee[2], D
             printf("ERREUR (adresse mail deja existante)\nReesayer\n\n");
         }
 
+        printf("Saisir 0 a un élément pour retourner au menu\n\n");
+
         valide = saisie_securise_membre_tab_membre(&saisie, *tab_membre, nb_membre, &(tab_donnee[0]));
+
+        //Possibilité de retour au menu
+        if((compare_chaine_caractere(saisie.prenom, "0") == 0) || (compare_chaine_caractere(saisie.nom, "0") == 0) || (compare_chaine_caractere(saisie.adresse.ville, "0") == 0) || (compare_chaine_caractere(saisie.adresse.rue, "0") == 0) || (compare_chaine_caractere(saisie.adresse.code_postal, "0") == 0) || (compare_chaine_caractere(saisie.adresse.pays, "0") == 0) || (compare_chaine_caractere(saisie.metier, "0") == 0) || (compare_chaine_caractere(saisie.email, "0") == 0)) {
+            valide = FALSE;
+        }
+
     } while (valide == TRUE);
 
-    //modification du contenu du fichier membre.txt
-    FILE *fichier_membre = NULL;
-    ajout_membre_fichier_membre(fichier_membre, &(saisie));
+    if((compare_chaine_caractere(saisie.prenom, "0") == 0) || (compare_chaine_caractere(saisie.nom, "0") == 0) || (compare_chaine_caractere(saisie.adresse.ville, "0") == 0) || (compare_chaine_caractere(saisie.adresse.rue, "0") == 0) || (compare_chaine_caractere(saisie.adresse.code_postal, "0") == 0) || (compare_chaine_caractere(saisie.adresse.pays, "0") == 0) || (compare_chaine_caractere(saisie.metier, "0") == 0) || (compare_chaine_caractere(saisie.email, "0") == 0)) {
+        valide = TRUE;
+    }
 
-    rafrachir_tab_membre(tab_membre, nb_membre); //modif du nombre de membre
+    if(valide == FALSE) {
+        //modification du contenu du fichier membre.txt
+        FILE *fichier_membre = NULL;
+        ajout_membre_fichier_membre(fichier_membre, &(saisie));
 
-    tab_donnee[0]++;
+        rafrachir_tab_membre(tab_membre, nb_membre); //modif du nombre de membre
 
-    rafrachir_fichier_donnee(tab_donnee, donnee_livre);
+        tab_donnee[0]++;
 
-    supr_console();
-    printf("%s %s a bien était ajouté comme nouveau membre\n", saisie.prenom, saisie.nom);
+        rafrachir_fichier_donnee(tab_donnee, donnee_livre);
 
-    sleep(2);
-    supr_console();
+        supr_console();
+        printf("%s %s a bien était ajouté comme nouveau membre\n", saisie.prenom, saisie.nom);
+
+        sleep(2);
+        supr_console();
+    }
 }
 
 /*supression d'un membre dans le tableau en memoire et dans le fichier*/
@@ -297,51 +311,73 @@ void supr_membre(Membre ***tab_membre, int *nb_membre)
     {
         int i;
         int id_membre;
-        int valide = FALSE;
+        // int nb_pret_membre;
+        int valide = TRUE;
 
         do
         {
             supr_console();
             affichage_sous_titre("SUPRESSION D'UN MEMBRE");
+
+            if(valide == FALSE) {
+                printf("ERREUR Il n'est pas possible de supprimer le membre\n\n");
+            }
+
             printf("     Saisir l'identifiant du membre a supprimer ou 0 pour retourner au menu : ");
-
             valide = saisie_id_membre_tab_membre(*tab_membre, &id_membre, nb_membre);
-        } while (valide == FALSE);
 
-        int choix;
-        do
-        {
-            supr_console();
-            affichage_sous_titre("SUPRESSION D'UN MEMBRE");
-            if (id_membre != 0)
-            {
-                for (i = 0; i < (*nb_membre); i++)
-                {
-                    if ((*tab_membre)[i]->identifiant == id_membre)
-                    {
-                        afficher_toute_info_membre((*tab_membre)[i]);
-                    }
+            // verif si le membre peut etre supprimé (pas de pret en cours)
+            if((valide == TRUE) &&  (id_membre != 0)){
+                i=0;
+                while((*tab_membre)[i]->identifiant != id_membre) {
+                    i++;
+                }
+                
+                if(calcul_nb_pret_membre((*tab_membre)[i]) != 0) {
+                    valide = FALSE;
                 }
             }
 
-            printf("Voulez vous supprimer ce membre (1 : OUI - 0 : NON (retour au menu)): ");
-            saisie_entier(&choix);
-        } while ((choix != 1) && (choix != 0));
+        } while (valide != TRUE);
 
-        if (choix == 1)
-        {
-            //supression et recréation du contenu du fichier membre.txt
-            FILE *fichier_membre = NULL;
-            supr_membre_fichier_membre(fichier_membre, &id_membre, *tab_membre, nb_membre);
-            rafrachir_tab_membre(tab_membre, nb_membre); //modif de la valeur de nb_membre
 
-            supr_console();
-            printf("Le membre %d a bien était suprimer\n", id_membre);
+        if(id_membre != 0) {
+            int choix;
+            do
+            {
+                supr_console();
+                affichage_sous_titre("SUPRESSION D'UN MEMBRE");
+                if (id_membre != 0)
+                {
+                    for (i = 0; i < (*nb_membre); i++)
+                    {
+                        if ((*tab_membre)[i]->identifiant == id_membre)
+                        {
+                            afficher_toute_info_membre((*tab_membre)[i]);
+                        }
+                    }
+                }
 
-            sleep(2);
-            supr_console();
+                printf("Voulez vous supprimer ce membre (1 : OUI - 0 : NON (retour au menu)): ");
+                saisie_entier(&choix);
+            } while ((choix != 1) && (choix != 0));
+
+            if (choix == 1)
+            {
+                //supression et recréation du contenu du fichier membre.txt
+                FILE *fichier_membre = NULL;
+                supr_membre_fichier_membre(fichier_membre, &id_membre, *tab_membre, nb_membre);
+                rafrachir_tab_membre(tab_membre, nb_membre); //modif de la valeur de nb_membre
+
+                supr_console();
+                printf("Le membre %d a bien était suprimer\n", id_membre);
+
+                sleep(2);
+                supr_console();
+            }
         }
     }
+
 }
 
 /*afichage de la liste des membre en ligne par ordre alphabétique*/
@@ -453,23 +489,36 @@ void saisie_nx_livre(Livre ***tab_livre, int *nb_livre, Donnee_livre *donnee_liv
             printf("ERREUR livre deja existant ou code non valide\nReesayer\n\n");
         }
 
+        printf("Saisir 0 a un élément pour retourner au menu\n\n");
+
         valide = saisie_securise_livre_not_in_tab_livre(saisie, *tab_livre, nb_livre, donnee_livre);
+
+        //retour au menu
+        if((compare_chaine_caractere(saisie->titre,"0") == 0) || (compare_chaine_caractere(saisie->auteur,"0") == 0) || (compare_chaine_caractere(saisie->code,"0") == 0)) {
+            valide = TRUE;
+        }
     } while (valide == FALSE);
 
+     if((compare_chaine_caractere(saisie->titre,"0") == 0) || (compare_chaine_caractere(saisie->auteur,"0") == 0) || (compare_chaine_caractere(saisie->code,"0") == 0)) {
+         valide = FALSE;
+    }
+
+    if(valide == TRUE) {
     //modification du contenu du fichier livre.txt
-    FILE *fichier_livre = NULL;
-    ajout_livre_fichier_livre(fichier_livre, saisie);
+        FILE *fichier_livre = NULL;
+        ajout_livre_fichier_livre(fichier_livre, saisie);
 
-    rafrachir_tab_livre(tab_livre, nb_livre); //modif du nombre de membre
+        rafrachir_tab_livre(tab_livre, nb_livre); //modif du nombre de membre
 
-    rafrachir_fichier_donnee(donnee, donnee_livre);
+        rafrachir_fichier_donnee(donnee, donnee_livre);
 
-    supr_console();
-    printf("%s - %s a bien était ajouté comme nouveau livre\n", saisie->titre, saisie->auteur);
+        supr_console();
+        printf("%s - %s a bien était ajouté comme nouveau livre\n", saisie->titre, saisie->auteur);
 
-    sleep(2);
-    lib_struct_livre(saisie);
-    supr_console();
+        sleep(2);
+        lib_struct_livre(saisie);
+        supr_console();
+    }
 }
 
 /*supression d'un livre dans le tableau en memoire et dans le fichier*/
