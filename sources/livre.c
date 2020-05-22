@@ -145,14 +145,13 @@ int verif_code_livre(char* code)
                 valide = FALSE;
             }
         }
-        // }
     }
 
     return (valide);
 }
 
 /*Saisie des champs de la structure d'un nouveau livre*/
-int saisie_champs_livre(Livre *livre)
+int saisie_champs_livre(Livre *livre, Donnee_livre *donne_livre)
 {
     int valide;
     int valide_tot = 0; //5 si pas d'erreur
@@ -165,52 +164,28 @@ int saisie_champs_livre(Livre *livre)
     valide = saisie_chaine_caractere(livre->auteur, 40);
     valide_tot = valide_tot + valide;
 
-    printf("     Code livre (XXX-YYY) : ");
-    valide = saisie_code_livre(livre->code);
+    printf("     Genre (3 lettres) : ");
+    // valide = saisie_code_livre(livre->code);
+    valide = saisie_genre_livre_securise(livre->code, donne_livre);
     valide_tot = valide_tot + valide;
 
     printf("     Saisie nombre d'exemplaires : ");
     saisie_entier(&(livre->nb_exemplaires));
-    valide_tot = valide_tot + 1;
-    
 
 
-    if (valide_tot == 4)
-    {
+    if (valide_tot == 3) {
         livre->nb_exemplaires_dispo = livre->nb_exemplaires;
         return (TRUE);
     }
-    else
-    {
+    else {
         return (FALSE);
     }
 }
 
 
-/*calcul du nombre de pret d'un livre*/
-// int calcul_nb_pret_livre(Livre *livre, Pret **tab_pret, int *nb_pret)
-// {
-//     int nb_pret = 0;
-//     int i;
-
-//     for (i = 0; i < (*nb_pret); i++)
-//     {
-//         if (compare_chaine_caractere(tab_pret[i]->code_livre, livre->code) == 0)
-//         {
-//             nb_pret++;
-//         }
-//     }
-
-//     return (nb_pret);
-// }
-
 /*Affiche un livre en ligne sans toute les infos sur les prets*/
 void afficher_livre(Livre *livre)
 {
-    // int nb_pret;
-
-    // nb_pret = calcul_nb_pret_livre(livre);
-
     printf("Titre : %s     Auteur : %s     Code : %s     Nombre exemplaires totals : %d     Nombre exemplaires dispo : %d", livre->titre, livre->auteur, livre->code,livre->nb_exemplaires, livre->nb_exemplaires_dispo);
 }
 
@@ -260,23 +235,54 @@ int verif_code_livre_in_tab_libre(Livre **tab_livre, char* code_livre, int *nb_l
 
 /*saisie des champs d'un livre valide (cad d'un livre existant)
 permet la verification lors de la creation d'un nouveau livre
-Un livre est considéré comme existant si le code du livre existe deja*/
-int saisie_securise_livre_not_in_tab_livre(Livre *saisie, Livre **tab_livre, int *nb_livre)
+Un livre est considéré comme existant si le titre et l'auteur existe deja dans le genre*/
+int saisie_securise_livre_not_in_tab_livre(Livre *saisie, Livre **tab_livre, int *nb_livre, Donnee_livre *donnee_livre)
 {
     //retourne 1 (TRUE) si valeur saisie correspond a un livre non existant et 0 (FALSE) sinon
     int valide;
 
-    valide = saisie_champs_livre(saisie);
+    valide = saisie_champs_livre(saisie,donnee_livre);
 
     if(valide == TRUE){
-        valide = verif_code_livre_in_tab_libre(tab_livre,saisie->code,nb_livre);
-        //valide = 1 (TRUE) si code existant et 0 (FALSE) sinon
+        valide = FALSE;
+       int i;
 
-        //inversion de la sorie
-        if(valide == TRUE){
+       //verif titre livre
+       int indice_livre = -1;
+       for(i=0; i<*nb_livre; i++)
+       {
+            if(compare_chaine_caractere(saisie->titre, tab_livre[i]->titre) == 0) { //si le titre existe
+                valide = TRUE;
+                indice_livre = i;
+            }
+       }
+
+        //verification auteur
+        if(valide == TRUE) {
+            if(compare_chaine_caractere(saisie->auteur, tab_livre[indice_livre]->auteur) == 0) { //si l'auteur coorespond au titre
+                valide = TRUE;
+            }
+            else {
+                valide = FALSE;
+            }
+        }
+
+        ////verification genre
+        if(valide == TRUE) {
+            if((saisie->code[0] == tab_livre[indice_livre]->code[0]) && (saisie->code[1] == tab_livre[indice_livre]->code[1]) && (saisie->code[2] == tab_livre[indice_livre]->code[2])) { //si le livre existe deja dans ce genre
+                valide = TRUE;
+            }
+            else {
+                valide = FALSE;
+            }
+        }
+
+
+        //inversion de la sortie
+        if (valide == TRUE) {
             valide = FALSE;
         }
-        else{
+        else {
             valide = TRUE;
         }
     }
@@ -383,3 +389,101 @@ void affichage_titre_auteur_code_livre(char *code_livre, Livre **tab_livre)
 
     printf("%s de %s (code : %s) ",tab_livre[i]->titre, tab_livre[i]->auteur, tab_livre[i]->code);
 }
+
+
+/*saisie du genre en 3 lettres lors de l'ajout d'un livre et calcul automatique du code du livre
+l'appel de cette fonction doit engendré l'appelle de la fonction rafraichir tab donnee*/
+int saisie_genre_livre_securise(char *code_livre, Donnee_livre *donnee_livre)
+{
+    int valide;
+
+    valide = saisie_chaine_caractere(code_livre, 9);
+
+    //verification du genre
+    int indice_genre = -1;
+    if(valide == TRUE) {
+        int i;
+        valide = FALSE;
+
+        for(i=0; i<NB_GENRE_LIVRE; i++)
+        {
+            if(compare_chaine_caractere(code_livre, donnee_livre->liste_code[i]) == 0) {
+                valide = TRUE;
+                indice_genre = i;
+            }
+        }
+    }
+
+
+    //modification de la chaine
+    if(valide == TRUE) {
+        int dizaine;
+        valide = FALSE;
+
+        //verification que le numero du livre et inférieur a 999
+        if(donnee_livre->nb_livre[indice_genre] < 999) {
+            donnee_livre->nb_livre[indice_genre] ++;
+            valide = TRUE;
+        }
+
+        if(valide == TRUE) {
+            code_livre[3] = '-';
+
+            if(donnee_livre->nb_livre[indice_genre] < 10) { // nombre a 1 chiffres
+                code_livre[4] = '0';
+                code_livre[5] = '0';
+                code_livre[6] = donnee_livre->nb_livre[indice_genre] + 48; //transformation en cara
+
+            } else if (donnee_livre->nb_livre[indice_genre] < 100) { // nombre a 2 chiffres
+                code_livre[4] = '0';
+
+                //obtention du chiffre des dizaines
+                int copie_nb_livre = donnee_livre->nb_livre[indice_genre];
+                dizaine = 0;
+                while(copie_nb_livre >=10)
+                {
+                    dizaine ++;
+                    copie_nb_livre = copie_nb_livre - 10;
+                }
+
+                code_livre[5] = dizaine + 48;
+
+                //obtention du chiffre des unité
+                code_livre[6] = donnee_livre->nb_livre[indice_genre] - (10*dizaine) + 48;
+            
+            } else { // nombre a 3 chiffres
+                int centaine = 0;
+
+                //obtention du chiffre des centaines
+                int copie_nb_livre = donnee_livre->nb_livre[indice_genre];
+                while(copie_nb_livre >=100)
+                {
+                    centaine ++;
+                    copie_nb_livre = copie_nb_livre - 100;
+                }
+
+                code_livre[4] = centaine + 48;
+
+                //obtention du chiffre des dizaines
+                dizaine = 0;
+                while(copie_nb_livre >=10)
+                {
+                    dizaine ++;
+                    copie_nb_livre = copie_nb_livre  - 10;
+                }
+
+                code_livre[5] = dizaine + 48;
+
+                //obtention du chiffre des unité
+                code_livre[6] = donnee_livre->nb_livre[indice_genre] - (centaine * 100) - (dizaine * 10) + 48;
+            }
+            
+            code_livre[7] = '\0';
+        }
+    }
+
+
+    return(valide);
+}
+
+

@@ -26,7 +26,7 @@ int main() {
     calcul_nb_pret(&(bibliotheque.gestion_pret.nb_pret));
     bibliotheque.gestion_pret.liste_pret = creer_tab_pret(&(bibliotheque.gestion_pret.nb_pret));
 
-    creer_tab_donnee(bibliotheque.donnee);
+    creer_tab_donnee(bibliotheque.donnee, &bibliotheque.donne_livre);
     actualisation_pret_en_retard(bibliotheque.gestion_pret.liste_pret, &(bibliotheque.gestion_pret.nb_pret));
 
 
@@ -55,7 +55,7 @@ int main() {
             } else if (choix_menu == 2) { //consulter la liste des membres
                 affichage_liste_membre(bibliotheque.gestion_membre.liste_membre, &(bibliotheque.gestion_membre.nb_membre));
             } else if (choix_menu == 3) { //ajouter un membre
-                saisie_nx_membre(&(bibliotheque.gestion_membre.liste_membre), &(bibliotheque.gestion_membre.nb_membre), bibliotheque.donnee);
+                saisie_nx_membre(&(bibliotheque.gestion_membre.liste_membre), &(bibliotheque.gestion_membre.nb_membre), bibliotheque.donnee, &bibliotheque.donne_livre);
             } else if (choix_menu == 4) { //supprimer un membre
                 supr_membre(&(bibliotheque.gestion_membre.liste_membre), &(bibliotheque.gestion_membre.nb_membre));
             }
@@ -66,9 +66,9 @@ int main() {
             } else if (choix_menu == 6) { //consulter la liste des livres
                 // affichage_liste_livre(bibliotheque.gestion_livre.liste_livre, &(bibliotheque.gestion_livre.nb_livre));
             } else if (choix_menu == 7) { //ajouter un livre
-                saisie_nx_livre(&(bibliotheque.gestion_livre.liste_livre), &(bibliotheque.gestion_livre.nb_livre));
+                saisie_nx_livre(&(bibliotheque.gestion_livre.liste_livre), &(bibliotheque.gestion_livre.nb_livre), &bibliotheque.donne_livre, bibliotheque.donnee);
             } else if (choix_menu == 8) { //supprimer un livre
-                supr_livre(&(bibliotheque.gestion_livre.liste_livre), &(bibliotheque.gestion_livre.nb_livre));
+                supr_livre(&(bibliotheque.gestion_livre.liste_livre), &(bibliotheque.gestion_livre.nb_livre), bibliotheque.donnee, &bibliotheque.donne_livre);
             }
 
                 //Prêts
@@ -77,7 +77,7 @@ int main() {
             } else if (choix_menu == 10) { //consulter la liste des prets
                 affichage_liste_pret(bibliotheque.gestion_pret.liste_pret, &(bibliotheque.gestion_pret.nb_pret));
             } else if (choix_menu == 11) { //ajouter un pret
-                saisie_nx_pret(&(bibliotheque.gestion_membre), &(bibliotheque.gestion_livre), &(bibliotheque.gestion_pret), bibliotheque.donnee);
+                saisie_nx_pret(&(bibliotheque.gestion_membre), &(bibliotheque.gestion_livre), &(bibliotheque.gestion_pret), bibliotheque.donnee, &bibliotheque.donne_livre);
             } else if (choix_menu == 12) { //supprimer un pret
                 supr_pret(&(bibliotheque.gestion_pret.liste_pret), &(bibliotheque.gestion_pret.nb_pret));
             }
@@ -92,11 +92,14 @@ int main() {
             } 
             
                 //Autres
-            else if (choix_menu == 16) { //reinitialisé la librairie
-                reinitialise_librairie(bibliotheque.donnee, &(bibliotheque.gestion_admin), &(bibliotheque.gestion_membre), &(bibliotheque.gestion_livre), &(bibliotheque.gestion_pret));
-            }else if (choix_menu == 17) { //notice de l'application
+
+            else if (choix_menu == 16) { //information sur la librairie
+                // a faire
+            }else if (choix_menu == 17) { //reinitialisé la librairie
+                reinitialise_librairie(bibliotheque.donnee, &bibliotheque.donne_livre, &(bibliotheque.gestion_admin), &(bibliotheque.gestion_membre), &(bibliotheque.gestion_livre), &(bibliotheque.gestion_pret));
+            }else if (choix_menu == 18) { //notice de l'application
                 //a faire
-            }else if (choix_menu == 18) { //a propos
+            }else if (choix_menu == 19) { //a propos
                 // a faire
             }
         }

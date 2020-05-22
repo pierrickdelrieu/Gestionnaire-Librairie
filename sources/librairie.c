@@ -6,7 +6,7 @@
 - tous les membres
 - tous les prets
 - tous les livres*/
-void reinitialise_librairie(int tab_donnee[2], Liste_admin *gestion_admin, Liste_membre *gestion_membre, Liste_livre *gestion_livre, Liste_pret *gestion_pret)
+void reinitialise_librairie(int tab_donnee[2], Donnee_livre *donnee_livre, Liste_admin *gestion_admin, Liste_membre *gestion_membre, Liste_livre *gestion_livre, Liste_pret *gestion_pret)
 {
     int choix;
 
@@ -23,6 +23,13 @@ void reinitialise_librairie(int tab_donnee[2], Liste_admin *gestion_admin, Liste
     {
         tab_donnee[0] = 0; //reinitialisation des membres
         tab_donnee[1] = 0; //reinitialisation des prets
+
+        //reinitialisation des donnees livres
+        int i;
+        for(i=0; i<NB_GENRE_LIVRE; i++)
+        {
+            donnee_livre->nb_livre[i]=0;
+        }
 
         FILE *fichier_membre = NULL;
         fichier_membre = fopen("sauvegardes/membres.txt", "w"); //ouvre le fichier en mode ecriture et supprime tous sont contenue au préalable
@@ -41,7 +48,7 @@ void reinitialise_librairie(int tab_donnee[2], Liste_admin *gestion_admin, Liste
         fprintf(fichier_admin, "id : %d mp : %s\n", ID_PROGRAMMEUR, MP_PROGRAMMEUR);
         fclose(fichier_admin);
 
-        rafrachir_fichier_donnee(tab_donnee);
+        rafrachir_fichier_donnee(tab_donnee, donnee_livre);
         rafrachir_tab_membre(&(gestion_membre->liste_membre), &(gestion_membre->nb_membre));
         rafrachir_tab_admin(&(gestion_admin->liste_admin), &(gestion_admin->nb_admin));
         rafrachir_tab_livre(&(gestion_livre->liste_livre), &(gestion_livre->nb_livre));
@@ -57,16 +64,24 @@ void reinitialise_librairie(int tab_donnee[2], Liste_admin *gestion_admin, Liste
 
 /*recuperation des donnes se situant dans le fichier donnee.txt et modification du tableau en memoire
 cad la recuperation du nombre de pret et de membre depuis l'ouverture de la librairie*/
-void creer_tab_donnee(int tab[2])
+void creer_tab_donnee(int tab[2], Donnee_livre *donne_livre)
 {
     FILE *fichier_donnee = NULL;
     fichier_donnee = fopen("sauvegardes/donnee.txt", "r"); //"r" correspond a la lecture seul - fopen renvoie un pointeur sur le fichier
 
     if (fichier_donnee != NULL)
     {
+        int i;
 
         fscanf(fichier_donnee, "nombre de membres total : %d\n", &(tab[0]));
         fscanf(fichier_donnee, "nombre de prets total : %d\n", &(tab[1]));
+        fscanf(fichier_donnee, "livre :");
+
+        for(i=0; i<NB_GENRE_LIVRE; i++)
+        {
+            fscanf(fichier_donnee, " %s %d -",donne_livre->liste_code[i], &donne_livre->nb_livre[i]);
+        }
+
 
         //Fermeture du fichier
         fclose(fichier_donnee);
@@ -78,16 +93,23 @@ void creer_tab_donnee(int tab[2])
 }
 
 /*modification du tableau de donnée en fonction du fichier donne.txt*/
-void rafrachir_fichier_donnee(int *tab)
+void rafrachir_fichier_donnee(int *tab, Donnee_livre *donne_livre)
 {
     FILE *fichier_donnee = NULL;
     fichier_donnee = fopen("sauvegardes/donnee.txt", "w"); //"w" correspond a l'ecriture seul - fopen renvoie un pointeur sur le fichier
 
     if (fichier_donnee != NULL)
     {
+        int i;
 
         fprintf(fichier_donnee, "nombre de membres total : %d\n", tab[0]);
         fprintf(fichier_donnee, "nombre de prets total : %d\n", tab[1]);
+        fprintf(fichier_donnee, "livre :");
+
+        for(i=0; i<NB_GENRE_LIVRE; i++)
+        {
+            fprintf(fichier_donnee, " %s %d -",donne_livre->liste_code[i], donne_livre->nb_livre[i]);
+        }
 
         //Fermeture du fichier
         fclose(fichier_donnee);
@@ -222,7 +244,7 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant)
 /**********************************************FONCTION MEMBRE**********************************************/
 
 /*ajout d'un membre dans le tableau en memoire et dans le fichier*/
-void saisie_nx_membre(Membre ***tab_membre, int *nb_membre, int tab_donnee[2])
+void saisie_nx_membre(Membre ***tab_membre, int *nb_membre, int tab_donnee[2], Donnee_livre *donnee_livre)
 {
 
     int valide = FALSE;
@@ -250,7 +272,7 @@ void saisie_nx_membre(Membre ***tab_membre, int *nb_membre, int tab_donnee[2])
 
     tab_donnee[0]++;
 
-    rafrachir_fichier_donnee(tab_donnee);
+    rafrachir_fichier_donnee(tab_donnee, donnee_livre);
 
     supr_console();
     printf("%s %s a bien était ajouté comme nouveau membre\n", saisie.prenom, saisie.nom);
@@ -411,7 +433,7 @@ void affichage_info_membre(Liste_membre *gestion_membre, Liste_pret *gestion_pre
 /***********************************************FONCTION LIVRE***********************************************/
 
 /*ajout d'un livre dans le tableau en memoire et dans le fichier*/
-void saisie_nx_livre(Livre ***tab_livre, int *nb_livre)
+void saisie_nx_livre(Livre ***tab_livre, int *nb_livre, Donnee_livre *donnee_livre, int *donnee)
 {
 
     int valide = TRUE;
@@ -423,13 +445,15 @@ void saisie_nx_livre(Livre ***tab_livre, int *nb_livre)
     {
         supr_console();
         affichage_sous_titre("AJOUT NOUVEAU LIVRE");
+        
 
         if (valide == FALSE)
         {
+            printf(" code : %s\n", saisie->code);
             printf("ERREUR livre deja existant ou code non valide\nReesayer\n\n");
         }
 
-        valide = saisie_securise_livre_not_in_tab_livre(saisie, *tab_livre, nb_livre);
+        valide = saisie_securise_livre_not_in_tab_livre(saisie, *tab_livre, nb_livre, donnee_livre);
     } while (valide == FALSE);
 
     //modification du contenu du fichier livre.txt
@@ -437,6 +461,8 @@ void saisie_nx_livre(Livre ***tab_livre, int *nb_livre)
     ajout_livre_fichier_livre(fichier_livre, saisie);
 
     rafrachir_tab_livre(tab_livre, nb_livre); //modif du nombre de membre
+
+    rafrachir_fichier_donnee(donnee, donnee_livre);
 
     supr_console();
     printf("%s - %s a bien était ajouté comme nouveau livre\n", saisie->titre, saisie->auteur);
@@ -447,7 +473,7 @@ void saisie_nx_livre(Livre ***tab_livre, int *nb_livre)
 }
 
 /*supression d'un livre dans le tableau en memoire et dans le fichier*/
-void supr_livre(Livre ***tab_livre, int *nb_livre)
+void supr_livre(Livre ***tab_livre, int *nb_livre, int *donnee, Donnee_livre *donnee_livre)
 {
 
     if (*nb_livre == 0)
@@ -501,7 +527,7 @@ void supr_livre(Livre ***tab_livre, int *nb_livre)
             afficher_toute_info_livre((*tab_livre)[indice_livre]);
 
             if((*tab_livre)[indice_livre]->nb_exemplaires_dispo != (*tab_livre)[indice_livre]->nb_exemplaires){ //si il y a des prets en cours
-                printf("     Le livre ne peut pas etre suprimer, il y a des prets en cour\n");
+                printf("\n     Le livre ne peut pas etre suprimer, il y a des prets en cour\n");
                 printf("     Supprimer d'abord les prets pour pouvoir supprimer le livre\n");
                 sleep(4);
                 supr_console();
@@ -509,7 +535,7 @@ void supr_livre(Livre ***tab_livre, int *nb_livre)
             else{
 
                 int choix;
-                printf("Voulez vous supprimer ce livre (1 : OUI - autres choses : NON (retour au menu)): ");
+                printf("\nVoulez vous supprimer ce livre (1 : OUI - autres choses : NON (retour au menu)): ");
                 saisie_entier(&choix);
 
                 if(choix == 1)
@@ -518,6 +544,16 @@ void supr_livre(Livre ***tab_livre, int *nb_livre)
                     FILE *fichier_membre = NULL;
                     supr_livre_fichier_livre(fichier_membre, code_livre, *tab_livre, nb_livre);
                     rafrachir_tab_livre(tab_livre, nb_livre); //modif de la valeur de nb_livre
+
+                    // supression d'un livre du genre
+                    for(i=0; i<NB_GENRE_LIVRE; i++)
+                    {
+                        if((donnee_livre->liste_code[i][0] == (*tab_livre)[indice_livre]->code[0]) && (donnee_livre->liste_code[i][1] == (*tab_livre)[indice_livre]->code[1]) && (donnee_livre->liste_code[i][2] == (*tab_livre)[indice_livre]->code[2])) {
+                            donnee_livre->nb_livre[i] --;
+                        }
+                    }
+                    printf("ok");
+                    rafrachir_fichier_donnee(donnee, donnee_livre);
 
                     supr_console();
                     printf("Le livre %s a bien était suprimer\n", code_livre);
@@ -633,7 +669,7 @@ void affichage_info_livre(Liste_livre *gestion_livre, Liste_membre *gestion_memb
 
 /***********************************************FONCTION PRET***********************************************/
 
-void saisie_nx_pret(Liste_membre *gestion_membre, Liste_livre *gestion_livre, Liste_pret *gestion_pret, int tab_donnee[2]) 
+void saisie_nx_pret(Liste_membre *gestion_membre, Liste_livre *gestion_livre, Liste_pret *gestion_pret, int tab_donnee[2], Donnee_livre *donnee_livre) 
 {
     if ((gestion_livre->nb_livre == 0) || (gestion_membre->nb_membre == 0))
     {
@@ -701,7 +737,7 @@ void saisie_nx_pret(Liste_membre *gestion_membre, Liste_livre *gestion_livre, Li
 
                 //Modification du nombre de pret depuis l'ouverture de la librairie (id pret tot)
                 tab_donnee[1] ++;
-                rafrachir_fichier_donnee(tab_donnee);
+                rafrachir_fichier_donnee(tab_donnee, donnee_livre);
 
                 //Ajout du pret dans le livre correspondant
                 FILE *fichier_livre = NULL;
@@ -778,13 +814,29 @@ void affichage_liste_pret(Pret **tab_pret, int *nb_pret) {
             supr_console();
             affichage_sous_titre("AFFICHAGE DES PRETS");
             printf("     Il y a actuellement %d prets\n\n", *nb_pret);
-            for (i = 0; i < (*nb_pret); i++) {
-                afficher_pret(tab_pret[i]);
-            }
-
-            printf("     Saisir 1 pour revenir au menu : ");
+            printf("     Saisir 1 pour consulter les prets en retard ou 0 pour consulter tous les prets : ");
             saisie_entier(&choix);
-        } while (choix != 1);
+        } while((choix != 0) && (choix != 1));
+
+
+        if(choix == 1) { //affichage des prets en retard
+            do {
+                supr_console();
+                affichage_sous_titre("AFFICHAGE DES PRETS");
+                //afficher les prets en retard
+                printf("     Saisir 1 pour revenir au menu : ");
+                saisie_entier(&choix);
+            } while (choix != 1);
+        }
+        else{ //choix = 0
+            do {
+                supr_console();
+                affichage_sous_titre("AFFICHAGE DES PRETS");
+                //affichage de tous les prets
+                printf("     Saisir 1 pour revenir au menu : ");
+                saisie_entier(&choix);
+            } while (choix != 1);
+        }
     }
 }
 

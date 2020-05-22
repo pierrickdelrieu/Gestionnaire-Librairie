@@ -79,6 +79,12 @@
     - fonction ajout nouveau pret ok
     - ajout de l'affichage des prets d'un membre dans la fonction affichage_info_membre
     - ajout de l'affichage des prets d'un livre dans la fonction affichage_info_livre
+
+
+22/05/2020 : 
+    - modification pour que le numero du livre soit generer automatiquememnt comme le le nombre de livre dans le theme +1
+    - modification de l'ajout d'un livre (saisie du genre du livre et calcul du numéro automatique)
+    - modification de la supression d'un livre qui engendre maintenant la diminuition du nombre total de livre du genre
     
 
 A FAIRE    
@@ -93,3 +99,6 @@ A noter :
     - La liaison des prets aux livres te aux membres se réalise en stockat le code du livre et du membre dans uen structure propre au pret
         pour consulter les prets d'un membre il faut donc parcourir l'ensemble du tableau des prets et de livre pour faire la liaison
     - Un membre peut faire plusieurs pret du meme livre, il ne peut plus emprunté si il a un pret en retard
+
+
+Rechercher  des  informations  sur  un  livre  (proposer  plusieurs  crit`eres  de  re-cherche). Pour acc ́el ́erer la recherche, les fonctions de tri  ́etablies dans la fonc-tionnalit ́e pr ́ec ́edente sera utile
