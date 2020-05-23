@@ -709,52 +709,55 @@ void affichage_info_livre(Liste_livre *gestion_livre, Liste_membre *gestion_memb
         sleep(2);
         supr_console();
     }
-    else
-    {
-        int i;
-        int choix;
-        char code_livre[8];
-        int valide = TRUE;
+    else {
+        char recherche[40];
+        int valide;
 
+        int type_tri; // (1->code 2->titre)
         do{
-            choix = 0;
-
             supr_console();
-            affichage_sous_titre("INFORMATION SUR UN LIVRE");
-
-            if(valide == FALSE){
-                printf("     ERREUR\n");
-            }
-
-            printf("     Saisir le code du livre a consulter (XXX-YYY) ou 0 pour revenir au menu : ");
-            valide = saisie_code_livre(code_livre);
-            if(valide == TRUE){
-                valide = verif_code_livre_in_tab_libre(gestion_livre->liste_livre, code_livre, &gestion_livre->nb_livre);
-            }
-            else if(compare_chaine_caractere(code_livre, "0") == 0){ //chaine egale (l'user veut revenir au menu)
-                valide = TRUE;
-            }
+            affichage_sous_titre("AFFICHAGE DES LIVRES");
+            printf("     Choix du type de recherche (1->par code   2->par titre)\n                                     ou 0 pour retourner au menu : ");
+            saisie_entier(&type_tri);
+        } while ((type_tri == 0) && (type_tri == 1) && (type_tri == 2));
 
 
-            if ((valide == TRUE) && (compare_chaine_caractere(code_livre, "0") != 0))
-            {
-                for (i = 0; i < gestion_livre->nb_livre; i++)
-                {
-                    if (compare_chaine_caractere(gestion_livre->liste_livre[i]->code, code_livre) == 0) //chaine identique
-                    {
-                        afficher_toute_info_livre(gestion_livre->liste_livre[i]);
-                        affichage_info_pret_livre(gestion_livre->liste_livre[i], gestion_pret->liste_pret, &gestion_pret->nb_pret, gestion_membre->liste_membre, &gestion_membre->nb_membre);
-                    }
+        if(type_tri != 0) {
+
+            // saisie de la recherche
+            valide = 0;
+            do {
+                supr_console();
+                affichage_sous_titre("INFORMATION SUR UN LIVRE");
+
+                if(valide == -1){
+                    printf("     ERREUR\n");
                 }
 
-                printf("     Saisir 1 pour revenir au menu : ");
-                saisie_entier(&choix);
+                valide = saisie_info_livre_critere(type_tri, recherche, gestion_livre->liste_livre, &gestion_livre->nb_livre);
+
+                // retour au menu
+                if(compare_chaine_caractere(recherche, "0") == 0){ 
+                    valide = -2;
+                }
+            } while (valide == -1);
+
+
+            if (valide != -2) {
+                int choix;
+                do {
+                    supr_console();
+                    affichage_sous_titre("INFORMATION SUR UN LIVRE");
+                    afficher_toute_info_livre(gestion_livre->liste_livre[valide]);
+                    affichage_info_pret_livre(gestion_livre->liste_livre[valide], gestion_pret->liste_pret, &gestion_pret->nb_pret, gestion_membre->liste_membre, &gestion_membre->nb_membre);
+                    
+                    printf("     Saisir 1 pour revenir au menu : ");
+                    saisie_entier(&choix);
+
+                } while (choix != 1);
             }
-
-        } while ((choix != 1) && (valide == FALSE));
+        }
     }
-
-    supr_console();
 }
 
 

@@ -59,4 +59,10 @@ void init_tab_tri_livre_code(int* tab_tri, Livre **tab_livre, int *nb_livre);
 void init_tab_tri_livre_titre(int* tab_tri, Livre **tab_livre, int *nb_livre);
 void init_tab_tri_livre_auteur(int* tab_tri, Livre **tab_livre, int *nb_livre);
 
+
+// fonction de securisation pour info sur livre
+int saisie_info_livre_critere(int type_tri, char *recherche, Livre **tab_livre, int *nb_livre);
+int saisie_securise_titre(char *recherche, Livre **tab_livre, int *nb_livre);
+int saisie_securise_code(char *recherche, Livre **tab_livre, int *nb_livre);
+
 #endif /* livre_h */

@@ -5,7 +5,6 @@
 
 int main() {
     //.....................Initialisation.....................
-    int valide;
 
     //Initialisation structure librairie
     Librairie bibliotheque;

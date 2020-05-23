@@ -89,6 +89,7 @@
 
 23/05/2020 :
     - ajout possibilité de retour au menu au niveau des fonctions administrateurs
+    - ajout de recherche par critere au niveau des livres
     
 
 A FAIRE    

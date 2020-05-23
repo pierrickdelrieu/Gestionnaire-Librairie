@@ -503,7 +503,6 @@ void creation_tab_tri_livre(int type_tri, int* tab_tri, Livre **tab_livre, int *
     } else if (type_tri == 3) { // tri par auteur
         init_tab_tri_livre_auteur(tab_tri, tab_livre, nb_livre);
     }
-
 }
 
 
@@ -562,4 +561,72 @@ void init_tab_tri_livre_auteur(int* tab_tri, Livre **tab_livre, int *nb_livre)
         }
         tab_tri[rang_livre] = i;
     }
+}
+
+
+
+
+/*fonction permettant la recherche d'un livre en fonction du critere
+(1->code 2->titre)
+fonction retourne -1 si le livre n'est pas dans le tableau et sinon retourne l'indice du livre dans le tableau
+*/
+int saisie_info_livre_critere(int type_tri, char *recherche, Livre **tab_livre, int *nb_livre)
+{
+    int valide;
+
+    if (type_tri == 1) { // tri par code
+        valide = saisie_securise_code(recherche, tab_livre, nb_livre);
+    } else if (type_tri == 2) { // tri par titre
+        valide = saisie_securise_titre(recherche, tab_livre, nb_livre);
+    }
+
+    return (valide);
+}
+
+
+int saisie_securise_code(char *recherche, Livre **tab_livre, int *nb_livre)
+{
+    int i;
+    int valide;
+
+    //saisie de la recherche
+    printf("     Saisir le code du livre a consulter (XXX-YYY) ou 0 pour revenir au menu : ");
+    valide = saisie_chaine_caractere(recherche, 40);
+
+    // verif code
+    int indice_livre = -1;
+    if(valide == TRUE) {
+        for(i=0; i<*nb_livre; i++)
+        {
+            if(compare_chaine_caractere(recherche, tab_livre[i]->code) == 0) { //si le code existe
+                indice_livre = i;
+            }
+        }
+    }
+
+    return (indice_livre);
+}
+
+
+int saisie_securise_titre(char *recherche, Livre **tab_livre, int *nb_livre)
+{
+    int i;
+    int valide;
+
+    // saisie de la recherche
+    printf("     Saisir le titre du livre a consulter ou 0 pour revenir au menu : ");
+    valide = saisie_chaine_caractere(recherche, 40);
+
+    //verif titre 
+    int indice_livre = -1;
+    if(valide == TRUE) {
+        for(i=0; i<*nb_livre; i++)
+        {
+            if(compare_chaine_caractere(recherche, tab_livre[i]->titre) == 0) { //si le titre existe
+                indice_livre = i;
+            }
+        }
+    }
+
+    return (indice_livre);
 }
