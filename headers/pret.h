@@ -40,10 +40,9 @@ int saisie_champs_pret(Pret *pret, int *donnee);
 void ajout_pret_fichier_pret(FILE *fichier_pret, Pret *saisie);
 void rafraichir_fichier_pret(Pret **tab_pret, int *nb_pret);
 
-void afficher_pret(Pret *pret);
+void afficher_pret(Pret *pret, Membre **tab_membre, Livre **tab_livre, int *nb_membre, int *nb_livre);
 
-void afficher_toute_info_pret(Pret *pret);
-
+void afficher_toute_info_pret(int *id_pret, Pret **tab_pret, int *nb_pret, Livre **tab_livre, int *nb_livre, Membre **tab_membre, int *nb_membre);
 
 int saisie_champ_pret_securise_ajout(Pret *saisie, Membre **tab_membre, Livre **tab_livre, Pret **tab_pret, int *nb_membre, int *nb_livre, int *nb_pret, int *donnee);;
 
@@ -58,5 +57,10 @@ void ajout_pret_struct_livre(Pret *pret, Livre **tab_livre);
 
 void supr_pret_struct_membre(Pret *pret, Membre **tab_membre);
 void supr_pret_struct_livre(Pret *pret, Livre **tab_livre);
+
+
+int calcul_nb_pret_total_retard(Pret **tab_pret, int *nb_pret);
+
+int saisie_id_pret_securise(int *id_pret, Pret **tab_pret, int *nb_pret);
 
 #endif /* pret_h */

@@ -145,16 +145,88 @@ void ajout_pret_fichier_pret(FILE *fichier_pret, Pret *saisie) {
     }
 }
 
-void afficher_pret(Pret *pret) {
-    printf("     id : %d     id membre : %d     code livre : %s\n", pret->id_pret, pret->id_membre, pret->code_livre);
+void afficher_pret(Pret *pret, Membre **tab_membre, Livre **tab_livre, int *nb_membre, int *nb_livre) 
+{
+    int i;
+
+    //recuperation indice membre
+    int indice_membre;
+    for(i=0; i<*nb_membre; i++) 
+    {
+        if(tab_membre[i]->identifiant == pret->id_membre) {
+            indice_membre = i;
+        }
+    }
+
+
+    //recuperation indice livre
+    int indice_livre;
+    for(i=0; i<*nb_livre; i++) 
+    {
+        if(compare_chaine_caractere(tab_livre[i]->code, pret->code_livre) == 0) {
+            indice_livre = i;
+        }
+    }
+
+
+    printf("   id pret : %d   membre : %s %s (%d)   livre : %s de %s (%s)   date d'emprunt : ", pret->id_pret, tab_membre[indice_membre]->prenom, tab_membre[indice_membre]->nom, tab_membre[indice_membre]->identifiant, tab_livre[indice_livre]->titre, tab_livre[indice_livre]->auteur, pret->code_livre);
+    afficher_date(&pret->date_pret);
+    printf("   date de retour : ");
+    afficher_date(&pret->date_retour);
+    
+    if(pret->etat_livre == 1) {
+        printf("   A JOUR\n");
+    }
+    else if(pret->etat_livre == 0) {
+        printf("   EN RETARD\n");
+    }
+
 }
 
-void afficher_toute_info_pret(Pret *pret) {
-    printf("     id : %d     id membre : %d     code livre : %s\n", pret->id_pret, pret->id_membre, pret->code_livre);
+void afficher_toute_info_pret(int *id_pret, Pret **tab_pret, int *nb_pret, Livre **tab_livre, int *nb_livre, Membre **tab_membre, int *nb_membre) {
+    int i;
+
+    //recuperation indice pret
+    int indice_pret;
+    for(i=0; i<*nb_pret; i++) 
+    {
+        if(tab_pret[i]->id_pret == *id_pret) {
+            indice_pret = i;
+        }
+    }
+
+    //recuperation indice membre
+    int indice_membre;
+    for(i=0; i<*nb_membre; i++) 
+    {
+        if(tab_membre[i]->identifiant == tab_pret[indice_pret]->id_membre) {
+            indice_membre = i;
+        }
+    }
+
+    //recuperation indice livre
+    int indice_livre;
+    for(i=0; i<*nb_livre; i++) 
+    {
+        if(compare_chaine_caractere(tab_livre[i]->code, tab_pret[indice_pret]->code_livre) == 0) {
+            indice_livre = i;
+        }
+    }
+
+    printf("     Numéro du pret : %d\n", tab_pret[indice_pret]->id_pret);
+    printf("     Membre : %s %s (id : %d)   email : %s\n", tab_membre[indice_membre]->prenom, tab_membre[indice_membre]->nom, tab_membre[indice_membre]->identifiant, tab_membre[indice_membre]->email);
+    printf("     Livre : %s de %s (id : %s)\n", tab_livre[indice_livre]->titre, tab_livre[indice_livre]->auteur, tab_livre[indice_livre]->code);
     printf("     Date d'emprunt : ");
-    afficher_date(&pret->date_pret);
-    printf("\n     Date de retour : ");
-    afficher_date(&pret->date_retour);
+    afficher_date(&tab_pret[indice_pret]->date_pret);
+    printf("     Date de retour : ");
+    afficher_date(&tab_pret[indice_pret]->date_retour);
+
+    if(tab_pret[indice_pret]->etat_livre == 1) {
+        printf("   Le pret est a jour\n");
+    }
+    else if(tab_pret[indice_pret]->etat_livre == 0) {
+        printf("   !!! Le pret est en retard !!!\n");
+    }
 }
 
 
@@ -481,4 +553,44 @@ void affichage_info_pret_livre(Livre *livre, Pret **tab_pret, int *nb_pret, Memb
 
         }
     }
+}
+
+
+/*fonction retourne le nombre de pret totale en retard dans la librairie*/
+int calcul_nb_pret_total_retard(Pret **tab_pret, int *nb_pret)
+{
+    int nb_pret_retard = 0;
+
+    int i;
+
+    for(i=0; i<*nb_pret; i++)
+    {
+        if(tab_pret[i]->etat_livre == 0) {
+            nb_pret_retard ++;
+        }
+    }
+
+    return (nb_pret_retard);
+}
+
+
+
+
+
+
+int saisie_id_pret_securise(int *id_pret, Pret **tab_pret, int *nb_pret)
+{
+    int i;
+    int valide = FALSE;
+
+    saisie_entier(id_pret);
+
+    for(i=0; i<*nb_pret; i++)
+    {
+        if(*id_pret == tab_pret[i]->id_pret) {
+            valide = TRUE;
+        }
+    }
+
+    return (valide);
 }

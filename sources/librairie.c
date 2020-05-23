@@ -878,7 +878,7 @@ void supr_pret(Pret ***tab_pret, int *nb_pret) {
                 for(i=0; i<(*nb_pret); i++)
                 {
                     if((*tab_pret)[i]->id_pret == id_pret){
-                        afficher_toute_info_pret((*tab_pret)[i]);
+                        // afficher_toute_info_pret((*tab_pret)[i]);
                     }
                 }
             }
@@ -893,11 +893,11 @@ void supr_pret(Pret ***tab_pret, int *nb_pret) {
     }
 }
 
-void affichage_liste_pret(Pret **tab_pret, int *nb_pret) {
+void affichage_liste_pret(Liste_pret *gestion_pret, Liste_livre *gestion_livre, Liste_membre *gestion_membre) {
     int i;
     int choix;
 
-    if (*nb_pret == 0) {
+    if (gestion_pret->nb_pret == 0) {
         supr_console();
         affichage_sous_titre("AFFICHAGE DES PRETS");
         printf("                        !!!Il y a aucun pret!!!\n");
@@ -907,36 +907,56 @@ void affichage_liste_pret(Pret **tab_pret, int *nb_pret) {
         do {
             supr_console();
             affichage_sous_titre("AFFICHAGE DES PRETS");
-            printf("     Il y a actuellement %d prets\n\n", *nb_pret);
-            printf("     Saisir 1 pour consulter les prets en retard ou 0 pour consulter tous les prets : ");
+            printf("     Il y a actuellement %d prets\n\n", gestion_pret->nb_pret);
+            printf("     Saisir 1 pour consulter les prets en retard\n         ou 2 pour consulter tous les prets\n         ou 0 pour retourner au menu : ");
             saisie_entier(&choix);
-        } while((choix != 0) && (choix != 1));
+        } while((choix != 0) && (choix != 1) && (choix != 2));
 
 
         if(choix == 1) { //affichage des prets en retard
+            int nb_pret_retard;
+            nb_pret_retard = calcul_nb_pret_total_retard(gestion_pret->liste_pret, &gestion_pret->nb_pret);
+
             do {
                 supr_console();
                 affichage_sous_titre("AFFICHAGE DES PRETS");
+                printf("     Il y a actuellement %d prets en retard\n\n", nb_pret_retard);
+
                 //afficher les prets en retard
-                printf("     Saisir 1 pour revenir au menu : ");
+                for(i=0; i<gestion_pret->nb_pret; i++)
+                {
+                    if(gestion_pret->liste_pret[i]->etat_livre == 0) { // si le pret est en retard
+                        afficher_pret(gestion_pret->liste_pret[i],gestion_membre->liste_membre, gestion_livre->liste_livre, &gestion_membre->nb_membre, &gestion_livre->nb_livre);
+                    }
+                }
+
+                printf("\n     Saisir 1 pour revenir au menu : ");
                 saisie_entier(&choix);
             } while (choix != 1);
         }
-        else{ //choix = 0
+        else if (choix == 2) { // affichage de tous les prets
             do {
                 supr_console();
                 affichage_sous_titre("AFFICHAGE DES PRETS");
+                printf("     Il y a actuellement %d prets\n\n", gestion_pret->nb_pret);
+
                 //affichage de tous les prets
-                printf("     Saisir 1 pour revenir au menu : ");
+                for(i=0; i<gestion_pret->nb_pret; i++)
+                {
+                    afficher_pret(gestion_pret->liste_pret[i],gestion_membre->liste_membre, gestion_livre->liste_livre, &gestion_membre->nb_membre, &gestion_livre->nb_livre);
+                }
+
+                printf("\n     Saisir 1 pour revenir au menu : ");
                 saisie_entier(&choix);
             } while (choix != 1);
         }
     }
 }
 
-void affichage_info_pret(Pret **tab_pret, int *nb_pret) {
+void affichage_info_pret(Liste_pret *gestion_pret, Liste_membre *gestion_membre, Liste_livre *gestion_livre) 
+{
 
-    if (*nb_pret == 0) {
+    if (gestion_pret->nb_pret == 0) {
         supr_console();
         affichage_sous_titre("INFORMATION SUR UN PRET");
         printf("                        !!!Il y a aucun pret!!!\n");
@@ -944,30 +964,41 @@ void affichage_info_pret(Pret **tab_pret, int *nb_pret) {
         supr_console();
     } else {
         int i;
-        int choix;
         int id_pret;
-        int valide = FALSE;
+        int valide = TRUE;
 
+        //saisie identifiant du pret
         do {
             supr_console();
             affichage_sous_titre("INFORMATION SUR UN PRET");
+
+            if (valide == FALSE) {
+                printf("     ERREUR\n");
+            }
             printf("     Saisir l'identifiant du pret ou 0 pour revenir au menu : ");
+            valide = saisie_id_pret_securise(&id_pret, gestion_pret->liste_pret, &gestion_pret->nb_pret);
+
+            //retour au menu
+            if(id_pret == 0) {
+                valide = TRUE;
+            }
+        } while (valide == FALSE);
+
+        if(id_pret == 0) {
+            valide = FALSE;
+        }
 
 
-//            valide = saisie_id_membre_tab_membre(tab_membre, &id_membre, nb_membre);
-//
-//
-//            if ((valide == TRUE) && (id_membre != 0)) {
-//                for (i = 0; i < (*nb_membre); i++) {
-//                    if (tab_membre[i]->identifiant == id_membre) {
-//                        afficher_toute_info_membre(tab_membre[i]);
-//                    }
-//                }
-//
-//                printf("     Saisir 1 pour revenir au menu : ");
-//                saisie_entier(&choix);
-//            }
-
-        } while ((choix != 1) && (valide == FALSE));
+        //affichage du pret
+        if(valide == TRUE) {
+            int choix;
+            do {
+                supr_console();
+                affichage_sous_titre("INFORMATION SUR UN PRET");
+                afficher_toute_info_pret(&id_pret, gestion_pret->liste_pret, &gestion_pret->nb_pret, gestion_livre->liste_livre, &gestion_livre->nb_livre, gestion_membre->liste_membre, &gestion_membre->nb_membre);
+                printf("\n     Saisir 1 pour revenir au menu : ");
+                saisie_entier(&choix);
+            } while (choix != 1);
+        }
     }
 }
