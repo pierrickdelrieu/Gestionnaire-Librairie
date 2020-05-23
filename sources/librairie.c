@@ -161,7 +161,7 @@ void saisie_nx_admin(Admin ***tab_admin, int *nb_identifiant)
 {
 
     //Saise de l'administrateur a supprimer
-    int valide;
+    int valide = TRUE;
     Admin saisie;
 
     //saisie de l'administrateur a ajouter
@@ -170,20 +170,37 @@ void saisie_nx_admin(Admin ***tab_admin, int *nb_identifiant)
         supr_console();
         affichage_sous_titre("AJOUT NOUVEAU ADMINISTRATEUR");
         printf("L'identifiant doit comporter 8 chiffres\n\n");
+        printf("Saisir 0 pour retourner au menu\n\n");
+
+        if(valide == FALSE) {
+            printf("     ERREUR\n");
+        }
         valide = saisie_identifiant(&saisie);
+
+        // retour au menu
+        if((saisie.identifiant == 0) || (compare_chaine_caractere(saisie.mot_de_passe,"0") == 0))  {
+            valide = TRUE;
+        }
     } while (valide == FALSE);
 
-    //modification du contenu du fichier admin.txt
-    FILE *fichier_admin = NULL;
-    ajout_admin_fichier_admin(fichier_admin, &(saisie));
+    // retour au menu
+    if((saisie.identifiant == 0) || (compare_chaine_caractere(saisie.mot_de_passe,"0") == 0))  {
+        valide = FALSE;
+    }
 
-    rafrachir_tab_admin(tab_admin, nb_identifiant); //modif du nombre d'identifiant
+    if(valide == TRUE) {
+        //modification du contenu du fichier admin.txt
+        FILE *fichier_admin = NULL;
+        ajout_admin_fichier_admin(fichier_admin, &(saisie));
 
-    supr_console();
-    printf("L'administrateur %d a bien était ajouté\n", saisie.identifiant);
+        rafrachir_tab_admin(tab_admin, nb_identifiant); //modif du nombre d'identifiant
 
-    sleep(2);
-    supr_console();
+        supr_console();
+        printf("L'administrateur %d a bien était ajouté\n", saisie.identifiant);
+
+        sleep(2);
+        supr_console();
+    }
 }
 
 /*supression d'un admin dans le tableau en memoire et dans le fichier*/
@@ -215,6 +232,9 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant)
             printf("Il n'est pas possible de supprimer les identifiants du programmeur :\n");
             printf("          id : %d mp : %s\n\n", ID_PROGRAMMEUR, MP_PROGRAMMEUR);
 
+            printf("Saisir 0 pour retourner au menu\n\n");
+
+
             if (valide == FALSE)
             {
                 printf("     ERREUR\n");
@@ -226,18 +246,31 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant)
             {
                 valide = FALSE;
             }
+
+            // retour au menu
+            if((saisie.identifiant == 0) || (compare_chaine_caractere(saisie.mot_de_passe,"0") == 0))  {
+                valide = TRUE;
+            }
         } while (valide == FALSE);
 
-        //supression et recréation du contenu du fichier admin.txt
-        FILE *fichier_admin = NULL;
-        supr_admin_fichier_admin(fichier_admin, *(tab_admin), &saisie, nb_identifiant);
-        rafrachir_tab_admin(tab_admin, nb_identifiant); //modif de la valeur de nb_id
 
-        supr_console();
-        printf("L'administrateur %d a bien était suprimer\n", saisie.identifiant);
+        // retour au menu
+        if((saisie.identifiant == 0) || (compare_chaine_caractere(saisie.mot_de_passe,"0") == 0))  {
+            valide = FALSE;
+        }
 
-        sleep(2);
-        supr_console();
+        if(valide == TRUE) {
+            //supression et recréation du contenu du fichier admin.txt
+            FILE *fichier_admin = NULL;
+            supr_admin_fichier_admin(fichier_admin, *(tab_admin), &saisie, nb_identifiant);
+            rafrachir_tab_admin(tab_admin, nb_identifiant); //modif de la valeur de nb_id
+
+            supr_console();
+            printf("L'administrateur %d a bien était suprimer\n", saisie.identifiant);
+
+            sleep(2);
+            supr_console();
+        }
     }
 }
 

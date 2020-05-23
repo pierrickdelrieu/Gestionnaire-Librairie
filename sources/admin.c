@@ -128,11 +128,9 @@ avec verif d'un nombre et pas d'un caractere, et verif d'un id a 8 chiffres*/
 int saisie_identifiant(Admin *admin)
 {
     printf("          Identifiant : ");
-    //    saisie_entier(&(admin->identifiant));
-    scanf("%d", &(admin->identifiant));
+    saisie_entier(&(admin->identifiant));
     printf("          Mot de passe : ");
-    //    saisie_chaine_caractere(admin->mot_de_passe,30);
-    scanf("%s", admin->mot_de_passe);
+    saisie_chaine_caractere(admin->mot_de_passe,30);
 
     if ((admin->identifiant < 10000000) || (admin->identifiant > 99999999))
     {

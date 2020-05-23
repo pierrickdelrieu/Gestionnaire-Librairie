@@ -30,7 +30,7 @@ void affichage_choix_menu(int *choix)
         printf("     |     4- Supprimer un membre                                                |\n");
         printf("     |                                                                           |\n");
         printf("     | LIVRES                                                                    |\n");
-        printf("     |     5- Information sur un livre (par code)                                |\n");
+        printf("     |     5- Information sur un livre (par code, titre ou auteur)               |\n");
         printf("     |     6- Consulter la listes des livres (par code, titre ou auteur)         |\n");
         printf("     |     7- Ajouter un livre                                                   |\n");
         printf("     |     8- Supprimer un livre                                                 |\n");

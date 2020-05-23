@@ -85,6 +85,10 @@
     - modification pour que le numero du livre soit generer automatiquememnt comme le le nombre de livre dans le theme +1
     - modification de l'ajout d'un livre (saisie du genre du livre et calcul du numéro automatique)
     - modification de la supression d'un livre qui engendre maintenant la diminuition du nombre total de livre du genre
+
+
+23/05/2020 :
+    - ajout possibilité de retour au menu au niveau des fonctions administrateurs
     
 
 A FAIRE    
