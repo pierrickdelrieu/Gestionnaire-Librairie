@@ -51,4 +51,12 @@ void affichage_titre_auteur_code_livre(char *code_livre, Livre **tab_livre);
 
 int saisie_genre_livre_securise(char *code_livre, Donnee_livre *donne_livre);
 
+
+
+//fonction de tri
+void creation_tab_tri_livre(int type_tri, int* tab_tri, Livre **tab_livre, int *nb_livre);
+void init_tab_tri_livre_code(int* tab_tri, Livre **tab_livre, int *nb_livre);
+void init_tab_tri_livre_titre(int* tab_tri, Livre **tab_livre, int *nb_livre);
+void init_tab_tri_livre_auteur(int* tab_tri, Livre **tab_livre, int *nb_livre);
+
 #endif /* livre_h */

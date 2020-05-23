@@ -186,7 +186,7 @@ int saisie_champs_livre(Livre *livre, Donnee_livre *donne_livre)
 /*Affiche un livre en ligne sans toute les infos sur les prets*/
 void afficher_livre(Livre *livre)
 {
-    printf("Titre : %s     Auteur : %s     Code : %s     Nombre exemplaires totals : %d     Nombre exemplaires dispo : %d", livre->titre, livre->auteur, livre->code,livre->nb_exemplaires, livre->nb_exemplaires_dispo);
+    printf("Titre : %s     Auteur : %s     Code : %s     Nombre exemplaires totals : %d     Nombre exemplaires dispo : %d\n", livre->titre, livre->auteur, livre->code,livre->nb_exemplaires, livre->nb_exemplaires_dispo);
 }
 
 /*affiche la totalité du livre avec tous les détais sur les prets*/
@@ -276,7 +276,6 @@ int saisie_securise_livre_not_in_tab_livre(Livre *saisie, Livre **tab_livre, int
                 valide = FALSE;
             }
         }
-
 
         //inversion de la sortie
         if (valide == TRUE) {
@@ -487,3 +486,80 @@ int saisie_genre_livre_securise(char *code_livre, Donnee_livre *donnee_livre)
 }
 
 
+
+/*fonction de tri par selection
+1->code
+2->titre
+3->auteur
+
+La fonction retourne un tableau contenant les indices des livres dans le tableau livre trier*/
+//cette fonction appelle les fonction suivantes
+void creation_tab_tri_livre(int type_tri, int* tab_tri, Livre **tab_livre, int *nb_livre)
+{
+    if (type_tri == 1) { // tri par code
+        init_tab_tri_livre_code(tab_tri, tab_livre, nb_livre);
+    } else if (type_tri == 2) { // tri par titre
+        init_tab_tri_livre_titre(tab_tri, tab_livre, nb_livre);
+    } else if (type_tri == 3) { // tri par auteur
+        init_tab_tri_livre_auteur(tab_tri, tab_livre, nb_livre);
+    }
+
+}
+
+
+void init_tab_tri_livre_code(int* tab_tri, Livre **tab_livre, int *nb_livre)
+{
+    int i, j;
+    int rang_livre;
+
+    for(i=0; i<*nb_livre; i++)
+    {
+        rang_livre = 0;
+
+        for(j=-1; j<*nb_livre-1; j++)
+        {
+            if(compare_chaine_caractere(tab_livre[i]->code, tab_livre[j+1]->code) == 1) { // tab_livre[i]->code > tab_livre[j]->code
+                rang_livre ++;
+            }
+        }
+        tab_tri[rang_livre] = i;
+    }
+}
+
+void init_tab_tri_livre_titre(int* tab_tri, Livre **tab_livre, int *nb_livre)
+{
+    int i, j;
+    int rang_livre;
+
+    for(i=0; i<*nb_livre; i++)
+    {
+        rang_livre = 0;
+
+        for(j=-1; j<*nb_livre-1; j++)
+        {
+            if(compare_chaine_caractere(tab_livre[i]->titre, tab_livre[j+1]->titre) == 1) { // tab_livre[i]->titre > tab_livre[j]->titre
+                rang_livre ++;
+            }
+        }
+        tab_tri[rang_livre] = i;
+    }
+}
+
+void init_tab_tri_livre_auteur(int* tab_tri, Livre **tab_livre, int *nb_livre)
+{
+    int i, j;
+    int rang_livre;
+
+    for(i=0; i<*nb_livre; i++)
+    {
+        rang_livre = 0;
+
+        for(j=-1; j<*nb_livre-1; j++)
+        {
+            if(compare_chaine_caractere(tab_livre[i]->auteur, tab_livre[j+1]->auteur) == 1) { // tab_livre[i]->auteur > tab_livre[j]->auteur
+                rang_livre ++;
+            }
+        }
+        tab_tri[rang_livre] = i;
+    }
+}

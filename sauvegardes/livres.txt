@@ -1,5 +1,10 @@
-Elle et lui
-Marc Levy
-ROM-001
-nb_exemplaires : 2 - nb_exemplaires_dispos : 1
+Roger Federer
+Fed
+BIO-001
+nb_exemplaires : 4 - nb_exemplaires_dispos : 4
+
+Rafa
+Nadal
+BIO-002
+nb_exemplaires : 2 - nb_exemplaires_dispos : 2
 

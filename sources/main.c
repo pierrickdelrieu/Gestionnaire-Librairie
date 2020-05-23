@@ -64,7 +64,7 @@ int main() {
             else if (choix_menu == 5) { //Information sur un livre
                 affichage_info_livre(&bibliotheque.gestion_livre, &bibliotheque.gestion_membre, &bibliotheque.gestion_pret);
             } else if (choix_menu == 6) { //consulter la liste des livres
-                // affichage_liste_livre(bibliotheque.gestion_livre.liste_livre, &(bibliotheque.gestion_livre.nb_livre));
+                affichage_liste_livre(bibliotheque.gestion_livre.liste_livre, &bibliotheque.gestion_livre.nb_livre);
             } else if (choix_menu == 7) { //ajouter un livre
                 saisie_nx_livre(&(bibliotheque.gestion_livre.liste_livre), &(bibliotheque.gestion_livre.nb_livre), &bibliotheque.donne_livre, bibliotheque.donnee);
             } else if (choix_menu == 8) { //supprimer un livre

@@ -1,1 +1,0 @@
-id : 1 | id_membre : 1 | code_livre : ROM-001 | date_pret : 1590098400 | date_retour : 1591912800 | etat_livre : 1 

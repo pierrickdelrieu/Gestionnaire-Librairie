@@ -397,7 +397,7 @@ void affichage_liste_membre(Membre **tab_membre, int *nb_membre)
         int i;
         int choix;
         int *tab_tri;
-        tab_tri = (int *)calloc(1, sizeof(int)); //les valeurs du tableau sont initialisé a 0
+        tab_tri = (int *)calloc(*nb_membre, sizeof(int)); //les valeurs du tableau sont initialisé a 0
 
         do
         {
@@ -524,7 +524,6 @@ void saisie_nx_livre(Livre ***tab_livre, int *nb_livre, Donnee_livre *donnee_liv
 /*supression d'un livre dans le tableau en memoire et dans le fichier*/
 void supr_livre(Livre ***tab_livre, int *nb_livre, int *donnee, Donnee_livre *donnee_livre)
 {
-
     if (*nb_livre == 0)
     {
         supr_console();
@@ -615,45 +614,55 @@ void supr_livre(Livre ***tab_livre, int *nb_livre, int *donnee, Donnee_livre *do
     }
 }
 
-// /*affichage de la liste des membre en ligne par ordre alphabétique*/
-// void affichage_liste_membre(Membre **tab_membre, int *nb_membre)
-// {
+/*affichage de la liste des livre en ligne par critère (1->code 2->titre 3->auteur)*/
+void affichage_liste_livre(Livre **tab_livre, int *nb_livre)
+{
+    if (*nb_livre == 0)
+    {
+        supr_console();
+        affichage_sous_titre("AFFICHAGE DES LIVRES");
+        printf("                        !!!Il y a aucun livre!!!\n");
+        sleep(2);
+    }
+    else
+    {
+        // choix du type de critère de tri
+        int type_tri; // (1->code 2->titre 3->auteur)
+        do{
+            supr_console();
+            affichage_sous_titre("AFFICHAGE DES LIVRES");
+            printf("     Choix du type de tri (1->tri par code   2->tri par titre   3->tri par auteur)\n                                     ou 0 pour retourner au menu : ");
+            saisie_entier(&type_tri);
+        } while ((type_tri == 0) && (type_tri == 1) && (type_tri == 2) && (type_tri == 3));
 
-//     if (*nb_membre == 0)
-//     {
-//         supr_console();
-//         affichage_sous_titre("AFFICHAGE DES MEMBRES");
-//         printf("                        !!!Il y a aucun membre!!!\n");
-//         sleep(2);
-//         supr_console();
-//     }
-//     else
-//     {
-//         int i;
-//         int choix;
-//         int *tab_tri;
-//         tab_tri = (int *)calloc(1, sizeof(int)); //les valeurs du tableau sont initialisé a 0
+        
+        if(type_tri != 0) {
+            // affichage des livres selon le critère
+            int i;
+            int choix;
+            int *tab_tri;
+            tab_tri = (int *) calloc(*nb_livre, sizeof(int)); //les valeurs du tableau sont initialisé a 0
 
-//         do
-//         {
-//             supr_console();
-//             affichage_sous_titre("AFFICHAGE DES MEMBRES");
-//             printf("     La librairie contient %d membres\n\n", *nb_membre);
+            do {
+                supr_console();
+                affichage_sous_titre("AFFICHAGE DES LIVRES");
+                printf("     La librairie contient %d livres\n\n", *nb_livre);
 
-//             //affichage dans l'ordre alphabétique
-//             init_tab_tri_ordre_alpha(tab_membre, tab_tri, nb_membre);
-//             for (i = 0; i < (*nb_membre); i++)
-//             {
-//                 afficher_membre(tab_membre[tab_tri[i]]);
-//             }
+                // affichage des livres
+                creation_tab_tri_livre(type_tri, tab_tri, tab_livre, nb_livre);
+                for (i=0; i < (*nb_livre); i++)
+                {
+                    afficher_livre(tab_livre[tab_tri[i]]);
+                }
 
-//             printf("     Saisir 1 pour revenir au menu : ");
-//             saisie_entier(&choix);
-//         } while (choix != 1);
+                printf("\n     Saisir 1 pour revenir au menu : ");
+                saisie_entier(&choix);
+            } while (choix != 1);
 
-//         free(tab_tri);
-//     }
-// }
+            free(tab_tri);
+        }
+    }
+}
 
 /*affichage de toute les informations sur un livre en particulier*/
 void affichage_info_livre(Liste_livre *gestion_livre, Liste_membre *gestion_membre, Liste_pret *gestion_pret)
