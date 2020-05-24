@@ -96,7 +96,7 @@ int main() {
             }else if (choix_menu == 18) { //notice de l'application
                 affichage_notice();
             }else if (choix_menu == 19) { //a propos
-                // a faire
+                affichage_a_propos();
             }
         }
     }

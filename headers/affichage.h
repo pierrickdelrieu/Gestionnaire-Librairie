@@ -17,4 +17,7 @@ void affichage_date_du_jour();
 
 void affichage_notice();
 
+void affichage_a_propos();
+
+
 #endif /* affichage_h */

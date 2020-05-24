@@ -124,7 +124,8 @@ void affichage_notice() {
 
         printf(" • Comment gerer un pret : \n");
         printf("        Un pret est gerer par son numéro qui est créé automatiquement lors de l'ajout\n");
-        printf("        Pour saisie un pret il faut que toutes les caractèristiques evoquées précedemment soit valide\n\n");
+        printf("        Pour saisie un pret il faut que toutes les caractèristiques evoquées précedemment soit valide\n");
+        printf("        La date du pret et la date de retour sont calculées automatiquement (la date de retour est trois semaines après la date du pret)\n\n");
 
         printf(" • Comment gerer les administrateurs : \n");
         printf("        Il est possible d'ajouter et de supprimer autant d'administrateurs que vous désiré\n");
@@ -137,6 +138,27 @@ void affichage_notice() {
         printf("                  Saisir 1 pour retourner au menu : ");
         saisie_entier(&choix);
     } while (choix != 1);
+}
 
 
+
+void affichage_a_propos()
+{
+    int choix;
+
+    do{
+        supr_console();
+        affichage_sous_titre("A PROPOS");
+
+        printf("     Ce gestionnaire de bibliothèques a été programmé par Pierrick Delrieu et Romain Joreau\n");
+        printf("          Cette application a été codé en C\n\n");
+
+        printf("     Il a été conçu dans le cadre d'un projet de programation scolaire de EFREI Paris\n\n");
+
+        printf("     Cette application a été realisé du 31 avril 2020 au 24 mai 2020\n");
+        printf("     Ce projet de groupe a donné lieu a un rapport et a une soutenance orale\n\n");
+
+        printf("               Saisir 1 pour retourner au menu : ");
+        saisie_entier(&choix);
+    }while(choix != 1);
 }

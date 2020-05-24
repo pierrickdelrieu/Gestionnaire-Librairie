@@ -94,6 +94,8 @@
 
 24/05/2020 :
     - ajout de la supression d'un pret
+    - ajout de la notice de l'application
+    - ajout de la reubrique a propos
 PROJET TERMINER
     
 
