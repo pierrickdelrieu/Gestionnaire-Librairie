@@ -708,7 +708,7 @@ void affichage_liste_livre(Livre **tab_livre, int *nb_livre)
             affichage_sous_titre("AFFICHAGE DES LIVRES");
             printf("     Choix du type de tri (1->tri par code   2->tri par titre   3->tri par auteur)\n                                     ou 0 pour retourner au menu : ");
             saisie_entier(&type_tri);
-        } while ((type_tri == 0) && (type_tri == 1) && (type_tri == 2) && (type_tri == 3));
+        } while ((type_tri != 0) && (type_tri != 1) && (type_tri != 2) && (type_tri != 3));
 
         
         if(type_tri != 0) {
@@ -761,7 +761,7 @@ void affichage_info_livre(Liste_livre *gestion_livre, Liste_membre *gestion_memb
             affichage_sous_titre("AFFICHAGE DES LIVRES");
             printf("     Choix du type de recherche (1->par code   2->par titre)\n                                     ou 0 pour retourner au menu : ");
             saisie_entier(&type_tri);
-        } while ((type_tri == 0) && (type_tri == 1) && (type_tri == 2));
+        } while ((type_tri != 0) && (type_tri != 1) && (type_tri != 2));
 
 
         if(type_tri != 0) {
