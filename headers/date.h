@@ -4,8 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 
-typedef struct
-{
+typedef struct {
     int jour;
     int mois;
     int annee;

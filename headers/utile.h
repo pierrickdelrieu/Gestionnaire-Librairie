@@ -32,9 +32,8 @@ int lecture_chaine_cara_fichier(FILE *fichier, char *chaine, int taille_max);
 #define SYSTEME_EXPLOITATION "unk" //systéme inconnu
 #endif
 
-void supr_console(void);
+void supr_console();
 
-void system_pause();
 
 #endif /* utile_h */
 

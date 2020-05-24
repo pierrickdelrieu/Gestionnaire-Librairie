@@ -7,8 +7,7 @@
 
 #include "utile.h"
 
-typedef struct
-{
+typedef struct{
     char rue[70];
     char code_postal[20];
     char ville[50];

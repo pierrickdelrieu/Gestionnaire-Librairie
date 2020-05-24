@@ -1,7 +1,7 @@
 #ifndef affichage_h
 #define affichage_h
 
-#include "livre.h"
+#include "date.h"
 #include "utile.h"
 #include <stdio.h>
 
@@ -18,6 +18,5 @@ void affichage_date_du_jour();
 void affichage_notice();
 
 void affichage_a_propos();
-
 
 #endif /* affichage_h */

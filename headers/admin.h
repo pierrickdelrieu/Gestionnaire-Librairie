@@ -12,12 +12,20 @@
 #define ID_PROGRAMMEUR 20190551
 #define MP_PROGRAMMEUR "pierrick"
 
+
 //Structure administrateur
-typedef struct
-{
+typedef struct {
     int identifiant; //entier a 8 chiffres
     char mot_de_passe[30];
 } Admin;
+
+
+//Structure tabbleau d'admin
+typedef struct{
+    Admin **liste_admin;
+    int nb_admin;
+} Liste_admin;
+
 
 Admin *creer_struct_admin();
 void lib_struct_admin(Admin *admin);

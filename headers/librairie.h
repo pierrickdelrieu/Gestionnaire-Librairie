@@ -10,34 +10,9 @@
 #include "membre.h"
 #include "affichage.h"
 
-typedef struct
-{
-    Membre **liste_membre;
-    int nb_membre;
-} Liste_membre;
-
-typedef struct
-{
-    Admin **liste_admin;
-    int nb_admin;
-} Liste_admin;
-
-typedef struct
-{
-    Livre **liste_livre;
-    int nb_livre;
-} Liste_livre;
-
-typedef struct
-{
-    Pret **liste_pret;
-    int nb_pret;
-} Liste_pret;
-
 void reinitialise_librairie(int tab_donnee[2], Donnee_livre *donnee_livre, Liste_admin *gestion_admin, Liste_membre *gestion_membre, Liste_livre *gestion_livre, Liste_pret *gestion_pret);
 
-typedef struct
-{
+typedef struct {
     int donnee[2];  // donnee[0] = nombre de membre depuis l'ouverture de la librairie
                     // donnee[1] = nombre de pret depuis l'ouverture de la librairie
     Donnee_livre donne_livre;
@@ -48,12 +23,11 @@ typedef struct
 } Librairie;
 
 void connexion(Admin **tab_admin, int *nb_identifiant);
-
-void creer_tab_donnee(int tab[2], Donnee_livre *donne_livre);
-
-void rafrachir_fichier_donnee(int *tab, Donnee_livre *donne_livre);
-
 void affichage_toute_info_librairie(Librairie *bibliotheque);
+
+//Données
+void creer_tab_donnee(int tab[2], Donnee_livre *donne_livre);
+void rafrachir_fichier_donnee(int *tab, Donnee_livre *donne_livre);
 
 // Admin
 void saisie_nx_admin(Admin ***tab_admin, int *nb_identifiant);
