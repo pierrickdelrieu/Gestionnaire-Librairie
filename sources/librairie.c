@@ -172,6 +172,9 @@ void connexion(Admin **tab_admin, int *nb_identifiant)
     } while (valide == FALSE);
 }
 
+
+
+
 /***********************************************FONCTION ADMIN***********************************************/
 
 /*affichage de la liste des admins*/
@@ -306,6 +309,9 @@ void supr_admin(Admin ***tab_admin, int *nb_identifiant)
         }
     }
 }
+
+
+
 
 /**********************************************FONCTION MEMBRE**********************************************/
 
@@ -531,6 +537,9 @@ void affichage_info_membre(Liste_membre *gestion_membre, Liste_pret *gestion_pre
         } while ((choix != 1) && (valide == FALSE));
     }
 }
+
+
+
 
 /***********************************************FONCTION LIVRE***********************************************/
 
@@ -792,6 +801,8 @@ void affichage_info_livre(Liste_livre *gestion_livre, Liste_membre *gestion_memb
         }
     }
 }
+
+
 
 
 /***********************************************FONCTION PRET***********************************************/

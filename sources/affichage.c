@@ -1,5 +1,5 @@
 #include "../headers/affichage.h"
-#include <time.h>
+
 
 void affichage_titre_app()
 {
@@ -7,6 +7,7 @@ void affichage_titre_app()
     printf("                        .     GESTIONAIRE DE BIBLIOTHEQUE     .\n");
     printf("                        .......................................\n\n\n");
 }
+
 
 void affichage_choix_menu(int *choix)
 {
@@ -68,11 +69,13 @@ void affichage_choix_menu(int *choix)
     } while (valide == FALSE);
 }
 
+
 /*affichage des sous titre de l'application*/
 void affichage_sous_titre(char *sous_titre)
 {
     printf("                    ----- %s -----\n\n\n", sous_titre);
 }
+
 
 /*affichage message d'erreur lors de l'ouverture et fin du programme car pas possible de continuer
 les valeurs n'ont pas réussi a etre recupérées ou sauvegardées*/
@@ -98,7 +101,6 @@ void affichage_date_du_jour(void)
 
     afficher_date(&date_du_jour);
 }
-
 
 
 void affichage_notice() {
@@ -139,7 +141,6 @@ void affichage_notice() {
         saisie_entier(&choix);
     } while (choix != 1);
 }
-
 
 
 void affichage_a_propos()

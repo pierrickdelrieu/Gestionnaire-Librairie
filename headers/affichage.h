@@ -4,6 +4,8 @@
 #include "date.h"
 #include "utile.h"
 #include <stdio.h>
+#include <time.h>
+
 
 void affichage_titre_app();
 

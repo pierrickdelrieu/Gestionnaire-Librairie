@@ -575,9 +575,6 @@ int calcul_nb_pret_total_retard(Pret **tab_pret, int *nb_pret)
 
 
 
-
-
-
 int saisie_id_pret_securise(int *id_pret, Pret **tab_pret, int *nb_pret)
 {
     int i;

@@ -1,5 +1,4 @@
 #include "../headers/date.h"
-#include <time.h>
 
 void saisir_date(Date *d) {
     do {
