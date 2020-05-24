@@ -1,5 +1,5 @@
 Elle et lui
 Marc Levy
 ROM-001
-nb_exemplaires : 3 - nb_exemplaires_dispos : 2
+nb_exemplaires : 3 - nb_exemplaires_dispos : 3
 

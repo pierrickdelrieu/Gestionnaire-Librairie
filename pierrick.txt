@@ -90,15 +90,19 @@
 23/05/2020 :
     - ajout possibilité de retour au menu au niveau des fonctions administrateurs
     - ajout de recherche par critere au niveau des livres
-    
+    - ajout information sur un pret
 
-A FAIRE    
-- ajout de pénalité d'un membre (au bout de n pénalité, le membre ne peux plus emprunté pendant x semaines)
+24/05/2020 :
+    - ajout de la supression d'un pret
+PROJET TERMINER
+    
 
 OUVERTURE
 - ajout de la possibilité d'aouter des commentaires sur le livres pour mieux conseiller le membre (modification livre)
 - ajout de tri par critere (tanche d'age ...)
 - ajouter des id membres (id+mp) et id programeur cad un menu de consultation suelement et un menu avec toute les options
+- ajout de pénalité d'un membre (au bout de n pénalité, le membre ne peux plus emprunté pendant x semaines)
+
 
 A noter : 
     - Un livre est considéré comme existant si le code du livre existe deja
@@ -107,5 +111,3 @@ A noter :
     - Un membre peut faire plusieurs pret du meme livre, il ne peut plus emprunté si il a un pret en retard
     - ajout de possibilité de revenir au menu dans toute les rubrique
 
-
-Rechercher  des  informations  sur  un  livre  (proposer  plusieurs  crit`eres  de  re-cherche). Pour acc ́el ́erer la recherche, les fonctions de tri  ́etablies dans la fonc-tionnalit ́e pr ́ec ́edente sera utile

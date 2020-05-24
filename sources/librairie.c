@@ -633,7 +633,7 @@ void supr_livre(Livre ***tab_livre, int *nb_livre, int *donnee, Donnee_livre *do
                             donnee_livre->nb_livre[i] --;
                         }
                     }
-                    printf("ok");
+
                     rafrachir_fichier_donnee(donnee, donnee_livre);
 
                     supr_console();
@@ -848,9 +848,9 @@ void saisie_nx_pret(Liste_membre *gestion_membre, Liste_livre *gestion_livre, Li
     }
 }
 
-void supr_pret(Pret ***tab_pret, int *nb_pret) {
+void supr_pret(Liste_pret *gestion_pret, Liste_livre* gestion_livre, Liste_membre *gestion_membre) {
 
-    if (*nb_pret == 0) {
+    if (gestion_pret->nb_pret == 0) {
         supr_console();
         affichage_sous_titre("SUPRESSION D'UN PRET");
         printf("                        !!!Il y a aucun pret!!!\n");
@@ -860,36 +860,76 @@ void supr_pret(Pret ***tab_pret, int *nb_pret) {
     else {
         int i;
         int id_pret;
+        int choix = 0;
         int valide = TRUE;
 
+        // saisie de l'identifiant
         do {
             supr_console();
             affichage_sous_titre("SUPRESSION D'UN PRET");
+
+            if(valide == FALSE) {
+                printf("     ERREYR\n");
+            }
             printf("     Saisir l'identifiant du pret a supprimer ou 0 pour retourner au menu : ");
 
-//            valide = saisie_id_membre_tab_membre(*tab_membre, &id_membre, nb_membre);
+            valide = saisie_id_pret_securise(&id_pret, gestion_pret->liste_pret, &gestion_pret->nb_pret);
+
+            //retour au menu
+            if(id_pret == 0) {
+                valide = TRUE;
+            }
         } while (valide == FALSE);
 
-        int choix;
-        do{
-            supr_console();
-            affichage_sous_titre("SUPRESSION D'UN MEMBRE");
-            if(id_pret != 0){
-                for(i=0; i<(*nb_pret); i++)
-                {
-                    if((*tab_pret)[i]->id_pret == id_pret){
-                        // afficher_toute_info_pret((*tab_pret)[i]);
+        //retour au menu
+        if(id_pret == 0) {
+            valide = FALSE;
+        }
+
+        //affichage du pret
+        if (valide == TRUE) {
+            do{
+                supr_console();
+                affichage_sous_titre("SUPRESSION D'UN MEMBRE");
+                if(id_pret != 0){
+                    for(i=0; i<gestion_pret->nb_pret; i++)
+                    {
+                        if(gestion_pret->liste_pret[i]->id_pret == id_pret){
+                            afficher_toute_info_pret(&id_pret, gestion_pret->liste_pret, &gestion_pret->nb_pret, gestion_livre->liste_livre, &gestion_livre->nb_livre, gestion_membre->liste_membre, &gestion_membre->nb_membre);
+                        }
                     }
                 }
+
+                printf("Voulez vous supprimer ce pret (1 : OUI - 0 : NON (retour au menu)): ");
+                saisie_entier(&choix);
+            }while((choix != 1) && (choix != 0));
+        }
+
+
+        // supression du pret
+        if((choix == 1) && (valide == TRUE)) {
+            //recuperation indice pret dans le tableau de pret
+            int indice_pret = 0;
+            while(id_pret != gestion_pret->liste_pret[indice_pret]->id_pret) {
+                indice_pret++;
             }
 
-            printf("Voulez vous supprimer ce pret (1 : OUI - 0 : NON (retour au menu)): ");
-            saisie_entier(&choix);
-        }while((choix != 1) && (choix != 0));
+            //supression dans la structure livre
+            FILE *fichier_livre = NULL;
+            supr_pret_struct_livre(gestion_pret->liste_pret[indice_pret], gestion_livre->liste_livre);
+            rafraichir_fichier_livre(fichier_livre, gestion_livre->liste_livre, &gestion_livre->nb_livre);
 
-        if(choix == 1){
-            // todo: suppression du pret
-        }
+            //supression dans la stucture membre
+            FILE *fichier_membre = NULL;
+            supr_pret_struct_membre(gestion_pret->liste_pret[indice_pret], gestion_membre->liste_membre);
+            rafraichir_fichier_membre(fichier_membre, gestion_membre->liste_membre, &gestion_membre->nb_membre);
+
+            //supression du pret dans tab_pret et dans le fichier
+            FILE *fichier_pret = NULL;
+            supr_pret_fichier_pret(fichier_pret, &id_pret, gestion_pret->liste_pret, &gestion_pret->nb_pret);
+            rafrachir_tab_pret(&gestion_pret->liste_pret, &gestion_pret->nb_pret);
+
+        }      
     }
 }
 

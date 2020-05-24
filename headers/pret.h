@@ -63,4 +63,6 @@ int calcul_nb_pret_total_retard(Pret **tab_pret, int *nb_pret);
 
 int saisie_id_pret_securise(int *id_pret, Pret **tab_pret, int *nb_pret);
 
+void supr_pret_fichier_pret(FILE *fichier_pret, int *id_pret, Pret **tab_pret, int *nb_pret);
+
 #endif /* pret_h */

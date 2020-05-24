@@ -421,7 +421,7 @@ void actualisation_pret_en_retard(Pret **tab_pret, int *nb_pret)
     Date date_du_jour;
 
     //recuperation de la date du jour
-    int timestamp = (int) time(NULL);
+    long int timestamp = (int) time(NULL);
 
     date_du_jour = definir_date(timestamp);
 
@@ -430,7 +430,7 @@ void actualisation_pret_en_retard(Pret **tab_pret, int *nb_pret)
     for(i=0; i<*(nb_pret); i++)
     {
         if(tab_pret[i]->etat_livre == 1) { // si le livre enregistré comme pas en retard
-            if(compare_date(&date_du_jour, &tab_pret[i]->date_retour) == -1) { //si le livre doit changer de statut (il est aujourd'hui en retard)
+            if(compare_date(&date_du_jour, &tab_pret[i]->date_retour) == 1) { //si le livre doit changer de statut (il est aujourd'hui en retard)
                 tab_pret[i]->etat_livre = 0; //on change le statut du livre qui devient en retard
             }
         }
@@ -593,4 +593,40 @@ int saisie_id_pret_securise(int *id_pret, Pret **tab_pret, int *nb_pret)
     }
 
     return (valide);
+}
+
+
+/*Modification du fichier prets.txt lors de la supression d'un livre
+ouverture du fichier en mode ecriture pour suprimmer tous les elements du fichier
+les prets seront ensuite tous reinsérré sauf celui dont on demande la suppression
+apres la modification il faudra rafraichir les valeurs du tab livre et nb_livre*/
+void supr_pret_fichier_pret(FILE *fichier_pret, int *id_pret, Pret **tab_pret, int *nb_pret)
+{
+    fichier_pret = fopen("sauvegardes/prets.txt", "w"); //"w" correspond a l'ecriture - fopen renvoie un pointeur sur le fichier
+
+    if (fichier_pret != NULL)
+    {
+        int i;
+        int j;
+
+        for (i = 0; i < *(nb_pret); i++)
+        {
+            if (*id_pret != tab_pret[i]->id_pret) //si ce n'est pas le livre a supprimer
+            {
+                fprintf(fichier_pret, "id : %d | ", tab_pret[i]->id_pret);
+                fprintf(fichier_pret, "id_membre : %d | ", tab_pret[i]->id_membre);
+                fprintf(fichier_pret, "code_livre : %s | ", tab_pret[i]->code_livre);
+                fprintf(fichier_pret, "date_pret : %ld | ", recuperer_timestamp(&tab_pret[i]->date_pret));
+                fprintf(fichier_pret, "date_retour : %ld | ", recuperer_timestamp(&tab_pret[i]->date_retour)); // 1 * 3600 * 24 * 7 * 3 -> 1sec * 3600 (donc heure) * 24 (donc jour) * 7 (donc semaine) * 3 (donc 3 semaines)
+                fprintf(fichier_pret, "etat_livre : %d \n", tab_pret[i]->etat_livre);
+            }
+        }
+
+        //Fermeture du fichier
+        fclose(fichier_pret);
+    }
+    else
+    { //le pointeur sur le fichier est toujours = NULL soit le fichier n'a pas était ouvert
+        erreur_ouverture_fichier();
+    }
 }

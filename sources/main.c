@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <string.h>
 #include "../headers/librairie.h"
 
 
@@ -39,7 +37,7 @@ int main() {
     printf("Connexion reuissi !\n\n");
     sleep(2);
 
-    //Boucle de consultation de la librairie
+    //Boucle de consultation et modification de la librairie
     int continuer = TRUE;
     while (continuer == TRUE) {
         affichage_choix_menu(&choix_menu);
@@ -78,7 +76,7 @@ int main() {
             } else if (choix_menu == 11) { //ajouter un pret
                 saisie_nx_pret(&(bibliotheque.gestion_membre), &(bibliotheque.gestion_livre), &(bibliotheque.gestion_pret), bibliotheque.donnee, &bibliotheque.donne_livre);
             } else if (choix_menu == 12) { //supprimer un pret
-                supr_pret(&(bibliotheque.gestion_pret.liste_pret), &(bibliotheque.gestion_pret.nb_pret));
+                supr_pret(&bibliotheque.gestion_pret, &bibliotheque.gestion_livre, &bibliotheque.gestion_membre);
             }
 
                 //Administrateurs
@@ -107,6 +105,8 @@ int main() {
     //.....................Desalocation.memoire.....................
     lib_tab_admin(bibliotheque.gestion_admin.liste_admin, &(bibliotheque.gestion_admin.nb_admin));
     lib_tab_membre(bibliotheque.gestion_membre.liste_membre, &(bibliotheque.gestion_membre.nb_membre));
+    lib_tab_livre(bibliotheque.gestion_livre.liste_livre, &bibliotheque.gestion_livre.nb_livre);
+    lib_tab_pret(bibliotheque.gestion_pret.liste_pret, &bibliotheque.gestion_pret.nb_pret);
 
     return 0;
 }
