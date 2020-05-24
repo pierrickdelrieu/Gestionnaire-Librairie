@@ -89,9 +89,8 @@ int main() {
             } 
             
                 //Autres
-
             else if (choix_menu == 16) { //information sur la librairie
-                // a faire
+                affichage_toute_info_librairie(&bibliotheque);
             }else if (choix_menu == 17) { //reinitialisé la librairie
                 reinitialise_librairie(bibliotheque.donnee, &bibliotheque.donne_livre, &(bibliotheque.gestion_admin), &(bibliotheque.gestion_membre), &(bibliotheque.gestion_livre), &(bibliotheque.gestion_pret));
             }else if (choix_menu == 18) { //notice de l'application

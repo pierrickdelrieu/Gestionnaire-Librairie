@@ -53,6 +53,8 @@ void creer_tab_donnee(int tab[2], Donnee_livre *donne_livre);
 
 void rafrachir_fichier_donnee(int *tab, Donnee_livre *donne_livre);
 
+void affichage_toute_info_librairie(Librairie *bibliotheque);
+
 // Admin
 void saisie_nx_admin(Admin ***tab_admin, int *nb_identifiant);
 void supr_admin(Admin ***tab_admin, int *nb_identifiant);

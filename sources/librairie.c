@@ -62,6 +62,39 @@ void reinitialise_librairie(int tab_donnee[2], Donnee_livre *donnee_livre, Liste
     }
 }
 
+
+void affichage_toute_info_librairie(Librairie *bibliotheque) {
+    int choix;
+    do {
+        supr_console();
+        affichage_sous_titre("INFORMATION SUR LA LIBRAIRIE");
+
+        printf("          • MEMBRE •                         • ADMINISTRATEUR •\n");
+        printf(" Le nombre de membre est %d             Le nombre d'administarteur est %d\n\n\n", bibliotheque->gestion_membre.nb_membre, bibliotheque->gestion_admin.nb_admin);
+
+        printf("          • LIVRE •                               • PRET •\n");
+        printf("Le nombre de livre total est %d         Le nombre de pret total est %d\n", bibliotheque->gestion_livre.nb_livre, bibliotheque->gestion_pret.nb_pret);
+        printf("Nombre de livre par catégorie :         Le nombre de pret en retard est %d\n", calcul_nb_pret_total_retard(bibliotheque->gestion_pret.liste_pret, &bibliotheque->gestion_pret.nb_pret));
+        printf("      Science fiction (SFI) -> %d\n", bibliotheque->donne_livre.nb_livre[0]);
+        printf("      Roman (ROM) -> %d\n", bibliotheque->donne_livre.nb_livre[1]);
+        printf("      Bande dessinée (BAD) -> %d\n", bibliotheque->donne_livre.nb_livre[2]);
+        printf("      Theatre (THE) -> %d\n", bibliotheque->donne_livre.nb_livre[3]);
+        printf("      Essai (ESS) -> %d\n", bibliotheque->donne_livre.nb_livre[4]);
+        printf("      Manga (MAN) -> %d\n", bibliotheque->donne_livre.nb_livre[5]);
+        printf("      Guide (GUI) -> %d\n", bibliotheque->donne_livre.nb_livre[6]);
+        printf("      Poème (POE) -> %d\n", bibliotheque->donne_livre.nb_livre[7]);
+        printf("      Fable (FAB) -> %d\n", bibliotheque->donne_livre.nb_livre[8]);
+        printf("      Nouvelle (NOU) -> %d\n", bibliotheque->donne_livre.nb_livre[9]);
+        printf("      Journal (JOU) -> %d\n", bibliotheque->donne_livre.nb_livre[10]);
+        printf("      Biographie (BIO) -> %d\n", bibliotheque->donne_livre.nb_livre[11]);
+        printf("      Conte (CON) -> %d\n", bibliotheque->donne_livre.nb_livre[12]);
+        printf("      Temoignage et reportage (TEM) -> %d\n", bibliotheque->donne_livre.nb_livre[13]);
+
+        printf("\n\n                      Saisir 1 pour retourner au menu : ");
+        saisie_entier(&choix);
+    } while (choix != 1);
+}
+
 /*recuperation des donnes se situant dans le fichier donnee.txt et modification du tableau en memoire
 cad la recuperation du nombre de pret et de membre depuis l'ouverture de la librairie*/
 void creer_tab_donnee(int tab[2], Donnee_livre *donne_livre)
