@@ -98,3 +98,45 @@ void affichage_date_du_jour(void)
 
     afficher_date(&date_du_jour);
 }
+
+
+
+void affichage_notice() {
+    int choix;
+    do{
+        supr_console();
+        affichage_sous_titre("NOTICE DE L'APPLICATION");
+
+        printf("     Cette application est conçu seulement pour les bibliothécaires\n\n");
+
+        printf(" • Comment gerer un membre : \n");
+        printf("        Un membre est gerer par son identifiant qui est créé automatiquement lors de l'ajout\n");
+        printf("        Un membre peut etre ajouter si l'adresse mail n'est pas deja existante\n");
+        printf("        Un membre peut réaliser au maximum trois prets\n");
+        printf("        Un membre ne peut pas emprunté de livre s'il a un emprunt en retard\n\n");
+
+        printf(" • Comment gerer un livre : \n");
+        printf("        Un livre peut etre ajouter s'il n'est pas existant (c'est a dire si il n'existe pas un livre ayant le meme titre et le meme auteur dans la meme catégorie)\n");
+        printf("        Le genre du livre doit correspondre a un des genres enregistrés (sous dorme de XXX comme ci-dessous) :\n");
+        printf("                  SFI, ROM, BAD, THE, ESS, MAN, GUI, POE, FAB, NOU, JOU, BIO, CON, TEM (cf : information librairie)\n");
+        printf("        Un livre ne peut plus etre enprunté si il n'y a plus d'exemplaire disponible\n");
+        printf("        A noter : pour l'ajout d'un genre, contacter le programmeur\n\n");
+
+        printf(" • Comment gerer un pret : \n");
+        printf("        Un pret est gerer par son numéro qui est créé automatiquement lors de l'ajout\n");
+        printf("        Pour saisie un pret il faut que toutes les caractèristiques evoquées précedemment soit valide\n\n");
+
+        printf(" • Comment gerer les administrateurs : \n");
+        printf("        Il est possible d'ajouter et de supprimer autant d'administrateurs que vous désiré\n");
+        printf("         Il n'est pas possible de supprimer l'administarteur de référence qui est celui du programmeur\n\n");
+
+        printf(" Il est poissible de reinitialisé toute la librairie (attention cette opération est irréversible\n\n");
+
+        printf(" La sauvegarde des informations ce fait de manière instantannée\n\n");
+    
+        printf("                  Saisir 1 pour retourner au menu : ");
+        saisie_entier(&choix);
+    } while (choix != 1);
+
+
+}

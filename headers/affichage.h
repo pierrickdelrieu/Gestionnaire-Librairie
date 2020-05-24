@@ -15,4 +15,6 @@ void erreur_ouverture_fichier();
 
 void affichage_date_du_jour();
 
+void affichage_notice();
+
 #endif /* affichage_h */
