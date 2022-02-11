@@ -1,5 +1,5 @@
 # Gestionnaire de librairie
-by Pierrick Delrieu et Romai Joreau   
+by Pierrick Delrieu et Romain Joreau   
 
 #### make
 : compile the project
